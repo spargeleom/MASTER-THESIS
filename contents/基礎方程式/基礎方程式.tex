@@ -1,9 +1,64 @@
 \chapter{基礎方程式}
 本章では油圧システムについてのモデリングの導出を行う．
-このモデリングは第一原理に基づいて導出を行い，導出にあたってはJelaliら\cite{}及び酒井ら\cite{}に従う．
+このモデリングは第一原理に基づき，Jelaliらに従う．
 
-\section{サーボバルブのモデル}
 
+\section{サーボバルブ}
+\subsection{サーボバルブの各部名称とパラメータ}
+ここでは4ポート式サーボバルブの各部名称，および変数設定について述べる．
+% \begin{figure}[t]
+%     \centering
+%         \includegraphics[keepaspectratio, scale=1.0]{contents/基礎方程式/figure/exfig.png}
+%         \caption{サーボバルブの図}
+%         \label{fig:figlabel}
+% \end{figure}
+\subsection{モデルの導出}
+作動流体がサーボバルブを通過する流れは，オリフィス流れであるとみなされる．
+オリフィスを通過する流量$Q$は，一般に
+\begin{equation}
+    Q = \alpha_d A \sqrt{\frac{2}{\rho}\Delta p}
+    \label{eq:orifice_flow}
+\end{equation}
+と表される．
+ここで，$\alpha_d$は流出係数(discharge coefficient)，$A$は流体の断面積，$\rho$は流体の密度，$\Delta p$はオリフィス前後の十分離れた場所における流体の圧力の差である．
+サーボバルブにおけるスプールの中立点からの変位を$x_v$とし，流体の流れる方向を考慮すると，\eqnname\ref{eq:orifice_flow}は
+\begin{align}
+    \label{eq:orifice_valve}
+    Q(x_v,\Delta p)&= c_vx_v\mathrm{sign}(\Delta p)\sqrt{\Delta p}\\
+    c_v &= \pi d_v \alpha_d\sqrt{\frac{2}{\rho}}
+\end{align}
+となる．
+$\mathrm{sign}(\cdot)$はシグナム関数であり，以下で定義される．
+\begin{align}
+    \label{eq:function_sign}
+    \mathrm{sign}(x) = 
+    \begin{cases}
+        1~&(\mathrm{if}~x>0)\\
+        0~&(\mathrm{if}~x=0)\\
+        -1~&(\mathrm{if}~x<0)
+    \end{cases}
+\end{align}
+
+サーボバルブの制御ポートAから吐き出される流量$Q_A$は，「供給ポートPから制御ポートAへ流れる流量$Q_{PA}$」と「制御ポートAから戻りポートTへの流量$Q_{AT}$」の差分で表される．
+供給ポートPから制御ポートAへ流れるときのスプール変位$x_v$を正とすると，このときには$Q_{AT}$は0となる．
+逆に$x_v$が負のときには$Q_{PA}$は0となる．
+これらをまとめると，$Q_A$は，\eqnname\ref{eq:orifice_valve}も考慮すると，
+\begin{align}
+    \notag
+    \label{eq:flow_QA}
+    Q_A =& Q_{PA}- Q_{AT} \\ \notag
+    =&c_{v_{PA}}\mathrm{sg}(x_v)\mathrm{sign}(p_P-p_A)\sqrt{|p_P-p_A|} \\ 
+    &- c_{v_{AT}}\mathrm{sg}(-x_v)\mathrm{sign}(p_A-p_T)\sqrt{|p_A-p_T|}
+\end{align}
+となる．
+同様に，制御ポートBへ吐き出される流量$Q_B$は，向きが$Q_A$と逆になることに注意して
+\begin{align}
+    \label{eq:flow_QB}
+    Q_B =& Q_{PB}- Q_{BT} \\ \notag
+    =&-c_{v_{PB}}\mathrm{sg}(-x_v)\mathrm{sign}(p_P-p_B)\sqrt{|p_P-p_B|} \\ 
+    &+ c_{v_{BT}}\mathrm{sg}(x_v)\mathrm{sign}(p_B-p_T)\sqrt{|p_B-p_T|}
+\end{align}
+となる．
 \section{油圧シリンダーモデル}
 
 \section{モデルの線形化とラプラス変換}

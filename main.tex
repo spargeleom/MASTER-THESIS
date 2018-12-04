@@ -8,7 +8,7 @@
 %% 以下, 必要ないものは消してください. 
 %\usepackage{fancyhdr}
 \usepackage{layout} % 第3章中の \layout のためだけなので, 論文執筆には不要. 
-\usepackage[dvipdfmx]{hyperref} % 目次をクリックするとそのページに飛ぶ.
+\usepackage[dvipdfmx,hidelinks]{hyperref} % 目次をクリックするとそのページに飛ぶ.
 \usepackage{pxjahyper} % hyperrefを使った時に文字化けする場合は使う.
 \usepackage{amsmath} % 数式扱うなら必須.
 \usepackage{ascmac} % 文章の枠囲み. 論文では不要だと思う.  
@@ -30,7 +30,12 @@
 \def\diff{\mathrm{d}}
 \def\BibTeX{B{\small IB}\TeX}
 
-
+%通し番号の参照
+\def\figname{Fig.~}
+\def\tabname{Table~}
+\newcommand{\eqnname}{式~}
+\renewcommand{\figurename}{Fig.~}
+\renewcommand{\tablename}{Table~}
 
 %%%%%%%% Document
 \begin{document}
@@ -43,12 +48,12 @@
 
 %本文
 \mainmatter
-\input{contents/緒言/緒言.tex}
+%\input{contents/緒言/緒言.tex}
 \input{contents/基礎方程式/基礎方程式.tex}
-\input{contents/システム同定/システム同定.tex}
-\input{contents/力制御/力制御.tex}
-\input{contents/切り替え制御/切り替え制御.tex}
-\input{contents/結言/結言.tex}
+%\input{contents/システム同定/システム同定.tex}
+%\input{contents/力制御/力制御.tex}
+%\input{contents/切り替え制御/切り替え制御.tex}
+%\input{contents/結言/結言.tex}
 % \input{./contents/1_introduction/1_introduction.tex} %第1章
 % \input{./contents/2_how_to_write/2_how_to_write.tex} %第2章
 % \input{./contents/3_latex_knowhow/3_latex_knowhow.tex} %第3章
