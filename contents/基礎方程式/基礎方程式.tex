@@ -1,18 +1,24 @@
 \chapter{基礎方程式}
 本章では油圧システムについてのモデリングの導出を行う．
-このモデリングは第一原理に基づき，Jelaliらに従う．
-
+対象とする油圧システムの模式図は図で表され，4ポートサーボバルブと片ロッドシリンダが接続されているものとなる．
+このサーボバルブとシリンダについてJalaliらに従いながら第一原理に基づき基礎方程式の記述を行う．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=0.3]{contents/基礎方程式/figure/exfig.png}
+        \caption{サーボバルブの図}
+        \label{fig:figlabel}
+\end{figure}
 
 \section{サーボバルブ}
 \subsection{サーボバルブの各部名称とパラメータ}
 ここでは4ポート式サーボバルブの各部名称，および変数設定について述べる．
-% \begin{figure}[t]
-%     \centering
-%         \includegraphics[keepaspectratio, scale=1.0]{contents/基礎方程式/figure/exfig.png}
-%         \caption{サーボバルブの図}
-%         \label{fig:figlabel}
-% \end{figure}
-\subsection{モデルの導出}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=0.3]{contents/基礎方程式/figure/exfig.png}
+        \caption{サーボバルブの図}
+        \label{fig:figlabel}
+\end{figure}
+\subsection{サーボバルブを通過する流量}
 作動流体がサーボバルブを通過する流れは，オリフィス流れであるとみなされる．
 オリフィスを通過する流量$Q$は，一般に
 \begin{equation}
@@ -70,6 +76,21 @@ $\mathrm{sg}(\cdot)$は，
     \end{cases}
 \end{align}
 で定義される関数である．
+
+\subsection{サーボバルブの動特性}
+サーボバルブへの指令電圧入力$u_v$とスプール変位$x_v$の関係は，周波数応答などから\eqnname\ref{eq:valve_freq}に示す二次系の運動方程式で近似して表すことができる．
+\begin{equation}
+    \label{eq:valve_freq}
+    \frac{1}{\omega_v^2}\ddot{x}_v^* + \frac{2D_v}{\omega_v}\dot{x}_v^* + x_v^* + f_{hs}\mathrm{sign}(\dot{x}_v^*) = K_v u_v^*
+\end{equation}
+なお，$u_v^*$や$x_v^*$などはそれぞれ入力電圧の最大値$u_{v,max}$，スプール変位の最大値$x_{v,max}$で除して正規化されたものであり，以下の\eqnname\ref{eq:normalize_u}から\eqnname\ref{eq:normalize_xv}で定義される．
+\begin{align}
+    \label{eq:normalize_u}
+    u_v^* &= \frac{u_v}{u_{v,max}}\\
+    \label{eq:normalize_xv}
+    x_v^* = \frac{x_v}{x_{v,max}}~,~\dot{x}_v^* &= \frac{\dot{x}_v}{x_{v,max}}~,~\ddot{x}_v^* = \frac{\ddot{x}_v}{x_{v,max}}
+\end{align}
+また，\eqnname\ref{eq:valve_freq}において$K_v$はバルブのゲイン，$\omega_v$は固有角振動数，$D_v$は粘性係数，$f_{hs}$はバルブのヒステリシスや応答感度を表す関数である．
 \section{油圧シリンダーモデル}
 
 \section{モデルの線形化とラプラス変換}
