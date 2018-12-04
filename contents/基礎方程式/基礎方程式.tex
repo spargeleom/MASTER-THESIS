@@ -54,11 +54,22 @@ $\mathrm{sign}(\cdot)$はシグナム関数であり，以下で定義される�
 同様に，制御ポートBへ吐き出される流量$Q_B$は，向きが$Q_A$と逆になることに注意して
 \begin{align}
     \label{eq:flow_QB}
+    \notag
     Q_B =& Q_{PB}- Q_{BT} \\ \notag
     =&-c_{v_{PB}}\mathrm{sg}(-x_v)\mathrm{sign}(p_P-p_B)\sqrt{|p_P-p_B|} \\ 
     &+ c_{v_{BT}}\mathrm{sg}(x_v)\mathrm{sign}(p_B-p_T)\sqrt{|p_B-p_T|}
 \end{align}
 となる．
+$\mathrm{sg}(\cdot)$は，
+\begin{align}
+    \label{eq:function_sg}
+    \mathrm{sg}(x) = 
+    \begin{cases}
+        x&(\mathrm{if}~x>0)\\
+        0&(\mathrm{if}~x\leq0)\\
+    \end{cases}
+\end{align}
+で定義される関数である．
 \section{油圧シリンダーモデル}
 
 \section{モデルの線形化とラプラス変換}
