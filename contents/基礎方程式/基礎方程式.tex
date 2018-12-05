@@ -92,7 +92,18 @@ $\mathrm{sg}(\cdot)$は，
 \end{align}
 また，\eqnname\ref{eq:valve_freq}において$K_v$はバルブのゲイン，$\omega_v$は固有角振動数，$D_v$は粘性係数，$f_{hs}$はバルブのヒステリシスや応答感度を表す関数である．
 \section{油圧シリンダー}
-質量保存則
+油圧シリンダー内の作動流体についてモデル化する．
+流体の質量保存則は\eqnname\ref{eq:situryouhozon}である．
+\begin{equation}
+    \label{eq:situryouhozon}
+    \Sigma m_{in}-\Sigma m_{out} = \frac{\mathrm{d}(\rho V)}{\mathrm{d}t} = \rho \dot{V}+\dot{\rho}V
+\end{equation}
+$\rho$は流体の密度であり，圧縮性流体においてはその表現方法は文献により様々であるが，本論文では以下の\eqnname\ref{eq:rho_teigi}で定義される$\rho$を採用する．
+\begin{equation}
+    \label{eq:rho_teigi}
+    \rho = \rho_i + \frac{\rho_i}{E(p)}p
+\end{equation}
+ここで$\rho_i$はほげほげ，$E(p)$はバルクモジュールである．
 \section{モデルの線形化とラプラス変換}
 
 \section{運動方程式と摩擦のモデル}
