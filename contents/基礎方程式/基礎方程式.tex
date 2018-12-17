@@ -91,12 +91,13 @@ $\mathrm{sg}(\cdot)$は，
     x_v^* = \frac{x_v}{x_{v,max}}~,~\dot{x}_v^* &= \frac{\dot{x}_v}{x_{v,max}}~,~\ddot{x}_v^* = \frac{\ddot{x}_v}{x_{v,max}}
 \end{align}
 また，\eqnname\ref{eq:valve_freq}において$K_v$はバルブのゲイン，$\omega_v$は固有角振動数，$D_v$は粘性係数，$f_{hs}$はバルブのヒステリシスや応答感度を表す関数である．
+
 \section{油圧シリンダー}
 油圧シリンダー内の作動流体についてモデル化する．
 流体の質量保存則は\eqnname\ref{eq:situryouhozon}である．
 \begin{equation}
     \label{eq:situryouhozon}
-    \Sigma m_{in}-\Sigma m_{out} = \frac{\mathrm{d}(\rho V)}{\mathrm{d}t} = \rho \dot{V}+\dot{\rho}V
+\Sigma \dot{m}_{\mathrm{in}}-\Sigma \dot{m}_{\mathrm{out}} = \frac{\mathrm{d}(\rho V)}{\mathrm{d}t} = \rho \dot{V}+\dot{\rho}V
 \end{equation}
 $\rho$は流体の密度であり，圧縮性流体においてはその表現方法は文献により様々であるが，本論文では以下の\eqnname\ref{eq:rho_teigi}で定義される$\rho$を採用する．
 \begin{equation}
@@ -104,7 +105,19 @@ $\rho$は流体の密度であり，圧縮性流体においてはその表現�
     \rho = \rho_i + \frac{\rho_i}{E(p)}p
 \end{equation}
 ここで$\rho_i$は圧力が0のときの密度，$E(p)$はバルクモジュールである，$p$は流体の圧力である．
-
+\eqnname\ref{eq:situryouhozon}と\eqnname\ref{eq:rho_teigi}より
+\begin{equation}
+    \label{eq:流量保存}
+    \Sigma Q_{\mathrm{in}} - \Sigma Q_{\mathrm{out}} = \dot{V} + \frac{V}{E(p)}\dot{p}
+\end{equation}
+となる．
+よって，シリンダ内の流量は次の\eqnname\ref{eq:シリンダ内流量(rod)}および\eqnname\ref{eq:シリンダ内流量(head)}で表される．
+\begin{align}
+    \label{eq:シリンダ内流量(rod)}
+    Q_{\mathrm{rod}}& = \dot{V}_\mathrm{rod} + \frac{V_\mathrm{rod}}{E(p_\mathrm{rod})}\dot{p}_\mathrm{rod}\\
+    \label{eq:シリンダ内流量(head)}
+    Q_{\mathrm{head}} &= \dot{V}_\mathrm{head} + \frac{V_\mathrm{head}}{E(p_\mathrm{head})}\dot{p}_\mathrm{head}
+\end{align}
 \section{モデルの線形化とラプラス変換}
 
 \section{運動方程式と摩擦のモデル}
