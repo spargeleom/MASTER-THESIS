@@ -41,6 +41,12 @@
 \section{先端で発生する力までの線形性とモデルの同定}
 バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
 $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
+推力$\fthr$は\eqnname\ref{eq:fthr}により算出される．
+\begin{align}
+    \label{eq:fthr}
+    \fthr = \Ah * \phs - \Ar * \prs
+\end{align}
+ここで$\Ah$はヘッド側の受圧面積，$\Ar$はロッド側の受圧面積，$\phs$はシリンダのヘッド側の圧力，$\prs$はシリンダ側のロッド側の圧力である．
 なお，先端で発生する力とはロードセルにより測定された実測値であり，今後これを実測出力と呼ぶ．
 \begin{figure}[t]
     \centering
@@ -50,6 +56,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 \subsection{線形性調査}
+\label{sec:線形性調査}
 バルブへの入力に対するシステムの物理量の応答の線形性について調べ，システムの特性の把握を行う．
 対象とする物理量は，実測出力$\fmsr$およびシリンダに取り付けてあるヘッド側圧力$\phs$，ロッド側圧力$\prs$である．
 
@@ -81,8 +88,47 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 
-\subsection{周波数応答}
-\subsection{最小自乗法による伝達関数モデルの同定}
+\subsection{周波数応答と最小自乗法による伝達関数モデルの同定}
+入力から実測出力$\fmsr$および推力$\fthr$までのシステムを同定するにあたり，はじめに周波数応答を調べ，システムの特性を把握する．
+%入力から実測出力までの周波数応答を調べてシステムの特性を把握し，最小ジオ傑法により伝達関数モデルの同定を行う．
+バルブへの入力に\ref{sec:線形性調査}節と同様に正弦波入力を角速度を\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを与え，その際の実測出力$\fmsr$の振幅比と位相遅れをプロットすると\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}のようになる．
+また，バルブへの入力から推力$\fthr$までの周波数応答は\figname\ref{fig:crop-1018_manubode_in2fthr_7MPa}のようになる．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-1018_manubode_in2fmea_7MPa.pdf}
+        \caption{Frequency Response from Input to $\fmsr$ (\SI{7}{MPa})}
+        \label{fig:crop-1018_manubode_in2fmea_7MPa}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-1018_manubode_in2fthr_7MPa.pdf}
+        \caption{Frequency Response from Input to $\fthr$ (\SI{7}{MPa})}
+        \label{fig:crop-1018_manubode_in2fthr_7MPa}
+\end{figure}
+
+\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
+\begin{align}
+    \label{eq:tf_est_model}
+    \GinTofmsr = \frac{a}{(s+b)(s+c)}\mathrm{e}^{-ds}
+\end{align}
+\eqnname\ref{eq:tf_est_model}の周波数応答が\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}と一致するように最小自乗法を用いて係数を決定すると，\eqnname\ref{eq:tf_in2fmsr}となる．
+\begin{align}
+    \label{eq:tf_in2fmsr}
+    \GinTofmsr = \frac{41.82}{(s+0.34)(s+130)}\mathrm{e}^{-0.016s}
+\end{align}
+
+同様に，入力から推力$\fthr$までの応答はムダ時間を含む一次遅れ系であるとし，その係数を求めると，\eqnname\ref{eq:tf_in2fthr}となる．
+\begin{align}
+    \label{eq:tf_in2fthr}
+    \GinTofthr = \frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
+\end{align}
+
+よって，推力$\fthr$から実測出力$\fmsr$までの伝達関数は\eqnname\ref{eq:tf_in2fmsr}と\eqnname\ref{eq:tf_in2fthr}より\eqnname\ref{eq:tf_fthr2fmsr}となる．
+\begin{align}
+    \label{eq:tf_fthr2fmsr}
+    \GfthrTofmsr = \frac{123}{s+130}\mathrm{e}^{-0.006s}
+\end{align}
+%\subsection{最小自乗法による伝達関数モデルの同定}
 \section{位置までの同定}
 \subsection{線形性調査}
 \subsection{周波数応答}
