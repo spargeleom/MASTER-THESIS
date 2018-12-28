@@ -40,7 +40,7 @@
 
 \section{先端で発生する力までの線形性とモデルの同定}
 バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
-$\mathrm{input}$はコントローラからバルブへの電圧指令，$f_\mathrm{thrust}$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
+$\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
 なお，先端で発生する力とはロードセルにより測定された実測値であり，今後これを実測出力と呼ぶ．
 \begin{figure}[t]
     \centering
@@ -51,11 +51,34 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$f_\mat
 
 \subsection{線形性調査}
 バルブへの入力に対するシステムの物理量の応答の線形性について調べ，システムの特性の把握を行う．
-対象とする物理量は，実測出力\fmsrおよびシリンダに取り付けてあるヘッド側圧力，ロッド側の圧力センサである．
+対象とする物理量は，実測出力$\fmsr$およびシリンダに取り付けてあるヘッド側圧力$\phs$，ロッド側圧力$\prs$である．
 
 バルブへ正弦波入力を与えた際の応答をフーリエ変換し，そのピークが入力した正弦波の角速度と一致し，かつその他の角速度でピークが立たない場合に線形応答とみなすことができる．
 実験では，バルブへ入力する角速度として\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを採用した．
 サンプリング周期は\SI{0.001}{s}であり，センサから取得される値にはローパスフィルタ(以降LPF)として一次遅れの伝達関数${1}/(0.005s+1)$を通している．
+また，直流成分をフーリエ変換を施す前に除去し，フーリエ変換後には角速度のピークに着目するため，最大ピークで除すことで正規化している．
+
+各物理量の応答を\figname\ref{fig:1018FFT_fmeasure}から\figname\ref{fig:1018FFT_prs}に示す．
+これより最大ピークの角速度と入力した正弦波の角速度が一致しているため，これらの物理量の応答は線形であるとみなすことができる．
+よって対象とする油圧システムは線形なシステムとして扱い，同定することが可能である．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_fmeasure.pdf}
+        \caption{FFT of $\fmsr$}
+        \label{fig:1018FFT_fmeasure}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_phs.pdf}
+        \caption{FFT of $\phs$}
+        \label{fig:1018FFT_phs}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_prs.pdf}
+        \caption{FFT of $\prs$}
+        \label{fig:1018FFT_prs}
+\end{figure}
 
 
 \subsection{周波数応答}
