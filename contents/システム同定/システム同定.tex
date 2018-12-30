@@ -30,7 +30,7 @@
         Pressure Sensor & KEYENCE & GP-M250? & --- \\
         Encoder & Micro Tech Labolatory & & --- \\ \hline
     PC & mouse computer & --- & \begin{tabular}{l}cpu:i7-7900K \\ gpu:\\OS:windows 10 education\end{tabular} \\
-    \begin{tabular}{l}AD/DA Converter \\ C8ounter\end{tabular}
+    \begin{tabular}{l}AD/DA Converter \\ Counter\end{tabular}
     & Speedgoat & Speedgoat & --- \\ 
     MATLAB/Simulink & MathWorks & 2018b & --- \\ \hline \hline
     \end{tabular}
@@ -107,7 +107,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:crop-1018_manubode_in2fthr_7MPa}
 \end{figure}
 
-\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
+\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
 \begin{align}
     \label{eq:tf_est_model}
     \GinTofmsr = \frac{a}{(s+b)(s+c)}\mathrm{e}^{-ds}
@@ -134,20 +134,23 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 バルブ入力からシリンダ位置までの応答のモデルの同定を行う．
 本節ではシリンダ先端を拘束せず，自由に動く状態で同定を行う．
 
-油圧シリンダにおける入力から位置までの同定は，線形な応答を前提に同定入力として正弦波の足し合わせを入力したもの\cite{}や，M系列による同定を行っているもの\cite{}がある．
+油圧シリンダにおける入力から位置までの同定は，線形な応答を前提に同定入力として正弦波の足し合わせを入力したもの\cite{ling2012system,zheng2009application}や，M系列による同定を行っているもの\cite{松本貴夢20166,松本貴夢2016}，パラメータ同定を行っているもの\cite{前島祐三2011}がある．
 本論文でははじめに，対象としている実験機のシリンダの応答の線形性を調べ，前節と同様に最小自乗法による周波数領域での同定，そしてM系列による同定を行う．
 \subsection{線形性調査}
 バルブに正弦波入力を与え，位置の応答をフーリエ変換してピークを見ることにより線形性を調べる．
 入力する正弦波の角速度は\ref{sec:線形性調査(力)}節と同様に\SI{0.1776}{rad/s}から\SI{100}{rad/s}までを対数上で等間隔に12等分したものを与える．
 
-位置までの応答をフーリエ変換した結果を\figname\ref{fig:fig:crop-pos_FFT}に示す．
+位置までの応答をフーリエ変換した結果を\figname\ref{fig:crop-pos_FFT}に示す．
+\figname\ref{fig:crop-pos_FFT}において，入力した正弦波よりも低周波の部分でピークが立っており，応答は厳密には線形応答とは言えない．
+本論文においてモデルを得たい領域は比較的低周波の領域であり，正弦波入力の角速度が\SI{50}{rad/s}以下の領域ではピークが大きくなく線形として扱える．
+また先行研究において，線形システムとして同定を行った場合でも良い結果が得られていることなどより，本論文においても線形応答の対象としてシステムの同定を試みる．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-pos_FFT.pdf}
         \caption{FFT of Input to Position}
         \label{fig:crop-pos_FFT}
 \end{figure}
-\figname\ref{fig:crop-pos_FFT}において，
+
 \subsection{周波数応答と最小自乗法によるモデル同定}
 \section{M系列による同定}
 \subsection{M系列の性質}
