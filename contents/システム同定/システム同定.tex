@@ -13,10 +13,16 @@
 本研究で使用する油圧システムの実験装置を\figname\ref{fig:}に示す．
 本装置は片ロッドの油圧シリンダ，ギヤポンプ，サーボバルブなどにより構成されており，シリンダにはワイヤー式エンコーダとロードセルが取り付けてある．
 また，圧力センサをサーボバルブのAポートおよびBポート，そしてシリンダのヘッド側とロッド側の入り口の計4箇所に取り付けてある．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/3-4ExperimentSystem.png}
+        \caption{caption}
+        \label{fig:figlabel}
+\end{figure}
 
 コントローラ側はPC及びAD/DA変換器やカウンタで構成されており，実験装置に取り付けてあるセンサからの値の取得及びサーボバルブへの入力を行うことができる．
 センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
-本装置に用いている各部品の諸元をTable~\ref{tab:}にまとめる．
+本装置に用いている各部品の諸元をTable~\ref{tab:configuration-parameter}にまとめる．
 また，システムの伝達経路の全体像は\figname\ref{fig:}のようになる．
 \begin{table}[t]
     \centering
@@ -30,11 +36,12 @@
         Pressure Sensor & KEYENCE & GP-M250? & --- \\
         Encoder & Micro Tech Labolatory & & --- \\ \hline
     PC & mouse computer & --- & \begin{tabular}{l}cpu:i7-7900K \\ gpu:\\OS:windows 10 education\end{tabular} \\
-    \begin{tabular}{l}AD/DA Converter \\ C8ounter\end{tabular}
+    \begin{tabular}{l}AD/DA Converter \\ Counter\end{tabular}
     & Speedgoat & Speedgoat & --- \\ 
     MATLAB/Simulink & MathWorks & 2018b & --- \\ \hline \hline
     \end{tabular}
     \caption{Experiment System Configuration}
+    \label{tab:configuration-parameter}
 \end{table}
 
 
@@ -56,7 +63,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 \subsection{線形性調査}
-\label{sec:線形性調査}
+\label{sec:線形性調査(力)}
 バルブへの入力に対するシステムの物理量の応答の線形性について調べ，システムの特性の把握を行う．
 対象とする物理量は，実測出力$\fmsr$およびシリンダに取り付けてあるヘッド側圧力$\phs$，ロッド側圧力$\prs$である．
 
@@ -91,7 +98,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \subsection{周波数応答と最小自乗法による伝達関数モデルの同定}
 入力から実測出力$\fmsr$および推力$\fthr$までのシステムを同定するにあたり，はじめに周波数応答を調べ，システムの特性を把握する．
 %入力から実測出力までの周波数応答を調べてシステムの特性を把握し，最小ジオ傑法により伝達関数モデルの同定を行う．
-バルブへの入力に\ref{sec:線形性調査}節と同様に正弦波入力を角速度を\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを与え，その際の実測出力$\fmsr$の振幅比と位相遅れをプロットすると\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}のようになる．
+バルブへの入力に\ref{sec:線形性調査(力)}節と同様に正弦波入力を角速度を\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを与え，その際の実測出力$\fmsr$の振幅比と位相遅れをプロットすると\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}のようになる．
 また，バルブへの入力から推力$\fthr$までの周波数応答は\figname\ref{fig:crop-1018_manubode_in2fthr_7MPa}のようになる．
 \begin{figure}[t]
     \centering
@@ -106,7 +113,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:crop-1018_manubode_in2fthr_7MPa}
 \end{figure}
 
-\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
+\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
 \begin{align}
     \label{eq:tf_est_model}
     \GinTofmsr = \frac{a}{(s+b)(s+c)}\mathrm{e}^{-ds}
@@ -122,7 +129,6 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
     \label{eq:tf_in2fthr}
     \GinTofthr = \frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
 \end{align}
-
 よって，推力$\fthr$から実測出力$\fmsr$までの伝達関数は\eqnname\ref{eq:tf_in2fmsr}と\eqnname\ref{eq:tf_in2fthr}より\eqnname\ref{eq:tf_fthr2fmsr}となる．
 \begin{align}
     \label{eq:tf_fthr2fmsr}
@@ -130,8 +136,40 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{align}
 %\subsection{最小自乗法による伝達関数モデルの同定}
 \section{位置までの同定}
+バルブ入力からシリンダ位置までの応答のモデルの同定を行う．
+本節ではシリンダ先端を拘束せず，自由に動く状態で同定を行う．
+
+油圧シリンダにおける入力から位置までの同定は，線形な応答を前提に同定入力として正弦波の足し合わせを入力したもの\cite{ling2012system,zheng2009application}や，M系列による同定を行っているもの\cite{松本貴夢20166,松本貴夢2016}，パラメータ同定を行っているもの\cite{前島祐三2011}がある．
+本論文でははじめに，対象としている実験機のシリンダの応答の線形性を調べ，前節と同様に最小自乗法による周波数領域での同定，そしてM系列による同定を行う．
 \subsection{線形性調査}
-\subsection{周波数応答}
+バルブに正弦波入力を与え，位置の応答をフーリエ変換してピークを見ることにより線形性を調べる．
+入力する正弦波の角速度は\ref{sec:線形性調査(力)}節と同様に\SI{0.1776}{rad/s}から\SI{100}{rad/s}までを対数上で等間隔に12等分したものを与える．
+
+位置までの応答をフーリエ変換した結果を\figname\ref{fig:crop-pos_FFT}に示す．
+\figname\ref{fig:crop-pos_FFT}において，入力した正弦波よりも低周波の部分でピークが立っており，応答は厳密には線形応答とは言えない．
+本論文においてモデルを得たい領域は比較的低周波の領域であり，正弦波入力の角速度が\SI{50}{rad/s}以下の領域ではピークが大きくなく線形として扱える．
+また先行研究において，線形システムとして同定を行った場合でも良い結果が得られていることなどより，本論文においても線形応答の対象としてシステムの同定を試みる．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-pos_FFT.pdf}
+        \caption{FFT of Input to Position}
+        \label{fig:crop-pos_FFT}
+\end{figure}
+
+\subsection{周波数応答と最小自乗法によるモデル同定}
+位置の応答までの周波数応答を\figname\ref{fig:pos_FR_mea-crop}に示す．
+このときのポンプ圧力は\SI{7}{MPa}である．
+\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\ref{eq:eq:tf_input2pos}となる．
+\begin{align}
+    \label{eq:tf_input2pos}
+    \GinTopos = \frac{330}{s(s+60)}\mathrm{e}^{-0.002s}
+\end{align}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/pos_FR_mea-crop.pdf}
+        \caption{Frequency Response from Input to Position}
+        \label{fig:pos_FR_mea-crop}
+\end{figure}
 \section{M系列による同定}
 \subsection{M系列の性質}
 \subsection{システム同定（入力から位置）}
