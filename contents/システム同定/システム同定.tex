@@ -13,6 +13,12 @@
 本研究で使用する油圧システムの実験装置を\figname\ref{fig:}に示す．
 本装置は片ロッドの油圧シリンダ，ギヤポンプ，サーボバルブなどにより構成されており，シリンダにはワイヤー式エンコーダとロードセルが取り付けてある．
 また，圧力センサをサーボバルブのAポートおよびBポート，そしてシリンダのヘッド側とロッド側の入り口の計4箇所に取り付けてある．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/3-4ExperimentSystem.png}
+        \caption{caption}
+        \label{fig:figlabel}
+\end{figure}
 
 コントローラ側はPC及びAD/DA変換器やカウンタで構成されており，実験装置に取り付けてあるセンサからの値の取得及びサーボバルブへの入力を行うことができる．
 センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
@@ -123,7 +129,6 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
     \label{eq:tf_in2fthr}
     \GinTofthr = \frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
 \end{align}
-
 よって，推力$\fthr$から実測出力$\fmsr$までの伝達関数は\eqnname\ref{eq:tf_in2fmsr}と\eqnname\ref{eq:tf_in2fthr}より\eqnname\ref{eq:tf_fthr2fmsr}となる．
 \begin{align}
     \label{eq:tf_fthr2fmsr}
@@ -152,6 +157,19 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 \subsection{周波数応答と最小自乗法によるモデル同定}
+位置の応答までの周波数応答を\figname\ref{fig:pos_FR_mea-crop}に示す．
+このときのポンプ圧力は\SI{7}{MPa}である．
+\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\ref{eq:eq:tf_input2pos}となる．
+\begin{align}
+    \label{eq:tf_input2pos}
+    \GinTopos = \frac{330}{s(s+60)}\mathrm{e}^{-0.002s}
+\end{align}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/pos_FR_mea-crop.pdf}
+        \caption{Frequency Response from Input to Position}
+        \label{fig:pos_FR_mea-crop}
+\end{figure}
 \section{M系列による同定}
 \subsection{M系列の性質}
 \subsection{システム同定（入力から位置）}
