@@ -46,6 +46,7 @@
 
 
 \section{先端で発生する力までの線形性とモデルの同定}
+\label{sec:力までの同定}
 バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
 $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
 推力$\fthr$は\eqnname\ref{eq:fthr}により算出される．
@@ -136,6 +137,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{align}
 %\subsection{最小自乗法による伝達関数モデルの同定}
 \section{位置までの同定}
+\label{sec:位置までの同定}
 バルブ入力からシリンダ位置までの応答のモデルの同定を行う．
 本節ではシリンダ先端を拘束せず，自由に動く状態で同定を行う．
 
@@ -159,7 +161,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \subsection{周波数応答と最小自乗法によるモデル同定}
 位置の応答までの周波数応答を\figname\ref{fig:pos_FR_mea-crop}に示す．
 このときのポンプ圧力は\SI{7}{MPa}である．
-\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\ref{eq:eq:tf_input2pos}となる．
+\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\ref{eq:tf_input2pos}となる．
 \begin{align}
     \label{eq:tf_input2pos}
     \GinTopos = \frac{330}{s(s+60)}\mathrm{e}^{-0.002s}
@@ -170,8 +172,40 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \caption{Frequency Response from Input to Position}
         \label{fig:pos_FR_mea-crop}
 \end{figure}
+
+\clearpage
 \section{M系列による同定}
+\ref{sec:力までの同定}節および\ref{sec:位置までの同定}節では周波数領域で最小自乗法を適用することにより，伝達関数モデルを得た．
+本来，対象とするシステムの正確なモデルを得るためには白色雑音を入力として用いることが望ましいが，現実的に白色雑音の適用は不可能であり，代わりとして擬似白色雑音を用いられる．
+疑似白色雑音の一つがM系列と呼ばれる信号系列であり，信号の生成が比較的簡単であるためシステム同定の入力としてよく用いられている．
+そこで本節では，同定入力にM系列を用いた場合のシステム同定について述べる．
 \subsection{M系列の性質}
-\subsection{システム同定（入力から位置）}
+M系列とは，\figname\ref{fig:Mseq}に示す回路により生成される，0と1から構成される擬似白色雑音である．
+\figname\ref{fig:Mseq}は$n$段のシフトレジスタの各段の値に係数$a_i$を掛けてフィードバックし，排他的論理和を適用させる構成になっている．
+最初，シフトレジスタの各段には0または1の値が格納されており，全て0でなければその組み合わせは任意である．
+これにより発生するM系列は以下の特徴をもつ．
+\begin{itemize}
+    \item 周期系列であり，系列長は$ｐ＝2^n-1$である．(周期性)
+    \item 1周期内に0は$2^{n-1}-1$個，1は$2^{n-1}$個存在する．（均一性）
+    \item 1周期内において連続した$n$個の要素に着目したとき，そのビットパターンは全ての値が0である場合を除く全てのパターンが現れる．
+    \item M系列中の1を+1に，0を-1に対応させると，自己相関関数$\phi_j$は\eqnname\ref{eq:mseq-autocorec}のようになる．$j$は元の系列をシフトさせる数である．
+    \begin{align}
+        \label{eq:mseq-autocorec}
+        \phi_j = 
+        \begin{cases}
+            \displaystyle
+            1~&\mathrm{for}~j\equiv0~(\mathrm{mod}~p)\\
+            \tfrac{-1}{p}~&\mathrm{for}~j\not\equiv0~(\mathrm{mod}~p)
+        \end{cases}
+    \end{align}
+\end{itemize}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/Mseq.pdf}
+        \caption{Generating Circuit of M-sequence}
+        \label{fig:Mseq}
+\end{figure}
 \subsection{システム同定（入力から力）}
+バルブへの入力から
+\subsection{システム同定（入力から位置）}
 
