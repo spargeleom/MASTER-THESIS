@@ -207,6 +207,7 @@ M系列とは，\figname\ref{fig:Mseq}に示す回路により生成される，
     \end{align}
 \end{itemize}
 \subsection{システム同定（入力から力）}
+\label{sec:Mseq_in2force}
 バルブへの入力から力までの同定についてM系列を用いての同定を行う．
 M系列を用いるさいのサンプリング周波数は，バンド幅の10倍程度に設定するのがよいため\cite{足立200909}，\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}を参考にして，サンプリング時間\SI{0.2}{s}とし，シフトレジスタの個数$n$は8とした．
 
@@ -249,7 +250,7 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea_72-100.pdf}
-        \caption{Input and Ooutput Data for System Identification}
+        \caption{Input and Ooutput Data for Cross Validation}
         \label{fig:1018Mseq_inputToFmea_72-100}
 \end{figure}
 \begin{figure}[t]
@@ -259,7 +260,50 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
         \label{fig:1018Mseq_compare}
 \end{figure}
 
+\clearpage
 \subsection{システム同定（入力から位置）}
+シリンダ先端を無負荷にした際の入力から位置までのシステムを同定する．
+\figname\ref{fig:pos_FR_mea-crop}より，バルブへの入力から位置までには積分器が含まれている．
+そのため，同定においては積分器が含まれることを前提としたシステム同定\cite{竹下侑2014積分器を有するシステムの同定について}を行う．
+具体的な手法は以下のとおり．
+\begin{itembox}[l]{積分器を有するシステムの同定手法}
+    同定したいプラント$P(s)$に積分器がm個含まれているとき，その入出力関係をラプラス変換すると\eqnname\ref{eq:sekibun_system}となる．
+    \begin{align}
+        \label{eq:sekibun_system}
+        Y(s) = P(s)U(s) = \frac{1}{s^m}P'(s)U(s)
+    \end{align}
+    ここで，$P'(s)$は積分器を含まないシステムである．
+    \eqnname\ref{eq:sekibun_system}において${1}/{s^m}U(s)$を新たな入力$U_{\mathrm{new}}(s)$とし，入出力関係からm次トレンドを除去して同定を行うことにより$P'(s)$が求められる．
+    $P'(s)$と$1/s^m$を合わせることにより，所望のシステムの伝達関数$P(s)$を得ることが可能である．
+\end{itembox}
+\ref{sec:Mseq_in2force}と同様に，シフトレジスタの数$n$を8，サンプリング周期\SI{0.2}{s}としたバルブへの入力と，位置の応答の入出力関係を\figname\ref{fig:crop-inputANDpos}に示す．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-inputANDpos.pdf}
+        \caption{Input and Output of Position}
+        \label{fig:crop-inputANDpos}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
