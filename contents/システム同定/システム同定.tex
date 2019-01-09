@@ -174,6 +174,13 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 \clearpage
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/Mseq.pdf}
+        \caption{Generating Circuit of M-sequence}
+        \label{fig:Mseq}
+\end{figure}
+
 \section{M系列による同定}
 \ref{sec:力までの同定}節および\ref{sec:位置までの同定}節では周波数領域で最小自乗法を適用することにより，伝達関数モデルを得た．
 本来，対象とするシステムの正確なモデルを得るためには白色雑音を入力として用いることが望ましいが，現実的に白色雑音の適用は不可能であり，代わりとして擬似白色雑音を用いられる．
@@ -199,14 +206,75 @@ M系列とは，\figname\ref{fig:Mseq}に示す回路により生成される，
         \end{cases}
     \end{align}
 \end{itemize}
-\begin{figure}[t]
-    \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/Mseq.pdf}
-        \caption{Generating Circuit of M-sequence}
-        \label{fig:Mseq}
-\end{figure}
 \subsection{システム同定（入力から力）}
 バルブへの入力から力までの同定についてM系列を用いての同定を行う．
-M系列を用いてよく同定できる帯域はサンプリング周波数の前後1デカード
+M系列を用いるさいのサンプリング周波数は，バンド幅の10倍程度に設定するのがよいため\cite{足立200909}，\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}を参考にして，サンプリング時間\SI{0.2}{s}とし，シフトレジスタの個数$n$は8とした．
+
+バルブへの入力と，力の入出力関係を\figname\ref{fig:1018Mseq_inputToFmea}に示す．
+\figname\ref{fig:1018Mseq_inputToFmea}のうち，10$\sim$\SI{70}{s}を同定用のデータとして(\figname\ref{fig:1018Mseq_inputToFmea_10-70})，72$\sim$\SI{100}{s}を検証用データとして(\figname\ref{fig:1018Mseq_inputToFmea_72-100})用いる．
+
+同定した伝達関数$\GinTofmsr$は，\eqnname\ref{eq:tf_mseq_force}であり，分子第2項および分母第3項を微小として無視し整理すると，\eqnname\ref{eq:tf_mseq_force_hosei}となる．
+\begin{align}
+    \label{eq:tf_mseq_force}
+    \GinTofmsr&=\frac{4.193s+0.02265}{s^2 + 1.118s + 7.614\times 10^{-11}}\mathrm{e}^{-0.02s}\\
+    \label{eq:tf_mseq_force_hosei} 
+    \GinTofmsr&= \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
+\end{align}
+\eqnname\ref{eq:tf_mseq_force}および\eqnname\ref{eq:tf_mseq_force_hosei}の応答と，\figname\ref{fig:1018Mseq_inputToFmea_72-100}の結果を比較すると，\figname\ref{fig:1018Mseq_compare}のようになる．
+tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\eqnname\ref{eq:tf_mseq_force_hosei}の応答である．
+それぞれの横に書いてある数字はFit率であり，\eqnname\ref{eq:fit}で算出される適合率の値である．
+\begin{align}
+    \label{eq:fit}
+    \mathrm{Fit} =  \left( 1- \frac{\sqrt{\sum_{k=1}^N |\hat{y}(k)-y(k)|^2 }}{\sqrt{\sum_{k=1}^N |{y}(k)-\bar{y}|^2 }}\right) \times 100
+\end{align}
+ここで，$y(k)$は実際の出力，$\hat{y}(k)$はモデルの出力，$\bar{y}$は実際の出力の平均値である．
+\figname\ref{fig:1018Mseq_compare}より，微小項を無視してもFit率がほぼ下がっていないので\eqnname\ref{eq:tf_mseq_force_hosei}を同定結果として用いても問題ない．
+よって\eqnname\ref{eq:tf_mseq_force_hosei}をmodel TD:$\GTD$として扱う．
+\begin{align}
+    \label{eq:tf_GTD}
+    \GTD = \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
+\end{align}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea.pdf}
+        \caption{Input and Output Data}
+        \label{fig:1018Mseq_inputToFmea}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea_10-70.pdf}
+        \caption{Input and Ooutput Data for System Identification}
+        \label{fig:1018Mseq_inputToFmea_10-70}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea_72-100.pdf}
+        \caption{Input and Ooutput Data for System Identification}
+        \label{fig:1018Mseq_inputToFmea_72-100}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_compare.pdf}
+        \caption{Compare data}
+        \label{fig:1018Mseq_compare}
+\end{figure}
+
 \subsection{システム同定（入力から位置）}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
