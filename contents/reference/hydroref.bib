@@ -65,6 +65,8 @@
 
 
 %%油圧（システム同定）
+%%3周波数でシステム同定，実機と同定でステップ応答比較
+
 @inproceedings{ling2012system,
     title={System identification and control of an Electro-Hydraulic Actuator system},
     author={Ling, TG and Rahmat, MF and Husain, AR},
@@ -74,7 +76,44 @@
     organization={IEEE}
 }
 
+@article{zheng2009application,
+    title={Application of self-tuning fuzzy PID controller for a SRM direct drive volume control hydraulic press},
+    author={Zheng, Jian-ming and Zhao, Sheng-dun and Wei, Shu-guo},
+    journal={Control engineering practice},
+    volume={17},
+    number={12},
+    pages={1398--1404},
+    year={2009},
+    publisher={Elsevier}
+}
 
+@article{前島祐三2011,
+    title={油圧アームの基底パラメータ同定法とモデル検証},
+    author={前島祐三 and 酒井悟 and 中西稔 and 大須賀公一},
+    journal={日本フルードパワーシステム学会論文集},
+    volume={43},
+    number={1},
+    pages={16--21},
+    year={2011},
+    publisher={一般社団法人 日本フルードパワーシステム学会}
+}
+
+@article{松本貴夢20166,
+    title={6 軸油圧マニピュレータのシステム同定},
+    author={松本貴夢 and 大須賀公一 and 石川将人 and 吉灘裕 and 小谷貴幸 and 松尾公彦},
+    journal={フルードパワーシステム講演会講演論文集},
+    pages={84--86},
+    year={2016},
+    publisher={日本フルードパワーシステム学会}
+}
+@inproceedings{松本貴夢2016,
+    title={6 軸油圧マニピュレータのモデリングと制御},
+    author={松本貴夢 and 杉本克文 and 瀬戸山靖広 and 石川将人 and 吉灘裕 and 大須賀公一 and 酒井悟 and 小谷貴幸 and 松尾公彦},
+    booktitle={ロボティクス・メカトロニクス講演会講演概要集 2016},
+    pages={1A1--09b7},
+    year={2016},
+    organization={一般社団法人 日本機械学会}
+}
 %%システム同定理論
 @BOOK{足立200909,
     title={システム同定の基礎},
@@ -86,6 +125,56 @@
     url={http://amazon.co.jp/o/ASIN/4501114800/},
     totalpages={256},
     timestamp={2018.07.31},
+}
+%M系列
+@article{吉谷清澄1971pn,
+    title={PN 系列 特に M 系列について},
+    author={吉谷清澄},
+    journal={電波研究所季報},
+    volume={17},
+    number={90},
+    pages={249--263},
+    year={1971},
+    publisher={電気通信振興会}
+}
+@article{近藤勝也2004m,
+    title={M 系列を用いた線形システムの周波数特性測定に関する調査},
+    author={近藤勝也},
+    journal={研究紀要},
+    number={40},
+    pages={59--64},
+    year={2004},
+    publisher={奈良工業高等専門学校}
+}
+@article{柏木濶1981m,
+    title={M 系列再発見},
+    author={柏木濶},
+    journal={計測と制御},
+    volume={20},
+    number={2},
+    pages={236--245},
+    year={1981},
+    publisher={公益社団法人 計測自動制御学会}
+}
+@article{柏木濶1998m,
+    title={M 変換の性質と同定への応用},
+    author={柏木濶 and 劉旻 and 原田博之 and 山口晃生},
+    journal={計測自動制御学会論文集},
+    volume={34},
+    number={12},
+    pages={1785--1790},
+    year={1998},
+    publisher={The Society of Instrument and Control Engineers}
+}
+@article{竹下侑2014積分器を有するシステムの同定について,
+    title={積分器を有するシステムの同定について},
+    author={竹下侑 and 川口貴弘 and 足立修一},
+    journal={計測自動制御学会論文集},
+    volume={50},
+    number={4},
+    pages={342--347},
+    year={2014},
+    publisher={公益社団法人 計測自動制御学会}
 }
 
 %%H∞制御
@@ -164,4 +253,61 @@
     pages={372--377},
     year={2012},
     publisher={The Robotics Society of Japan}
+}
+
+%%HyQ
+%足の詳細（load cellつかてる)
+@inproceedings{semini2010design,
+    title={Design and experimental evaluation of the hydraulically actuated prototype leg of the HyQ robot},
+    author={Semini, Claudio and Tsagarakis, Nikos G and Guglielmino, Emanuele and Caldwell, Darwin G},
+    booktitle={Intelligent Robots and Systems (IROS), 2010 IEEE/RSJ International Conference on},
+    pages={3640--3645},
+    year={2010},
+    organization={IEEE}
+}
+
+@article{semini2010hyq,
+    title={HyQ-design and development of a hydraulically actuated quadruped robot},
+    author={Semini, Claudio},
+    journal={Doctor of Philosophy (Ph. D.), University of Genoa, Italy},
+    year={2010}
+}
+
+%%玄先生のとこ（センサあり）
+@inproceedings{川端健太郎20141a1,
+    title={1A1-I02 油圧式 4 脚歩行ロボット RL-A1 の開発 (力制御型液圧駆動ロボット (1))},
+    author={川端健太郎 and 西拓紀 and 鳥居裕貴 and 北浦誠人 and 兼松宏多 and 玄相昊},
+    booktitle={ロボティクス・メカトロニクス講演会講演概要集 2014},
+    pages={\_1A1--I02\_1},
+    year={2014},
+    organization={一般社団法人 日本機械学会}
+    }
+
+@article{truong2009force,
+    title={Force control for hydraulic load simulator using self-tuning grey predictor--fuzzy PID},
+    author={Truong, Dinh Quang and Ahn, Kyoung Kwan},
+    journal={Mechatronics},
+    volume={19},
+    number={2},
+    pages={233--246},
+    year={2009},
+    publisher={Elsevier}
+}
+
+%%横小路先生
+@inproceedings{岡田大貴2016多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定,
+    title={多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定},
+    author={岡田大貴 and 横小路泰義},
+    booktitle={ロボティクス・メカトロニクス講演会講演概要集 2016},
+    pages={1A2--09b4},
+    year={2016},
+    organization={一般社団法人 日本機械学会}
+}
+@inproceedings{岡田大貴2017多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック,
+    title={多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック},
+    author={岡田大貴 and 横小路泰義 and 田崎勇一 and 吉灘裕 and 中村晋也 and 倉鋪圭太},
+    booktitle={ロボティクス・メカトロニクス講演会講演概要集 2017},
+    pages={2A1--P06},
+    year={2017},
+    organization={一般社団法人 日本機械学会}
 }
