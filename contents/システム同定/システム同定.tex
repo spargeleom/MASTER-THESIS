@@ -24,6 +24,7 @@
 センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
 本装置に用いている各部品の諸元をTable~\ref{tab:configuration-parameter}にまとめる．
 また，システムの伝達経路の全体像は\figname\ref{fig:}のようになる．
+\begin{landscape}
 \begin{table}[t]
     \centering
     \begin{tabular}{cccc}
@@ -31,7 +32,8 @@
         Name & Maker & Model Number & Property\\ \hline \hline
         Servo Valve & nachi & J869-1000A & --- \\
         Hydraulic Cylinder & SMC & CHN-25-250 &     \begin{tabular}{l}internel diameter: \SI{25}{mm} \\ rod diameter: \SI{12}{mm}\end{tabular}\\
-        Gear Pump & --- & --- &rated power\SI{7}{Mpa},\SI{2}{l/min} \\\hline
+        Gear Pump & --- & --- &rated power\SI{7}{Mpa},\SI{2}{l/min} \\
+        Oil&\begin{tabular}{l}JXTG Nippon Oil \& \\Energy Corporation\end{tabular}&Super Hyrando 32&--- \\\hline
         Load Cell & KYOWA & LUK-A-10kN & ---\\
         Pressure Sensor & KEYENCE & GP-M250? & --- \\
         Encoder & Micro Tech Labolatory & & --- \\ \hline
@@ -43,7 +45,7 @@
     \caption{Experiment System Configuration}
     \label{tab:configuration-parameter}
 \end{table}
-
+\end{landscape}
 
 \section{先端で発生する力までの線形性とモデルの同定}
 \label{sec:力までの同定}
@@ -283,8 +285,6 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
         \caption{Input and Output of Position}
         \label{fig:crop-inputANDpos}
 \end{figure}
-
-
 
 
 
