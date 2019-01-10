@@ -15,7 +15,7 @@
 また，圧力センサをサーボバルブのAポートおよびBポート，そしてシリンダのヘッド側とロッド側の入り口の計4箇所に取り付けてある．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/3-4ExperimentSystem.png}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/3-4ExperimentSystem.png}
         \caption{caption}
         \label{fig:figlabel}
 \end{figure}
@@ -60,7 +60,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 なお，先端で発生する力とはロードセルにより測定された実測値であり，今後これを実測出力と呼ぶ．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/system_dentatsu.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/system_dentatsu.pdf}
         \caption{system}
         \label{fig:system_dentatsu}
 \end{figure}
@@ -80,19 +80,19 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 よって対象とする油圧システムは線形なシステムとして扱い，同定することが可能である．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_fmeasure.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018FFT_fmeasure.pdf}
         \caption{FFT of $\fmsr$}
         \label{fig:1018FFT_fmeasure}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_phs.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018FFT_phs.pdf}
         \caption{FFT of $\phs$}
         \label{fig:1018FFT_phs}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018FFT_prs.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018FFT_prs.pdf}
         \caption{FFT of $\prs$}
         \label{fig:1018FFT_prs}
 \end{figure}
@@ -105,13 +105,13 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 また，バルブへの入力から推力$\fthr$までの周波数応答は\figname\ref{fig:crop-1018_manubode_in2fthr_7MPa}のようになる．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-1018_manubode_in2fmea_7MPa.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-1018_manubode_in2fmea_7MPa.pdf}
         \caption{Frequency Response from Input to $\fmsr$ (\SI{7}{MPa})}
         \label{fig:crop-1018_manubode_in2fmea_7MPa}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-1018_manubode_in2fthr_7MPa.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-1018_manubode_in2fthr_7MPa.pdf}
         \caption{Frequency Response from Input to $\fthr$ (\SI{7}{MPa})}
         \label{fig:crop-1018_manubode_in2fthr_7MPa}
 \end{figure}
@@ -155,7 +155,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 また先行研究において，線形システムとして同定を行った場合でも良い結果が得られていることなどより，本論文においても線形応答の対象としてシステムの同定を試みる．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-pos_FFT.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-pos_FFT.pdf}
         \caption{FFT of Input to Position}
         \label{fig:crop-pos_FFT}
 \end{figure}
@@ -170,7 +170,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{align}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/pos_FR_mea-crop.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/pos_FR_mea-crop.pdf}
         \caption{Frequency Response from Input to Position}
         \label{fig:pos_FR_mea-crop}
 \end{figure}
@@ -178,7 +178,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \clearpage
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/Mseq.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/Mseq.pdf}
         \caption{Generating Circuit of M-sequence}
         \label{fig:Mseq}
 \end{figure}
@@ -232,32 +232,32 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
 \end{align}
 ここで，$y(k)$は実際の出力，$\hat{y}(k)$はモデルの出力，$\bar{y}$は実際の出力の平均値である．
 \figname\ref{fig:1018Mseq_compare}より，微小項を無視してもFit率がほぼ下がっていないので\eqnname\ref{eq:tf_mseq_force_hosei}を同定結果として用いても問題ない．
-よって\eqnname\ref{eq:tf_mseq_force_hosei}をmodel TD:$\GTD$として扱う．
+よって\eqnname\ref{eq:tf_mseq_force_hosei}をmodel TD:$\GTDforce$として扱う．
 \begin{align}
-    \label{eq:tf_GTD}
-    \GTD = \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
+    \label{eq:tf_GTDforce}
+    \GTDforce = \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
 \end{align}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_inputToFmea.pdf}
         \caption{Input and Output Data}
         \label{fig:1018Mseq_inputToFmea}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea_10-70.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_inputToFmea_10-70.pdf}
         \caption{Input and Ooutput Data for System Identification}
         \label{fig:1018Mseq_inputToFmea_10-70}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_inputToFmea_72-100.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_inputToFmea_72-100.pdf}
         \caption{Input and Ooutput Data for Cross Validation}
         \label{fig:1018Mseq_inputToFmea_72-100}
 \end{figure}
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/1018Mseq_compare.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_compare.pdf}
         \caption{Compare data}
         \label{fig:1018Mseq_compare}
 \end{figure}
@@ -279,14 +279,33 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
     $P'(s)$と$1/s^m$を合わせることにより，所望のシステムの伝達関数$P(s)$を得ることが可能である．
 \end{itembox}
 \ref{sec:Mseq_in2force}と同様に，シフトレジスタの数$n$を8，サンプリング周期\SI{0.2}{s}としたバルブへの入力と，位置の応答の入出力関係を\figname\ref{fig:crop-inputANDpos}に示す．
+\figname\ref{fig:crop-inputANDpos}の入力に積分器を通した後の入出力関係は\figname\ref{fig:crop-inputANDpos_sekibun}となる．
+\figname\ref{fig:crop-inputANDpos_sekibun}から1次トレンドを除去して同定したのち，積分器を付加した伝達関数$\GTDpos$は，
+\begin{align}
+    \label{eq:GTDpos}
+    \GTDpos = \frac{1}{s}\frac{327.5}{s+48.32}\mathrm{e}^{-0.002s}
+\end{align}
+となる．
+\eqnname\ref{eq:GTDpos}の応答を実際の応答と比較すると，\figname\ref{fig:crop-pos_compare_mseq}となり，適合率\SI{97.25}{\%}での同定ができることがわかる．
+これより，入力から位置までの同定には，積分器の存在を陽に考慮した同定が有効であると言える．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/システム同定/figure/crop-inputANDpos.pdf}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-inputANDpos.pdf}
         \caption{Input and Output of Position}
         \label{fig:crop-inputANDpos}
 \end{figure}
-
-
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-inputANDpos_sekibun.pdf}
+        \caption{Input and Output of Position (after Integrate to Input)}
+        \label{fig:crop-inputANDpos_sekibun}
+\end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-pos_compare_mseq.pdf}
+        \caption{Cross Validation of Position}
+        \label{fig:crop-pos_compare_mseq}
+\end{figure}
 
 
 
