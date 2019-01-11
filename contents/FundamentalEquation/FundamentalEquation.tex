@@ -6,7 +6,7 @@
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/FundamentalEquation/figure/valve-cylinder.png}
         \caption{サーボバルブの図}
-        \label{fig:figlabel}
+        \label{fig:valve-cylinder}
 \end{figure}
 
 \section{サーボバルブ}
@@ -132,10 +132,112 @@ head側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\do
     \label{eq:dp_rod}
     \dot{p}_\mathrm{rod}=\frac{E(p_\mathrm{rod})}{V_\mathrm{rod}}\left( Q_\mathrm{rod} - \Ar \dot{x}_p\right)\\
     \label{eq:dp_head}
-    \dot{p}_\mathrm{head}=\frac{E(p_\mathrm{head})}{V_\mathrm{head}}\left( Q_\mathrm{head} - \Ah \dot{x}_p\right)
+    \dot{p}_\mathrm{head}=\frac{E(p_\mathrm{head})}{V_\mathrm{head}} \left( Q_\mathrm{head} - \Ah \dot{x}_p \right)
 \end{align}
 となる．
 
-\section{モデルの線形化とラプラス変換}
+ここで，\figname\ref{fig:valve-cylinder}を考慮すると，シリンダへの流入/流出量は
+\begin{align}
+    \label{eq:QA}
+    Q_A = \Ah \dot{x}_\mathrm{p}\\
+    \label{eq:QB}
+    Q_B = \Ar \dot{x}_\mathrm{p}
+\end{align}
+と表せ，負荷による圧力降下（または単に負荷圧力）は
+\begin{align}
+    \label{eq:load_pressure}
+    p_\mathrm{load} = p_\mathrm{head} - \frac{\Ar}{\Ah}p_\mathrm{rod}
+\end{align}
+と表される．
+また，バルブとシリンダの間における圧力降下が無視できるときには，$p_A = p_\mathrm{head}$，$p_B = p_\mathrm{rod}$であり，
+\eqnname\ref{eq:flow_QA}，\eqnname\ref{eq:flow_QB}，\eqnname\ref{eq:QA}，\eqnname\ref{eq:QB}，\eqnname\ref{eq:load_pressure}より，
+\begin{align}
+    \label{eq:papb-xp_plus}
+    \begin{cases}
+    p_A = p_\mathrm{head} &= \dfrac{1}{1+(\Ar/\Ah)^3}\left( \left(\dfrac{\Ar}{\Ah}\right)^3p_T + \left(\dfrac{\Ar}{\Ah}\right)p_P  + p_\mathrm{load}\right) \\
+    p_B = p_\mathrm{rod} &= \dfrac{1}{1+(\Ar/\Ah)^3}\left( \left(\dfrac{\Ar}{\Ah}\right)^2p_T + p_P  - \left(\dfrac{\Ar}{\Ah}\right)^2p_\mathrm{load}\right)
+    \end{cases}
+    (\dot{x}_\mathrm{p} > 0)\\[10pt]
+    \label{eq:papb-xp_minus}
+    \begin{cases}
+    p_A = p_\mathrm{head} &= \dfrac{1}{1+(\Ar/\Ah)^3}\left( \left(\dfrac{\Ar}{\Ah}\right)p_T + \left(\dfrac{\Ar}{\Ah}\right)^3p_P  + p_\mathrm{load}\right) \\
+    p_B = p_\mathrm{rod} &= \dfrac{1}{1+(\Ar/\Ah)^3}\left( p_T + \left(\dfrac{\Ar}{\Ah}\right)^2p_P  - \left(\dfrac{\Ar}{\Ah}\right)^2p_\mathrm{load}\right)
+    \end{cases}
+    (\dot{x}_\mathrm{p} < 0)
+\end{align}
+となる．
 
 \section{運動方程式と摩擦のモデル}
+油圧シリンダのロッドの運動方程式は
+\begin{align}
+    \label{eq:eom_of_rod}
+    m_\mathrm{rod}\ddot{x}_\mathrm{p} =\Ah p_\mathrm{head} - \Ar p_\mathrm{rod} - F_f(\dot{x}_\mathrm{p}) -F_\mathrm{ext}
+\end{align}
+と表せる．
+$F_\mathrm{ext}$はロッドにかかる外力であり，$F_f(\dot{x}_\mathrm{p})$は摩擦である．
+摩擦を表す代表的なモデルにStribeck friction curveがあり，\eqnname\ref{eq:stribeck_friction_curve}で表される．
+\begin{align}
+    \label{eq:stribeck_friction_curve}
+    F_f(\dot{x}_\mathrm{p}) = \sigma \dot{x}_\mathrm{p} + \mathrm{sign}(\dot{x}_\mathrm{p}) \left( F_{c0} + F_{s0} \mathrm{exp}\left( -\dfrac{|\dot{x}_\mathrm{p}|}{c_s} \right) \right)
+\end{align}
+$\sigma$は粘性摩擦，$F_{c0}$はクーロン摩擦，$F_{s0}$および$c_s$は静止摩擦のパラメータである．
+
+
+\section{モデルの線形化とラプラス変換}
+油圧システムにおいて，理想的にはポンプの供給圧力$p_P$および戻り圧力$p_T$は一定であるため，\eqnname\ref{eq:papb-xp_plus}および\eqnname\ref{eq:papb-xp_minus}を線形化すると
+\begin{align}
+    \label{eq:delta_pa}
+    \Delta p_A &= \dfrac{1}{1+(\Ar/\Ah)^3} \Delta p_\mathrm{load}\\
+    \label{eq:delta_pb}
+    \Delta p_B &= -\dfrac{(\Ar/\Ah)^2}{1+(\Ar/\Ah)^3} \Delta p_\mathrm{load}
+\end{align}
+となる．
+\eqnname\ref{eq:flow_QA}と\eqnname\ref{eq:flow_QB}をテイラー展開し，\eqnname\ref{eq:dp_rod}，\eqnname\ref{eq:dp_head}，\eqnname\ref{eq:load_pressure}，\eqnname\ref{eq:delta_pa}，\eqnname\ref{eq:delta_pb}とあわせると，\eqnname\ref{eq:dp_load}が得られる．$K_1$から$K_3$はそれぞれの項の係数をまとめたものである．
+\begin{align}
+    \label{eq:dp_load}
+    \Delta \dot{p}_\mathrm{load} = K_1 \Delta x_v +K_2 \Delta p_\mathrm{load} +K_3 \Delta \dot{x}_\mathrm{p}
+\end{align}
+よって，\eqnname\ref{eq:load_pressure}，\eqnname\ref{eq:eom_of_rod}，\eqnname\ref{eq:stribeck_friction_curve}をまとめ，ラプラス変換を施すと
+\begin{align}
+    \label{<label>}
+    X_\mathrm{p}(s) = \dfrac{K_4 X_v(s)+K_5 F_\mathrm{ext}(s)}{s(s^2 + K_6s + K_7)}
+\end{align}
+となり，\eqnname\ref{eq:valve_freq}を考慮するとバルブへの入力からロッド位置までの伝達関数は
+\begin{align}
+    \label{eq:tf_Gxu}
+    G_{xu} = \dfrac{X_\mathrm{p}}{U(s)} = \dfrac{K_vK_1}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1} \dfrac{K_9}{s^2 + K_6s + K_7} \dfrac{1}{s}
+\end{align}
+となる．
+ここで$K_4$から$K_7$は係数をまとめたものである．
+これより，入力から位置までの伝達関数には積分器が含まれていることがわかる．
+
+また，シリンダロッド先端を固定している際には$\dot{x}_\mathrm{p}=\ddot{x}_\mathrm{p}=0$であるため，\eqnname\ref{eq:valve_freq}および\eqnname\ref{eq:dp_load}より，バルブへの入力から負荷圧力までの伝達関数は
+\begin{align}
+    \label{eq:tf_Gpu}
+    G_{p_load u} = \dfrac{P_\mathrm{load}}{U(s)} = \dfrac{K_v}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1}\dfrac{K_1}{s-K_2}
+\end{align}
+となる．
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
