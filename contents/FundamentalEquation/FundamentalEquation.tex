@@ -99,6 +99,7 @@ $\mathrm{sg}(\cdot)$は，
     \label{eq:situryouhozon}
 \Sigma \dot{m}_{\mathrm{in}}-\Sigma \dot{m}_{\mathrm{out}} = \frac{\mathrm{d}(\rho V)}{\mathrm{d}t} = \rho \dot{V}+\dot{\rho}V
 \end{equation}
+$V$および$\dot{V}$は流体の体積とその時間変化率である．
 $\rho$は流体の密度であり，圧縮性流体においてはその表現方法は文献により様々であるが，本論文では以下の\eqnname\ref{eq:rho_teigi}で定義される$\rho$を採用する．
 \begin{equation}
     \label{eq:rho_teigi}
@@ -118,6 +119,23 @@ $\rho$は流体の密度であり，圧縮性流体においてはその表現�
     \label{eq:シリンダ内流量(head)}
     Q_{\mathrm{head}} &= \dot{V}_\mathrm{head} + \frac{V_\mathrm{head}}{E(p_\mathrm{head})}\dot{p}_\mathrm{head}
 \end{align}
+シリンダロッドの速度を$\dot{x}_\mathrm{p}$とし，rod側の受圧面積を$\Ar$,
+head側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\dot{V}_\mathrm{rod}$は
+\begin{align}
+    \label{eq:dotVrod}
+    \dot{V}_\mathrm{rod} &= \Ar \dot{x}_\mathrm{p} \\
+    \label{eq:dotVhead}
+    \dot{V}_\mathrm{head} &= -\Ah \dot{x}_\mathrm{p} 
+\end{align}
+と表わせ，\eqnname\ref{eq:シリンダ内流量(rod)}および\eqnname\ref{eq:シリンダ内流量(head)}とあわせて，
+\begin{align}
+    \label{eq:dp_rod}
+    \dot{p}_\mathrm{rod}=\frac{E(p_\mathrm{rod})}{V_\mathrm{rod}}\left( Q_\mathrm{rod} - \Ar \dot{x}_p\right)\\
+    \label{eq:dp_head}
+    \dot{p}_\mathrm{head}=\frac{E(p_\mathrm{head})}{V_\mathrm{head}}\left( Q_\mathrm{head} - \Ah \dot{x}_p\right)
+\end{align}
+となる．
+
 \section{モデルの線形化とラプラス変換}
 
 \section{運動方程式と摩擦のモデル}
