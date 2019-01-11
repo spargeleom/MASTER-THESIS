@@ -2,8 +2,10 @@
 油圧システムの力制御については，センサを取り付けて直接力を測定したり，\eqnname\ref{eq:fthr}による推力をそのままシリンダの出力として用いる方法がとられてきた\cite{semini2010design,semini2010hyq,川端健太郎20141a1,岡田大貴2017多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック}．
 本章では，$\GfthrTofmsr$を用いて出力を推定する推定アルゴリズムおよび制御器の設計とその比較を行う．
 
-\section{推定のためのアルゴリズム}
-
+\section{力推定アルゴリズム}
+力制御をおこなうためのシステムのブロック線図を\figname\ref{fig:ForceEstimateControl}に示す．
+油圧シリンダのhead側およびrod側の圧力と受圧面積から\eqnname\ref{eq:fthr}を用いて推力$\fthr$を計算して伝達関数$\GfthrTofmsr$へ入力し，その出力を推定出力$\fest$としてフィードバックする．
+実際に発生している実測出力$\fmsr$はLoad Cellにより測定される．
 \section{PID制御とI-PD制御}
 
 \section{$H_\infty$制御}
@@ -17,6 +19,6 @@
     \centering
 %        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
         \input{contents/ForceControl/figure/TikZ/ForceEstimateControl.tex}
-        \caption{caption}
-        \label{fig:figlabel}
+        \caption{Block Diagram for Force Control}
+        \label{fig:ForceEstimateControl}
 \end{figure}
