@@ -6,8 +6,54 @@
 力制御をおこなうためのシステムのブロック線図を\figname\ref{fig:ForceEstimateControl}に示す．
 油圧シリンダのhead側およびrod側の圧力と受圧面積から\eqnname\ref{eq:fthr}を用いて推力$\fthr$を計算して伝達関数$\GfthrTofmsr$へ入力し，その出力を推定出力$\fest$としてフィードバックする．
 実際に発生している実測出力$\fmsr$はLoad Cellにより測定される．
-\section{PID制御とI-PD制御}
 
+\begin{figure}[t]
+    \centering
+%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
+        \input{contents/ForceControl/figure/TikZ/ForceEstimateControl.tex}
+        \caption{Block Diagram for Force Control}
+        \label{fig4:ForceEstimateControl}
+\end{figure}
+\section{PID制御とI-PD制御}
+PID制御器（\figname\ref{fig4:PID}）とI-PD制御器（\figname\ref{fig4:IPD}）による応答を調べる．
+$\frac{s}{\tau s+1}$は近似微分器であり，$\tau=0.005$とした．
+制御器におけるそれぞれのゲイン$K_P$，$K_I$，$K_D$は$\GinTofmsr$に対し限界感度法を適用して決定し，$K_P=8.4,~K_I =168,~K_D=0.1$とした．
+\begin{figure}[t]
+    \centering
+%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
+        \input{contents/ForceControl/figure/TikZ/PID.tex}
+        \caption{PID Controller}
+        \label{fig4:PID}
+\end{figure}
+\begin{figure}[t]
+    \begin{minipage}{0.5\hsize}
+    \centering
+%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
+        \input{contents/ForceControl/figure/TikZ/IPD.tex}
+        \caption{I-PD Controller}
+        \label{fig4:IPD}
+    \end{minipage}
+\end{figure}
+
+それぞれの制御器におけるステップ応答を\figname\ref{fig:SRofPIDandIPD}に示す．
+\figname\ref{fig:SR_fest}が推定値の応答，\figname\ref{fig:SR_fmsr}が実測出力の応答である．
+
+\begin{figure}[tbp]
+    \begin{minipage}{0.5\hsize}
+        \centering
+        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDestforce_step.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig:SR_fest}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+        \centering
+        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDforce_step.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig:SR_fmsr}
+    \end{minipage}
+    \caption{Step Repsonse of PID Controller and I-PD Controller}
+    \label{fig:SRofPIDandIPD}
+\end{figure}
 \section{$H_\infty$制御}
 \subsection{$H_\infty$制御器}
 \subsection{状態空間表現}
@@ -15,10 +61,3 @@
 
 \section{外乱に対する頑健性}
 
-\begin{figure}[t]
-    \centering
-%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
-        \input{contents/ForceControl/figure/TikZ/ForceEstimateControl.tex}
-        \caption{Block Diagram for Force Control}
-        \label{fig:ForceEstimateControl}
-\end{figure}
