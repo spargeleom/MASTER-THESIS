@@ -1,11 +1,13 @@
 \chapter{基礎方程式}
 本章では油圧システムについてのモデリングの導出を行う．
-対象とする油圧システムの模式図は図で表され，4ポートサーボバルブと片ロッドシリンダが接続されているものとなる．
-このサーボバルブとシリンダについてJalaliら\cite{jelali2012hydraulic} に従いながら第一原理に基づき基礎方程式の記述を行う．
+対象とする油圧システムの模式図を\figname\ref{fig:valve-cylinder}に，サーボバルブの詳細を\figname\ref{fig:valve}に示す．
+対象のシステムは4ポートサーボバルブと片ロッドシリンダが接続されているものである．
+このサーボバルブとシリンダについてJalaliら\cite{jelali2012hydraulic}の手法を抜粋し，第一原理に基づき基礎方程式の記述を行う．
+記述にあたっては酒井らの手法\cite{前島祐三2011,前島祐三2014} も適宜参考にしている．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/FundamentalEquation/figure/valve-cylinder.png}
-        \caption{サーボバルブの図}
+        \caption{System of Servo Valve amd Cylinder}
         \label{fig:valve-cylinder}
 \end{figure}
 
@@ -15,8 +17,8 @@
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/FundamentalEquation/figure/valve.png}
-        \caption{サーボバルブの図}
-        \label{fig:figlabel}
+        \caption{Detail of Servo Valve}
+        \label{fig:valve}
 \end{figure}
 \subsection{サーボバルブを通過する流量}
 作動流体がサーボバルブを通過する流れは，オリフィス流れであるとみなされる．
@@ -205,16 +207,22 @@ $\sigma$は粘性摩擦，$F_{c0}$はクーロン摩擦，$F_{s0}$および$c_s$
 となり，\eqnname\ref{eq:valve_freq}を考慮するとバルブへの入力からロッド位置までの伝達関数は
 \begin{align}
     \label{eq:tf_Gxu}
-    G_{xu} = \dfrac{X_\mathrm{p}}{U(s)} = \dfrac{K_vK_1}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1} \dfrac{K_9}{s^2 + K_6s + K_7} \dfrac{1}{s}
+    G_{xu}(s) = \dfrac{X_\mathrm{p}(s)}{U(s)} = \dfrac{K_vK_1}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1} \dfrac{K_8}{s^2 + K_6s + K_7} \dfrac{1}{s}
 \end{align}
 となる．
-ここで$K_4$から$K_7$は係数をまとめたものである．
+ここで$K_4$から$K_8$は係数をまとめたものである．
 これより，入力から位置までの伝達関数には積分器が含まれていることがわかる．
 
 また，シリンダロッド先端を固定している際には$\dot{x}_\mathrm{p}=\ddot{x}_\mathrm{p}=0$であるため，\eqnname\ref{eq:valve_freq}および\eqnname\ref{eq:dp_load}より，バルブへの入力から負荷圧力までの伝達関数は
 \begin{align}
     \label{eq:tf_Gpu}
-    G_{p_load u} = \dfrac{P_\mathrm{load}}{U(s)} = \dfrac{K_v}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1}\dfrac{K_1}{s-K_2}
+    G_{p_{load} u} (s)= \dfrac{P_\mathrm{load}(s)}{U(s)} = \dfrac{K_v}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1}\dfrac{K_1}{s-K_2}
+\end{align}
+となる．
+負荷圧力に受圧面積$\Ah$をかけるとシリンダの推力$\fthr$となるので，入力から推力までの伝達関数は
+\begin{align}
+    \label{eq:tf_Gfthru}
+    G_{\fthr u} (s)=\Ah G_{p_{load} u} (s)= \dfrac{F_\mathrm{thrust}(s)}{U(s)} =\dfrac{\Ah K_v}{\dfrac{1}{\omega_v^2}s^2 + \dfrac{2D_v}{\omega_v}s + 1}\dfrac{K_1}{s-K_2}
 \end{align}
 となる．
 
