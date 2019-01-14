@@ -1,0 +1,96 @@
+\begin{tikzpicture}
+    [
+        scale =1,
+    % 線と文字の間の間隔を設定
+    every node/.style={outer sep=0.12cm, inner sep=0},
+    % 矢印の設定
+    arrow/.style={-{Stealth[length=0.25cm]}, thick},
+    % ブロック
+    block/.style={rectangle, draw, minimum height = 1cm,
+    minimum width=0.8cm, thick, outer sep = 0},
+    block2/.style={rectangle, draw, minimum height = 2.5cm,
+    minimum width=1.2cm, thick, outer sep = 0},
+    % 加え合わせ点
+    sum/.style={thick, circle, draw, inner sep=0,
+    minimum size=6pt, outer sep=0},
+    % 引き出し点
+    point/.style={radius=2pt},
+    %%
+    gain/.style = {regular polygon, regular polygon sides=3,
+        draw, fill=white, minimum width=0.8cm,
+        inner sep=0, outer sep=0mm,
+        shape border rotate=-90}
+    ]
+    \node [sum](sum1){};
+    \node [gain, right = 2.5cm of sum1] (KI){$K_\mathrm{I}$};
+    \node [block,left=0.8cm of KI] (int){$\dfrac{1}{s}$};
+
+\node[below=4cm of sum1](y){Process Variable};
+    \node[left=1cm of sum1](r){Set Point};
+       
+    \coordinate (y1) at ($(sum1)!0.4!(y)$);
+    \coordinate (y2) at ($(sum1)!0.8!(y)$);
+    \node [gain, right=2cm of y1] (KP){$K_\mathrm{P}$};
+    \node [gain, right=2.5cm of y2](KD){$K_\mathrm{D}$};    
+    \node [block,left=0.5cm of KD] (dev){~$\dfrac{s}{\tau s + 1}$~~};
+
+    \node [sum,right=0.5cm of KP](sum2){};
+    \node[right=0.8cm of sum2](input){Input};
+    
+    \fill[point](y1) circle coordinate;
+    \fill[point](y2) circle coordinate;
+    
+    \draw[arrow](y)--(sum1)node[left=-0.05cm,yshift = -0.4cm]{$-$};
+    \draw[arrow](r)--(sum1)node[left=0.2cm,yshift = -0.2cm]{$+$};
+    \draw[arrow](sum1)--(int);
+    \draw[arrow](int)--(KI);
+    \draw[arrow](KI)-|(sum2)node[left=-0.05cm,yshift = 0.45cm]{$+$};
+    \draw[arrow](y1)--(KP);
+    \draw[arrow](KP)--(sum2)node[left=0.2cm,yshift = -0.2cm]{$-$};
+    \draw[arrow](y2)--(dev);
+    \draw[arrow](dev)--(KD);
+    \draw[arrow](KD)-|(sum2)node[right=-0.05cm,yshift = -0.4cm]{$-$};
+    \draw[arrow](sum2)--(input);
+    
+    
+    
+%    \fill[point](int)+(-1.2,0) circle coordinate(u1);
+%    \draw[arrow](u1)|-(KP);
+%    \draw[arrow](KP)-|(sum)node[left=-0.05cm,yshift = 0.45cm]{$+$};
+%    \draw[arrow](u)--(int)node[above,pos=0.1]{error};
+%    \draw[arrow](int)--(KI);
+%    \draw[arrow](KI)--(sum)node[left=0.2cm,yshift = -0.2cm]{$+$};
+%    \draw[arrow](u1)|-(dev);
+%    \draw[arrow](dev)--(KD);
+%    \draw[arrow](KD)-|(sum)node[right=-0.05cm,yshift = -0.4cm]{$+$};
+%    \draw[arrow](sum)-- +(1,0)node[above]{input};
+
+
+%    \node [block] (K){~Controller~~};
+%    \node [block2, right=0.6 of K] (G){\begin{tabular}{l}Hydraulic\\Cylinder\end{tabular}};
+%    \node [sum, left=0.6of K] (sum){};    
+%    \coordinate (G1) at ($(G.north east)!0.25!(G.south east)$);
+%    \coordinate (G2) at ($(G.north east)!0.75!(G.south east)$);
+%    \node [gain, right=0.6of G1] (Ah){$\Ah$};
+%    \node [gain, right=0.6of G2] (Ar){$\Ar$};
+%    \node [sum,right=1.5 of G](sum2){};
+%    \node [block,right=-1cm of sum2,yshift = -2cm] (Gin2f){$\GinTofmsr$};
+%    
+%    
+%    \draw[arrow] (sum) -- (K);
+%    \draw[arrow] (K) -- (G) node [above, pos=0.5] {};
+%    \draw[arrow] (G1) -- (Ah) node[above,pos = 0.5]{$\phs$};
+%    \draw[arrow] (G2) -- (Ar) node[above,pos = 0.5]{$\prs$};
+%    \draw[arrow] (Ah) -| (sum2)node[left, yshift=+10pt] {$+$};
+%    \draw[arrow] (Ar) -| (sum2)node[right=0.3cm,yshift=0.3cm] {$\fthr$}
+%    node[left, yshift=-10pt] {$-$};
+%    \draw[arrow] (sum2) -|+(0.5,-1.3)-- +(-1.3,-1.3) |- (Gin2f);
+%    \draw[arrow] (Gin2f) -- +(2,0)node[right] {\begin{tabular}{l}Estimated\\Force\end{tabular}};
+%    \fill [point] (Gin2f)+(1.5, 0) circle coordinate (y);
+%    
+%    \draw[arrow] (G.north) |- +(2,1) node[right]{Measured Force};
+%    \draw[arrow] (sum.west)+(-0.5, 0) node[left]{\begin{tabular}{l}Set\\Point\end{tabular}} -- (sum.west)
+%    node[below, xshift=-10pt]{$+$};
+%    \draw [arrow] (y) -- +(0, -1) -| (sum) node[left, yshift=-15pt] {$-$};
+
+\end{tikzpicture}
