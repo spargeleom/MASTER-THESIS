@@ -14,49 +14,63 @@
         \caption{Block Diagram for Force Control}
         \label{fig4:ForceEstimateControl}
 \end{figure}
+
+
 \section{PID制御とI-PD制御}
 PID制御器（\figname\ref{fig4:PID}）とI-PD制御器（\figname\ref{fig4:IPD}）による応答を調べる．
-$\frac{s}{\tau s+1}$は近似微分器であり，$\tau=0.005$とした．
+I-PD制御器を利用するのは，目標値の急峻な変化に対するオーバーシュートを抑制させることを目的とするためである．
+$s/(\tau s+1)$は近似微分器であり，$\tau=0.005$とした．
 制御器におけるそれぞれのゲイン$K_P$，$K_I$，$K_D$は$\GinTofmsr$に対し限界感度法を適用して決定し，$K_P=8.4,~K_I =168,~K_D=0.1$とした．
 \begin{figure}[t]
+    \begin{minipage}{0.45\hsize}
     \centering
-%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
-        \input{contents/ForceControl/figure/TikZ/PID.tex}
-        \caption{PID Controller}
+        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/PIDcontroller-crop.pdf}
+%        \input{contents/ForceControl/figure/TikZ/PID.tex}
+        \subcaption{PID Controller}
         \label{fig4:PID}
-\end{figure}
-\begin{figure}[t]
-    \begin{minipage}{0.5\hsize}
+    \end{minipage}
+    \begin{minipage}{0.45\hsize}
     \centering
-%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
-        \input{contents/ForceControl/figure/TikZ/IPD.tex}
-        \caption{I-PD Controller}
+        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/I-PDcontroller-crop.pdf}
+%        \input{contents/ForceControl/figure/TikZ/IPD.tex}
+        \subcaption{I-PD Controller}
         \label{fig4:IPD}
     \end{minipage}
+    \caption{PID and I-PD Controller}
 \end{figure}
 
-それぞれの制御器におけるステップ応答を\figname\ref{fig:SRofPIDandIPD}に示す．
-\figname\ref{fig:SR_fest}が推定値の応答，\figname\ref{fig:SR_fmsr}が実測出力の応答である．
+それぞれの制御器におけるステップ応答を\figname\ref{fig4:SRofPIDandIPD}に示す．
+\figname\ref{fig4:SR_fest}が推定値の応答，\figname\ref{fig4:SR_fmsr}が実測出力の応答である．
+\figname\ref{fig4:SR_fest}より推定値$\fest$は目標値に対し定常偏差なく追従している．
+実測出力$\fmsr$の応答は，\figname\ref{fig4:SR_fmsr}より定常偏差が残っていることが確認されるが，偏差は\SI{5}{\%}以内に収まっており，推定値をフィードバックすることにより実測出力を制御することができているといえる．
+また，I-PD制御器におけるオーバーシュートがPID制御器に比べて抑制されており，I-PD制御器を導入した意図を満たしている．
 
 \begin{figure}[tbp]
-    \begin{minipage}{0.5\hsize}
+    \begin{minipage}{0.45\hsize}
         \centering
         \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDestforce_step.pdf}
         \subcaption{Estimated Force:$\fest$}
-        \label{fig:SR_fest}
+        \label{fig4:SR_fest}
     \end{minipage}
-    \begin{minipage}{0.5\hsize}
+    \begin{minipage}{0.45\hsize}
         \centering
         \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDforce_step.pdf}
         \subcaption{Measured Force:$\fmsr$}
-        \label{fig:SR_fmsr}
+        \label{fig4:SR_fmsr}
     \end{minipage}
     \caption{Step Repsonse of PID Controller and I-PD Controller}
-    \label{fig:SRofPIDandIPD}
+    \label{fig4:SRofPIDandIPD}
 \end{figure}
+
+
 \section{$H_\infty$制御}
+対象のシステムに対して，$H_\infty$制御の適用をする．
+$H_\infty$制御の適用により，モデル化誤差の吸収および外乱抑制が期待される．
+力制御を行う際には環境との接触を伴うため，環境から振動など様々な外乱を受けることになる．
+その点においても，外乱抑制を行う制御の適用は意味あるものとなる．
+\subsection{対象システムの状態空間表現}
+
 \subsection{$H_\infty$制御器}
-\subsection{状態空間表現}
 \subsection{サーボ系$H_\infty$制御器}
 
 \section{外乱に対する頑健性}
