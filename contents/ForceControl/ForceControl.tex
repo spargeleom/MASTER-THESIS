@@ -225,3 +225,55 @@ I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサ�
 %%===========
 
 次に，外乱を加えたときの応答について比較を行う．
+外乱として\figname\ref{fig4:withBLWN-crop}に示すようにノイズをmatlab/simulink上で取得したhead側圧力$\phs$とrod側圧力$\prs$のセンサ値に付加する．
+これにより，推定値$\fest$の値に外乱が乗ることになる．
+用いるノイズは，matlab/simulinkのBand-Limited White Noiseを利用し，ノイズ強度0.01，サンプル時間0.001とした．
+
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/TikZ/withBLWN-crop.pdf}
+        \caption{with Band-Limited White Noise}
+        \label{fig4:withBLWN-crop}
+\end{figure}
+
+外乱を付加したときのステップ応答および正弦波応答についてそれぞれ\figname\ref{fig4:crop-1115_diffnoise_step}および\figname\ref{fig4:crop-1115_diffnoise_sin}に示す．
+推定値および実測値のどちらにおいても，$H_\infty$制御の方がI-PD制御に比べて外乱による影響を抑えられていることから，\ref{sec:サーボ系H無限大制御器}で設計したコントローラは所望の性能を満たしているといえる．
+特に，実測出力において外乱抑制がよく効いていることが確認できる．
+波形の形から，推定値$\fest$から実測出力$\fmsr$までにはローパスフィルタの役割を果たす伝達関数が存在していることが予想でき，本研究におけるシステム同定で反映できなかった周波数帯にそれが存在すると考えられる．
+\figname\ref{fig4:crop-1115_diff_force_sin}における目標値に対する遅れの要因もこの伝達関数によるものだと予想される．
+
+さらに，外乱抑制は実測値の方によく効いていること，むだ時間を考慮した場合の方が若干ではあるが外乱をより抑えられていることが確認できる．
+むだ時間のPad\'e近似の次数を大きくすることにより外乱抑制の効果も大きくなるが，その分コントローラの次数も上がることを考慮する必要があり，今回の場合では１次のPad\'e近似またはむだ時間を無視したコントローラでも抑制の効果は十分であると言える．
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diffnoise_estforce_step.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_diffnoise_estforce_step}
+    \end{minipage} 
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diffnoise_force_step.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_diffnoise_force_step}
+    \end{minipage}
+    \caption{Step Responce of Estimated Force and Measured Force (with Band-Limited White Noise)}
+    \label{fig4:crop-1115_diffnoise_step}
+\end{figure}
+
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diffnoise_estforce_sin.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_diffnoise_estforce_sin}
+    \end{minipage} 
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diffnoise_force_sin.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_diffnoise_force_sin}
+    \end{minipage}
+    \caption{Sin Responce of Estimated Force and Measured Force (with Band-Limited White Noise)}
+    \label{fig4:crop-1115_diffnoise_sin}
+\end{figure}
