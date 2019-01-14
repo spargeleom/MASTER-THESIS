@@ -3,14 +3,14 @@
 本章では，$\GfthrTofmsr$を用いて出力を推定する推定アルゴリズムおよび制御器の設計とその比較を行う．
 
 \section{力推定アルゴリズム}
-力制御をおこなうためのシステムのブロック線図を\figname\ref{fig:ForceEstimateControl}に示す．
+力制御をおこなうためのシステムのブロック線図を\figname\ref{fig4:ForceEstimateControl}に示す．
 油圧シリンダのhead側およびrod側の圧力と受圧面積から\eqnname\ref{eq:fthr}を用いて推力$\fthr$を計算して伝達関数$\GfthrTofmsr$へ入力し，その出力を推定出力$\fest$としてフィードバックする．
 実際に発生している実測出力$\fmsr$はLoad Cellにより測定される．
 
 \begin{figure}[t]
     \centering
-%        \includegraphics[keepaspectratio, scale=1.0]{figurename.pdf}
-        \input{contents/ForceControl/figure/TikZ/ForceEstimateControl.tex}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/TikZ/ForceEstimateControl-crop.pdf}
+%        \input{contents/ForceControl/figure/TikZ/ForceEstimateControl.tex}
         \caption{Block Diagram for Force Control}
         \label{fig4:ForceEstimateControl}
 \end{figure}
@@ -22,16 +22,16 @@ I-PD制御器を利用するのは，目標値の急峻な変化に対するオ�
 $s/(\tau s+1)$は近似微分器であり，$\tau=0.005$とした．
 制御器におけるそれぞれのゲイン$K_P$，$K_I$，$K_D$は$\GinTofmsr$に対し限界感度法を適用して決定し，$K_P=8.4,~K_I =168,~K_D=0.1$とした．
 \begin{figure}[t]
-    \begin{minipage}{0.45\hsize}
+    \begin{minipage}{\minipageratio\hsize}
     \centering
-        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/PIDcontroller-crop.pdf}
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/PIDcontroller-crop.pdf}
 %        \input{contents/ForceControl/figure/TikZ/PID.tex}
         \subcaption{PID Controller}
         \label{fig4:PID}
     \end{minipage}
-    \begin{minipage}{0.45\hsize}
+    \begin{minipage}{\minipageratio\hsize}
     \centering
-        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/I-PDcontroller-crop.pdf}
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/I-PDcontroller-crop.pdf}
 %        \input{contents/ForceControl/figure/TikZ/IPD.tex}
         \subcaption{I-PD Controller}
         \label{fig4:IPD}
@@ -42,23 +42,23 @@ $s/(\tau s+1)$は近似微分器であり，$\tau=0.005$とした．
 それぞれの制御器におけるステップ応答を\figname\ref{fig4:SRofPIDandIPD}に示す．
 \figname\ref{fig4:SR_fest}が推定値の応答，\figname\ref{fig4:SR_fmsr}が実測出力の応答である．
 \figname\ref{fig4:SR_fest}より推定値$\fest$は目標値に対し定常偏差なく追従している．
-実測出力$\fmsr$の応答は，\figname\ref{fig4:SR_fmsr}より定常偏差が残っていることが確認されるが，偏差は\SI{5}{\%}以内に収まっており，推定値をフィードバックすることにより実測出力を制御することができているといえる．
+実測出力$\fmsr$の応答は，\figname\ref{fig4:SR_fmsr}より定常偏差が残っていることが確認されるが，偏差は5\,\%以内に収まっており，推定値をフィードバックすることにより実測出力を制御することができているといえる．
 また，I-PD制御器におけるオーバーシュートがPID制御器に比べて抑制されており，I-PD制御器を導入した意図を満たしている．
 
 \begin{figure}[tbp]
-    \begin{minipage}{0.45\hsize}
+    \begin{minipage}{\minipageratio\hsize}
         \centering
-        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDestforce_step.pdf}
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115_PIDandI-PDestforce_step.pdf}
         \subcaption{Estimated Force:$\fest$}
         \label{fig4:SR_fest}
     \end{minipage}
-    \begin{minipage}{0.45\hsize}
+    \begin{minipage}{\minipageratio\hsize}
         \centering
-        \includegraphics[keepaspectratio, width = \linewidth]{contents/ForceControl/figure/1115_PIDandI-PDforce_step.pdf}
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115_PIDandI-PDforce_step.pdf}
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:SR_fmsr}
     \end{minipage}
-    \caption{Step Repsonse of PID Controller and I-PD Controller}
+    \caption{Sin Responce of Estimated Force and Measured Force (PID Controller and I-PD Controller)}
     \label{fig4:SRofPIDandIPD}
 \end{figure}
 
@@ -69,9 +69,159 @@ $H_\infty$制御の適用により，モデル化誤差の吸収および外乱�
 力制御を行う際には環境との接触を伴うため，環境から振動など様々な外乱を受けることになる．
 その点においても，外乱抑制を行う制御の適用は意味あるものとなる．
 \subsection{対象システムの状態空間表現}
+$H_\infty$制御器を設計するにあたり，対象システムのモデルを状態空間で表現する必要がある．
+なお，$H_\infty$制御器の設計には\ref{sec:LD伝達関数モデル（力）}節で求めた最小自乗法による伝達関数モデル，$\GinTofmsr$を用いる．
+$\GinTofmsr$を状態空間表現に書き直すと，\eqnname\ref{eq:ss_in2fmsr}となる．
+導出の詳細は付録\ref{sec:tf2ss}に示す．
+\begin{align}
+    \label{eq:ss_in2fmsr}
+    \begin{split}
+        &\begin{cases}
+            \dot{x_\mathrm{p}}
+            &=A_\mathrm{p}x_\mathrm{p}
+            +B_\mathrm{p}
+            u_\mathrm{p} \\[10pt]
+            y_\mathrm{p} &=
+            C_\mathrm{p}x_\mathrm{p}
+        \end{cases}\\[10pt]
+        &x_\mathrm{p} = 
+        \begin{bmatrix}
+            x_1(t-0.006)\\
+            x_2(t)
+        \end{bmatrix}\\
+        &u_\mathrm{p} = u(t-0.016)\\
+        &A_\mathrm{p} = 
+        \begin{bmatrix}
+            -0.34 & 0\\
+            1 & 0
+        \end{bmatrix}\\
+        &B_\mathrm{p} = 		
+        \begin{bmatrix}
+            3.4\\
+            0
+        \end{bmatrix}\\
+        &C_\mathrm{p} = 
+        \begin{bmatrix}	
+            0 & 123
+        \end{bmatrix}
+    \end{split}
+\end{align}
 
-\subsection{$H_\infty$制御器}
+\clearpage
+\subsection{$H_\infty$制御器の設計}
+\label{sec:H無限大制御器の設計}
+$H_\infty$制御器の設計にあたってはむだ時間をそのまま扱うことはできないため，(ⅰ)むだ時間を無視した場合のコントローラ$K_{H_\infty}\mathrm{servo}$と(ⅱ)むだ時間を1次でPad\'e近似した場合のサーボ系コントローラ$K_{H_\infty\mathrm{servo}}^{\mathrm{Pad\acute{e}}}$，それぞれの設計を行う．
+制御器を設計するシステムは\figname\ref{fig4:konngoukanndo}で示す出力端混合感度問題であり\footnote{SISOシステムの場合入力端混合感度問題と出力端混合感度問題は同一であり，本研究で扱っている対象のシステムはSISOシステムである．}，破線で囲まれた部分を一般化プラントとして取扱う．
+\figname\ref{fig4:konngoukanndo}中の各パラメータは\eqnname\ref{eq:mixed_param}とし，コントローラを設計する．
+設計手法の詳細は付録\ref{sec:Hinfty_sekkei}に示す．
+\begin{align}
+    \label{eq:mixed_param}
+		W_T &= \frac{15(s+10)}{s+400}\\
+		W_S &= \frac{5}{s+0.1}\\
+		\varepsilon &= 0.001
+\end{align}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/konngoukanndo.pdf}
+        \caption{Mixed $H_\infty$ Synthesis}
+        \label{fig4:konngoukanndo}
+\end{figure}
+
 \subsection{サーボ系$H_\infty$制御器}
+\label{sec:サーボ系H無限大制御器}
+\ref{sec:H無限大制御器の設計}節で設計した$H_\infty$制御器をサーボ系に適用するため，コントローラに積分器を導入する．
+一般に使用される$1/s$の形の積分器はコントローラから見ると不可観測かつ不安定になる\cite{三平満司1997実用的な}．
+そこで，$(s+\alpha)/s$の形の積分器を，\figname\ref{fig4:konngoukanndo}を\figname\ref{fig4:servo_hinf}のように書き直して導入することで，サーボ系を構築することができる．
+$\alpha$の値は正の実数であれば任意である．
+$\alpha$の値を0から6まで2ずつ変化させて，ステップ応答を比較した結果を\figname\ref{fig4:crop-1115_JFPSHinf_step}および\figname\ref{fig4:crop-1115_JFPSHinfpade1_step}に示す．
+\figname\ref{fig4:crop-1115_JFPSHinf_step}がむだ時間を無視して設計したサーボ系コントローラ$K_{H_\infty\mathrm{servo}}$を用いたときの応答，\figname\ref{fig4:crop-1115_JFPSHinfpade1_step}がむだ時間をPad\'e近似して設計したサーボ系コントローラ$K_{H_\infty\mathrm{servo}}^{\mathrm{Pad\acute{e}}}$を用いたときの応答を示す．
+また，それぞれ，(a)が推定値の応答，(b)が実測出力の応答である．
+\figname\ref{fig4:crop-1115_JFPSHinf_estforce_step}および\figname\ref{fig4:crop-1115_JFPSHinf_estforcepade1_step}において目標値に定常偏差なく追従していることから，設計したコントローラはどちらもサーボ系を構成できていることが確認できる．
+$\alpha$が増大するごとに，収束時間が早く，オーバーシュートが大きくなっていることが確認でき，これらの兼ね合いから本研究では今後，$\alpha=4$としたサーボ系$H_\infty$制御器を用いる．
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/servo_hinf.png}
+        \caption{Servo $H_\infty$ Controller}
+        \label{fig4:servo_hinf}
+\end{figure}
 
-\section{外乱に対する頑健性}
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_JFPSHinf_estforce_step.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_JFPSHinf_estforce_step}
+    \end{minipage}
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_JFPSHinf_force_step.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_JFPSHinf_force_step}
+    \end{minipage}
+    \caption{Step Responce of Estimated Force and Measured Force ($H_\infty$ servo controller w/o dead time)}   
+    \label{fig4:crop-1115_JFPSHinf_step}
+\end{figure}
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_JFPSHinf_estforcepade1_step.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_JFPSHinf_estforcepade1_step}
+    \end{minipage}
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_JFPSHinf_forcepade1_step.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_JFPSHinf_forcepade1_step}
+    \end{minipage}
+    \caption{Step Responce of Estimated Force and Measured Force ($H_\infty$ servo controller w/ Pad\'e approximation of dead time)}
+    \label{fig4:crop-1115_JFPSHinfpade1_step}
+\end{figure}
 
+\clearpage
+
+\section{I-PD制御と$H_\infty$制御の応答および外乱抑制効果の比較}
+I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサーボ系$H_\infty$制御器の応答，及び外乱が応答へ与える影響の比較を行う．
+目標値として，ステップ目標および正弦波目標$f_\mathrm{target} = \sin(t)$を与える．
+ステップ目標を与えたときの応答を\figname\ref{fig4:crop-1115_diff_step}に，正弦波目標を与えたときの応答を\figname\ref{fig4:crop-1115_diff_sin}に示す．
+\figname\ref{fig4:crop-1115_diff_step}より，I-PD制御が最もオーバーシュートが少なく，整定時間も早いことが確認できる．
+また，正弦波目標に対してはどの制御器を用いても目標値に追従しているが，実測出力$\fmsr$は正弦波目標に対して遅れていることが確認できる．
+%%===========
+%%FIGURE
+%%===========
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diff_estforce_step.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_diff_estforce_step}
+    \end{minipage} 
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diff_force_step.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_diff_force_step}
+    \end{minipage}
+    \caption{Step Responce of Estimated Force and Measured Force}
+    \label{fig4:crop-1115_diff_step}
+\end{figure}
+%%FIGURE
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diff_estforce_sin.pdf}
+        \subcaption{Estimated Force:$\fest$}
+        \label{fig4:crop-1115_diff_estforce_sin}
+    \end{minipage}
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, width = \minifigwidth]{contents/ForceControl/figure/1115/crop-1115_diff_force_sin.pdf}
+        \subcaption{Measured Force:$\fmsr$}
+        \label{fig4:crop-1115_diff_force_sin}
+    \end{minipage}
+    \caption{Sin Responce of Estimated Force and Measured Force}
+    \label{fig4:crop-1115_diff_sin}
+\end{figure}
+%%===========
+
+次に，外乱を加えたときの応答について比較を行う．

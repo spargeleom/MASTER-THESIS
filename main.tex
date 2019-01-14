@@ -45,19 +45,25 @@
 \newcommand{\eqnname}{式~}
 \renewcommand{\figurename}{Fig.~}
 \renewcommand{\tablename}{Table~}
-\def\fmsr{f_\mathrm{measure}}
-\def\fthr{f_\mathrm{thrust}}
-\def\fest{f_\mathrm{estimate}}
-\def\phs{p_\mathrm{hs}}
-\def\prs{p_\mathrm{rs}}
-\def\Ah{A_\mathrm{h}}
-\def\Ar{A_\mathrm{r}}
+
+%%数式関係のマクロ
+\def\fmsr{f_\mathrm{measure}}%%実測出力
+\def\fthr{f_\mathrm{thrust}}%%推力
+\def\fest{f_\mathrm{estimate}}%%推定値
+\def\phs{p_\mathrm{hs}}%%シリンダのヘッド側圧力
+\def\prs{p_\mathrm{rs}}%%シリンダのロッド側圧力
+\def\Ah{A_\mathrm{h}}%%ヘッド側面積
+\def\Ar{A_\mathrm{r}}%%ロッド側面積
 \def\GinTofmsr{G_{\mathrm{input}2\fmsr}}
 \def\GinTofthr{G_{\mathrm{input}2\fthr}}
 \def\GfthrTofmsr{G_{\fthr2\fmsr}}
 \def\GinTopos{G_{\mathrm{input}2\mathrm{position}}}
 \def\GTDforce{G_{\mathrm{input}2\fmsr}^{\mathrm{TD}}}
 \def\GTDpos{G_{\mathrm{input}2\mathrm{position}}^{\mathrm{TD}}}
+
+%%minipage関係のマクロ
+\def\minipageratio{1}
+\def\minifigwidth{104mm}%%"width=\minifigwidth",の部分で図の大きさしてい．グラフなら横幅10.4cm
 
 %%%%%%%% Document
 \begin{document}
