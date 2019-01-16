@@ -62,9 +62,9 @@
 \def\GTDpos{G_{\mathrm{input}2\mathrm{position}}^{\mathrm{TD}}}
 
 %%minipage関係のマクロ
-\def\minipageratio{1}
+\def\minipageratio{0.48}
 \def\minifigwidth{104mm}%%"width=\minifigwidth",の部分で図の大きさしてい．グラフなら横幅10.4cm
-
+\def\minifigscale{0.65}%%横並びの時は0.65
 %%%%%%%% Document
 \begin{document}
 
@@ -76,10 +76,11 @@
 
 %本文
 \mainmatter
-\input{contents/緒言/緒言.tex}
-\input{contents/FundamentalEquation/FundamentalEquation.tex}
-\input{contents/SystemIdentification/SystemIdentification.tex}
-\input{contents/ForceControl/ForceControl.tex}
+%\input{contents/緒言/緒言.tex}
+%\input{contents/FundamentalEquation/FundamentalEquation.tex}
+%\input{contents/SystemIdentification/SystemIdentification.tex}
+%\input{contents/ForceControl/ForceControl.tex}
+\input{contents/IntegrationControl/IntegrationControl.tex}
 % \input{contents/切り替え制御/切り替え制御.tex}
 % \input{contents/結言/結言.tex}
 % \input{./contents/1_introduction/1_introduction.tex} %第1章
@@ -93,6 +94,8 @@
 %
 %付録
 \appendix
+%\input{contents/Appendix_DiffPressure/Appendix_DiffPressure.tex}
+%\input{contents/Appendix_Hinfty/Appendix_Hinfty.tex}
 % \input{./contents/A_eom/A_eom.tex} %付録A
 
 %
