@@ -50,6 +50,8 @@
 \def\fmsr{f_\mathrm{measure}}%%実測出力
 \def\fthr{f_\mathrm{thrust}}%%推力
 \def\fest{f_\mathrm{estimate}}%%推定値
+\def\fout{f_\mathrm{output}}%%実出力
+
 \def\phs{p_\mathrm{hs}}%%シリンダのヘッド側圧力
 \def\prs{p_\mathrm{rs}}%%シリンダのロッド側圧力
 \def\Ah{A_\mathrm{h}}%%ヘッド側面積
@@ -62,9 +64,9 @@
 \def\GTDpos{G_{\mathrm{input}2\mathrm{position}}^{\mathrm{TD}}}
 
 %%minipage関係のマクロ
-\def\minipageratio{0.48}
+\def\minipageratio{0.46}
 \def\minifigwidth{104mm}%%"width=\minifigwidth",の部分で図の大きさしてい．グラフなら横幅10.4cm
-\def\minifigscale{0.65}%%横並びの時は0.65
+\def\minifigscale{0.62}%%横並びの時は0.62
 %%%%%%%% Document
 \begin{document}
 
@@ -75,12 +77,12 @@
 \input{./contents/0_frontpart/0_frontpart.tex} %タイトル・概要・目次など
 
 %本文
-\mainmatter
-% \input{contents/緒言/緒言.tex}
-\input{contents/FundamentalEquation/FundamentalEquation.tex}
-\input{contents/SystemIdentification/SystemIdentification.tex}
-\input{contents/ForceControl/ForceControl.tex}
-\input{contents/IntegrationControl/IntegrationControl.tex}
+% \mainmatter
+%  \input{contents/緒言/緒言.tex}
+%  \input{contents/FundamentalEquation/FundamentalEquation.tex}
+%  \input{contents/SystemIdentification/SystemIdentification.tex}
+%  \input{contents/ForceControl/ForceControl.tex}
+% \input{contents/IntegrationControl/IntegrationControl.tex}
 % \input{contents/結言/結言.tex}
 % \input{./contents/1_introduction/1_introduction.tex} %第1章
 % \input{./contents/2_how_to_write/2_how_to_write.tex} %第2章
@@ -94,7 +96,7 @@
 %付録
 \appendix
 %\input{contents/Appendix_DiffPressure/Appendix_DiffPressure.tex}
-%\input{contents/Appendix_Hinfty/Appendix_Hinfty.tex}
+\input{contents/Appendix_Hinfty/Appendix_Hinfty.tex}
 % \input{./contents/A_eom/A_eom.tex} %付録A
 
 %

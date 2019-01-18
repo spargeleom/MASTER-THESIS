@@ -1,33 +1,4 @@
-\contentsline {chapter}{\numberline {第1章}基礎方程式}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}サーボバルブ}{1}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}サーボバルブの各部名称とパラメータ}{1}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}サーボバルブを通過する流量}{1}{subsection.1.1.2}
-\contentsline {subsection}{\numberline {1.1.3}サーボバルブの動特性}{3}{subsection.1.1.3}
-\contentsline {section}{\numberline {1.2}油圧シリンダー}{4}{section.1.2}
-\contentsline {section}{\numberline {1.3}運動方程式と摩擦のモデル}{5}{section.1.3}
-\contentsline {section}{\numberline {1.4}モデルの線形化とラプラス変換}{5}{section.1.4}
-\contentsline {chapter}{\numberline {第2章}システムの線形性とその同定}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}実験機とその構成}{7}{section.2.1}
-\contentsline {section}{\numberline {2.2}先端で発生する力までの線形性とモデルの同定}{10}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}線形性調査}{10}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}周波数応答と最小自乗法による伝達関数モデルの同定}{12}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}位置までの同定}{14}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}線形性調査}{14}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}周波数応答と最小自乗法によるモデル同定}{14}{subsection.2.3.2}
-\contentsline {section}{\numberline {2.4}M系列による同定}{16}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}M系列の性質}{16}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}システム同定（入力から力）}{17}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}システム同定（入力から位置）}{20}{subsection.2.4.3}
-\contentsline {chapter}{\numberline {第3章}力制御}{23}{chapter.3}
-\contentsline {section}{\numberline {3.1}力推定アルゴリズム}{23}{section.3.1}
-\contentsline {section}{\numberline {3.2}PID制御とI-PD制御}{23}{section.3.2}
-\contentsline {section}{\numberline {3.3}$H_\infty $制御}{24}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}対象システムの状態空間表現}{24}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}$H_\infty $制御器の設計}{26}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}サーボ系$H_\infty $制御器}{26}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}I-PD制御と$H_\infty $制御の応答および外乱抑制効果の比較}{29}{section.3.4}
-\contentsline {chapter}{\numberline {第4章}力制御と位置制御の統合}{32}{chapter.4}
-\contentsline {section}{\numberline {4.1}並列型制御手法}{33}{section.4.1}
-\contentsline {section}{\numberline {4.2}直列型制御手法}{33}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}トルク補償による直列型制御}{33}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}コンプライアンス制御}{33}{subsection.4.2.2}
+\contentsline {chapter}{参考文献}{v}{chapter*.6}
+\contentsline {chapter}{$H_\infty $制御器設計の詳細}{vii}{appendix*.7}
+\contentsline {section}{\numberline {.1}伝達関数から状態空間への変換}{vii}{section.Alph0.1}
+\contentsline {section}{\numberline {.2}$H_\infty $制御器設計過程}{vii}{section.Alph0.2}

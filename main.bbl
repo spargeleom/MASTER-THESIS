@@ -1,0 +1,152 @@
+\begin{thebibliography}{10}
+
+\bibitem{jelali2012hydraulic}
+Mohieddine Jelali and Andreas Kroll.
+\newblock {\em Hydraulic servo-systems: modelling, identification and control}.
+\newblock Springer Science \& Business Media, 2012.
+
+\bibitem{前島祐三2011}
+前島祐三, 酒井悟, 中西稔, 大須賀公一.
+\newblock 油圧アームの基底パラメータ同定法とモデル検証.
+\newblock 日本フルードパワーシステム学会論文集, Vol.~43, No.~1, pp. 16--21,
+  2011.
+
+\bibitem{前島祐三2014}
+前島祐三, 酒井悟.
+\newblock 鉛直多関節油圧マニピュレータのパラメータ同定法とモデル検証.
+\newblock 計測自動制御学会論文集, Vol.~50, No.~1, pp. 91--100, 2014.
+
+\bibitem{ling2012system}
+TG~Ling, MF~Rahmat, and AR~Husain.
+\newblock System identification and control of an electro-hydraulic actuator
+  system.
+\newblock In {\em Signal Processing and its Applications (CSPA), 2012 IEEE 8th
+  International Colloquium on}, pp. 85--88. IEEE, 2012.
+
+\bibitem{zheng2009application}
+Jian-ming Zheng, Sheng-dun Zhao, and Shu-guo Wei.
+\newblock Application of self-tuning fuzzy pid controller for a srm direct
+  drive volume control hydraulic press.
+\newblock {\em Control engineering practice}, Vol.~17, No.~12, pp. 1398--1404,
+  2009.
+
+\bibitem{松本貴夢20166}
+松本貴夢, 大須賀公一, 石川将人, 吉灘裕, 小谷貴幸, 松尾公彦.
+\newblock 6 軸油圧マニピュレータのシステム同定.
+\newblock フルードパワーシステム講演会講演論文集, pp. 84--86, 2016.
+
+\bibitem{松本貴夢2016}
+松本貴夢, 杉本克文, 瀬戸山靖広, 石川将人, 吉灘裕, 大須賀公一, 酒井悟, 小谷貴幸,
+  松尾公彦.
+\newblock 6 軸油圧マニピュレータのモデリングと制御.
+\newblock  ロボティクス・メカトロニクス講演会講演概要集 2016, pp. 1A1--09b7.
+  一般社団法人 日本機械学会, 2016.
+
+\bibitem{足立200909}
+足立修一.
+\newblock システム同定の基礎.
+\newblock 東京電機大学出版局, 9 2009.
+
+\bibitem{柏木濶1998m}
+柏木濶, 劉旻, 原田博之, 山口晃生.
+\newblock {M} 変換の性質と同定への応用.
+\newblock 計測自動制御学会論文集, Vol.~34, No.~12, pp. 1785--1790, 1998.
+
+\bibitem{吉谷清澄1971pn}
+吉谷清澄.
+\newblock {PN} 系列 特に {M} 系列について.
+\newblock 電波研究所季報, Vol.~17, No.~90, pp. 249--263, 1971.
+
+\bibitem{近藤勝也2004m}
+近藤勝也.
+\newblock {M} 系列を用いた線形システムの周波数特性測定に関する調査.
+\newblock 研究紀要, No.~40, pp. 59--64, 2004.
+
+\bibitem{柏木濶1981m}
+柏木濶.
+\newblock {M} 系列再発見.
+\newblock 計測と制御, Vol.~20, No.~2, pp. 236--245, 1981.
+
+\bibitem{竹下侑2014積分器を有するシステムの同定について}
+竹下侑, 川口貴弘, 足立修一.
+\newblock 積分器を有するシステムの同定について.
+\newblock 計測自動制御学会論文集, Vol.~50, No.~4, pp. 342--347, 2014.
+
+\bibitem{semini2010design}
+Claudio Semini, Nikos~G Tsagarakis, Emanuele Guglielmino, and Darwin~G
+  Caldwell.
+\newblock Design and experimental evaluation of the hydraulically actuated
+  prototype leg of the hyq robot.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2010 IEEE/RSJ
+  International Conference on}, pp. 3640--3645. IEEE, 2010.
+
+\bibitem{semini2010hyq}
+Claudio Semini.
+\newblock Hyq-design and development of a hydraulically actuated quadruped
+  robot.
+\newblock {\em Doctor of Philosophy (Ph. D.), University of Genoa, Italy},
+  2010.
+
+\bibitem{川端健太郎20141a1}
+川端健太郎, 西拓紀, 鳥居裕貴, 北浦誠人, 兼松宏多, 玄相昊.
+\newblock 1a1-i02 油圧式 4 脚歩行ロボット {RL-A1} の開発
+  (力制御型液圧駆動ロボット (1)).
+\newblock  ロボティクス・メカトロニクス講演会講演概要集 2014, pp. 1A1--I02\_1.
+  一般社団法人 日本機械学会, 2014.
+
+\bibitem{岡田大貴2017多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック}
+岡田大貴, 横小路泰義, 田崎勇一, 吉灘裕, 中村晋也, 倉鋪圭太.
+\newblock
+  多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック.
+\newblock  ロボティクス・メカトロニクス講演会講演概要集 2017, pp. 2A1--P06.
+  一般社団法人 日本機械学会, 2017.
+
+\bibitem{三平満司1997実用的な}
+三平満司.
+\newblock 実用的な {H}\_∞ 制御の基礎.
+\newblock 日本油空圧学会誌, Vol.~28, pp. 4--395, 1997.
+
+\bibitem{平田201703}
+平田光男.
+\newblock 実践ロバスト制御 (システム制御工学シリーズ).
+\newblock コロナ社, 3 2017.
+
+\bibitem{松野_大須賀_松原_野田_稲見201712}
+松野文俊, 大須賀公一, 松原仁, 野田五十樹, 稲見昌彦（編）.
+\newblock ロボット制御学ハンドブック.
+\newblock 近代科学社, 12 2017.
+
+\bibitem{吉川198811}
+吉川恒夫.
+\newblock ロボット制御基礎論 (コンピュータ制御機械システムシリーズ).
+\newblock コロナ社, 11 1988.
+
+\bibitem{谷江和雄1989コンプライアンス制御と柔軟接触問題}
+谷江和雄, 福田敏男.
+\newblock コンプライアンス制御と柔軟接触問題.
+\newblock 精密工学会誌, Vol.~55, No.~7, pp. 1189--1193, 1989.
+
+\bibitem{石川将人2007}
+石川将人, 丸田一郎, 杉江俊治.
+\newblock フィードバック変調器を用いた離散値入力制御系の設計.
+\newblock 計測自動制御学会論文集, Vol.~43, No.~1, pp. 31--36, 2007.
+
+\bibitem{石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償}
+石川将人, 丸田一郎, 杉江俊治.
+\newblock
+  フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償.
+\newblock 計測自動制御学会論文集, Vol.~44, No.~3, pp. 288--290, 2008.
+
+\bibitem{佐藤順紀2013不等間隔量子化入力とアクチュエータの非線形要素モデルを用いたフィードバック変調器による油圧駆動システムの軌道制御}
+佐藤順紀, 菅野貴皓, 深尾隆則, 高田亮平, 横小路泰義.
+\newblock
+  不等間隔量子化入力とアクチュエータの非線形要素モデルを用いたフィードバック変調器による油圧駆動システムの軌道制御.
+\newblock 日本ロボット学会誌, Vol.~31, No.~7, pp. 669--675, 2013.
+
+\bibitem{Ohgi_2008jrm}
+Takeyuki Ohgi and Yasuyoshi Yokokohji.
+\newblock Control of hydraulic actuator systems using feedback modulator.
+\newblock {\em Journal of Robotics and Mechatronics}, Vol.~20, No.~5, pp.
+  695--708, 2008.
+
+\end{thebibliography}
