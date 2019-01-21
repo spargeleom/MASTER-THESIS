@@ -1,4 +1,5 @@
 \chapter{システムの線形性とその同定}
+\label{sec:SystemIdentification}
 対象とするシステムのモデルを作成することで，直接力を測定することなく他のセンサの値から力を推定することが可能である．
 前章で導出した物理モデルにおいて未知パラメータを同定すればモデルの構築は可能である．
 しかし，バルクや粘性項などのパラメータは温度や圧力などに依存しており，これらのパラメータを正確にしること，そしてすべてのパラメータを同定してモデルを組み上げることは現実的には難しい．
@@ -16,15 +17,23 @@
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/3-4ExperimentSystem.png}
-        \caption{caption}
+        \caption{Experiment System}
         \label{fig:ExperimentSystem}
 \end{figure}
+
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/3-4ExperimentSystem.png}
+        \caption{Connection Diagram of Hydraulic System }
+        \label{fig:ConnectionDiagram}
+\end{figure}
+
 
 コントローラ側はPC及びAD/DA変換器やカウンタで構成されており，実験装置に取り付けてあるセンサからの値の取得及びサーボバルブへの入力を行うことができる．
 センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
 また，取得したセンサ値に対しローパスフィルタとして$1/(0.005s+1)$を作用させている．
 本装置に用いている各部品の諸元をTable~\ref{tab:configuration-parameter}にまとめる．
-また，システムの伝達経路の全体像は\figname\ref{fig:}のようになる．
+また，システムの伝達経路の全体像は\figname\ref{fig:ConnectionDiagram}のようになる．
 \begin{landscape}
 \begin{table}[t]
     \caption{Experiment System Configuration}
@@ -34,12 +43,12 @@
         \hline
         Name & Maker & Model Number & Property\\ \hline \hline
         Servo Valve & nachi & J869-1000A & --- \\
-        Hydraulic Cylinder & SMC & CHN-25-250 &     \begin{tabular}{l}internel diameter: \SI{25}{mm} \\ rod diameter: \SI{12}{mm}\end{tabular}\\
+        Hydraulic Cylinder & SMC & CHN-25-250 &     \begin{tabular}{l}internal diameter: \SI{25}{mm} \\ rod diameter: \SI{12}{mm}\end{tabular}\\
         Gear Pump & --- & --- &rated power\SI{7}{Mpa},\SI{2}{l/min} \\
         Oil&\begin{tabular}{l}JXTG Nippon Oil \& \\Energy Corporation\end{tabular}&Super Hyrando 32&--- \\\hline
         Load Cell & KYOWA & LUK-A-10kN & ---\\
         Pressure Sensor & KEYENCE & GP-M250? & --- \\
-        Encoder & Micro Tech Labolatory & & --- \\ \hline
+        Encoder & Micro Tech Laboratory & & --- \\ \hline
     PC & mouse computer & --- & \begin{tabular}{l}cpu:i7-7900K \\ gpu:\\OS:windows 10 education\end{tabular} \\
     \begin{tabular}{l}AD/DA Converter \\ Counter\end{tabular}
     & Speedgoat & Speedgoat & --- \\ 
@@ -51,7 +60,7 @@
 
 \section{先端で発生する力までの線形性とモデルの同定}
 \label{sec:力までの同定}
-バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
+バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:ConnectionDiagram}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
 $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
 推力$\fthr$は\eqnname\ref{eq:fthr}により算出される．
 \begin{align}
@@ -249,13 +258,13 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_inputToFmea_10-70.pdf}
-        \caption{Input and Ooutput Data for System Identification}
+        \caption{Input and Output Data for System Identification}
         \label{fig:1018Mseq_inputToFmea_10-70}
 \end{figure}
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018Mseq_inputToFmea_72-100.pdf}
-        \caption{Input and Ooutput Data for Cross Validation}
+        \caption{Input and Output Data for Cross Validation}
         \label{fig:1018Mseq_inputToFmea_72-100}
 \end{figure}
 \begin{figure}[t]

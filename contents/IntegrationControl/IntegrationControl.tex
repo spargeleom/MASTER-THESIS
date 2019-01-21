@@ -1,4 +1,5 @@
 \chapter{力制御と位置制御の統合}
+\label{sec:IntegrationControl}
 本章では，力制御と位置制御を統合させて油圧シリンダの制御を行う．
 制御で実現させる動作の例を\figname\ref{fig5:forceandpositionIMAGE}に示す．
 \figname\ref{fig5:forceandpositionIMAGE}は位置目標として正弦波目標を与えており，対象物（固定板）に触れていない時は位置目標に従い，対象物に触れたら力制御を行う例を示している．
@@ -35,7 +36,7 @@
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/IntegrationControl/figure/pararell_torqueandposition.pdf}
-        \caption{Force and Position Controller (Pararell)}
+        \caption{Force and Position Controller (Parallel)}
         \label{fig5:pararell_torqueandposition}
 \end{figure}
 
@@ -66,7 +67,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_PID_pos}
     \end{minipage}
-    \caption{Pararell Control (Position Controller:PD, Force Controller:PID)}   
+    \caption{Parallel Control (Position Controller:PD, Force Controller:PID)}   
     \label{fig5:crop-FBsw_PID}
 \end{figure}
 
@@ -84,7 +85,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_IPD_pos}
     \end{minipage}
-    \caption{Pararell Control (Position Controller:PD, Force Controller:I-PD)}
+    \caption{Parallel Control (Position Controller:PD, Force Controller:I-PD)}
     \label{fig5:crop-FBsw_IPD}
 \end{figure}
 
@@ -102,7 +103,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_JFPS4_pos}
     \end{minipage}
-    \caption{Pararell Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}   
+    \caption{Parallel Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}   
     \label{fig5:crop-FBsw_JFPS4}
 \end{figure}
 % \begin{figure}[t]
@@ -131,7 +132,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale = 1.0]{contents/IntegrationControl/figure/casquade_torqueandposition.pdf}
-        \caption{Force and Position Controller (Casquade)}
+        \caption{Force and Position Controller (Cascade)}
         \label{fig5:casquade_torqueandposition}
 \end{figure}
 
@@ -154,7 +155,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_PID_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD, Force Controller:PID)}  
+    \caption{Cascade Control (Position Controller:PD, Force Controller:PID)}  
     \label{fig5:crop-FBcsqtch_PID_Notrq_posPIDadjust}
 \end{figure}
 
@@ -171,7 +172,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_IPD_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD, Force Controller:I-PD)}  
+    \caption{Cascade Control (Position Controller:PD, Force Controller:I-PD)}  
     \label{fig5:crop-FBcsqtch_IPD_Notrq_posPIDadjust}
 \end{figure}
 
@@ -188,7 +189,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_JFPS4_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
+    \caption{Cascade Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
     \label{fig5:crop-FBcsqtch_JFPS4_Notrq_posPIDadjust}
 \end{figure}
 
@@ -222,7 +223,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_PID_trq_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD with Torque Compemsate, Force Controller:PID)}  
+    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:PID)}  
     \label{fig5:crop-FBcsqtch_PID_trq}
 \end{figure}
 
@@ -239,7 +240,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_IPD_trq_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD with Torque Compemsate, Force Controller:I-PD)}  
+    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:I-PD)}  
     \label{fig5:crop-FBcsqtch_IPD_trq}
 \end{figure}
 
@@ -256,7 +257,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_JFPS4_trq_pos}
     \end{minipage}
-    \caption{Casquade Control (Position Controller:PD with Torque Compemsate, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
+    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
     \label{fig5:crop-FBcsqtch_JFPS4_trq}
 \end{figure}
 
@@ -291,13 +292,13 @@ $k$を仮想バネ定数といい，$k$を変えることにより関節の剛�
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/IntegrationControl/figure/compra/compra_k50-crop.pdf}
-        \caption{Compraiance Controll (Virtual Stiffness $k=50$)}
+        \caption{Compliance Control (Virtual Stiffness $k=50$)}
         \label{fig:compra_k50-crop}
 \end{figure}
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/IntegrationControl/figure/compra/compra_k100-crop.pdf}
-        \caption{Compraiance Controll (Virtual Stiffness $k=100$)}
+        \caption{Compliance Control (Virtual Stiffness $k=100$)}
         \label{fig:compra_k100-crop}
 \end{figure}
 
@@ -307,7 +308,7 @@ FBMの詳細については付録\ref{sec:FBM}に譲るが，FBMとはフィー�
 本研究ではFBMを\figname\ref{fig:casquade_torqueandposition_FBM}に示すように位置制御器と力制御器の間に挿入する．
 力制御器の目標値をFBMで整形することにより，摩擦力を陽に考慮して空間量子化幅を設計することが可能である．
 FBMのサンプリング時間\SI{0.02}{s}，空間量子化幅0.5とした．
-また，量子化誤差$\eta$からFBMの出力$u_\mathrm{Q}$までの信号伝達関数$N(s)$を
+また，量子化誤差$\eta$からFBMの出力$u_\mathrm{Q}$までの雑音伝達関数$N(s)$を
 \begin{align}
     \label{eq:Ns}
     N(s) = \left( \frac{0.022s}{0.022s+1} \right)^2
@@ -318,7 +319,7 @@ FBMを導入したときの位置の応答を\figname\ref{fig:compra_k50-crop}�
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/IntegrationControl/figure/casquade_torqueandposition_FBM.pdf}
-        \caption{Casquade Controller with FBM}
+        \caption{Cascade Controller with FBM}
         \label{fig:casquade_torqueandposition_FBM}
 \end{figure}
 

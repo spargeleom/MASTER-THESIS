@@ -18,6 +18,7 @@
 \usepackage{siunitx}
 \usepackage{lscape}
 \usepackage[subrefformat=parens]{subcaption}
+\usepackage{url}
 
 %%TikZ関係
 \usepackage{tikz}
@@ -45,6 +46,8 @@
 \newcommand{\eqnname}{式~}
 \renewcommand{\figurename}{Fig.~}
 \renewcommand{\tablename}{Table~}
+\renewcommand{\bibname}{参考文献\normalsize{（2019年2月1日時点）}}
+
 
 %%数式関係のマクロ
 \def\fmsr{f_\mathrm{measure}}%%実測出力
@@ -84,10 +87,7 @@
 \input{contents/ForceControl/ForceControl.tex}
 \input{contents/IntegrationControl/IntegrationControl.tex}
 \input{contents/結言/結言.tex}
-% \input{./contents/1_introduction/1_introduction.tex} %第1章
-% \input{./contents/2_how_to_write/2_how_to_write.tex} %第2章
-% \input{./contents/3_latex_knowhow/3_latex_knowhow.tex} %第3章
-% \input{./contents/4_end/4_end.tex} %第4章
+
 %\nocite{*}%%参考文献を参照してないときはこれを入力
 
 \bibliography{contents/reference/hydroref}
@@ -97,6 +97,8 @@
 \appendix
 \input{contents/Appendix_DiffPressure/Appendix_DiffPressure.tex}
 \input{contents/Appendix_Hinfty/Appendix_Hinfty.tex}
+\input{contents/Appendix_FBM/Appendix_FBM.tex}
+
 % \input{./contents/A_eom/A_eom.tex} %付録A
 
 %
