@@ -1,25 +1,49 @@
 \chapter{システムの線形性とその同定}
 \label{sec:SystemIdentification}
-対象とするシステムのモデルを作成することで，直接力を測定することなく他のセンサの値から力を推定することが可能である．
-前章で導出した物理モデルにおいて未知パラメータを同定すればモデルの構築は可能である．
-しかし，バルクや粘性項などのパラメータは温度や圧力などに依存しており，これらのパラメータを正確にしること，そしてすべてのパラメータを同定してモデルを組み上げることは現実的には難しい．
+対象とするシステムの正確なモデルが得られる場合には，シリンダにかかる力を直接測定することなく他のセンサの値から推定することができる．
+前章で導出した物理モデルに基ずけばモデルの構築は可能であるが，バルクや粘性項などのパラメータは温度や圧力などに依存しており，これらの未知のパラメータを正確に同定してモデル化することは現実的に難しい．
 
-そこで本章ではシステム同定を用いて油圧システムのモデルの構築を行う．
-システム同定にあたっては入出力関係を見て同定を行うため，未知パラメータを一つ一つ同定することなくモデルの作成を行うことが可能である．
-そこで，バルブへの電圧入力からシリンダ先端の位置及び先端で発生する力までのモデルを，システム同定を用いて導出する．
-力の同定ではシリンダ先端を固定した状態で同定をする．
-位置の同定にあたっては無負荷状態で行う．
+そこで本章ではシステム同定を用いて油圧システムのモデル構築を行う．
+システム同定では着目するシステムの入出力関係を用いるため，未知パラメータのひとつひとつを場当たり的に同定する必要がないという利点がある．
+そこで，本研究では，バルブへの電圧入力からシリンダ先端の位置及び先端で発生する力までのモデルをシステム同定を用いて導出する．
+力の同定ではシリンダ先端を固定した状態で同定を行い，位置の同定は先端を固定しない無負荷状態で行う．
 %同定にあたってはシステムの周波数応答を調べて特徴を把握したのちに最小自乗法によるモデルの同定，およびM系列を用いた同定を行いそれぞれを比較する．
 \section{実験機とその構成}
 本研究で使用する油圧システムの実験装置を\figname\ref{fig:ExperimentSystem}に示す．
-本装置は片ロッドの油圧シリンダ，ギヤポンプ，サーボバルブなどにより構成されており，シリンダにはワイヤー式エンコーダとロードセルが取り付けてある．
+本装置は片ロッドの油圧シリンダ，ギヤポンプ，サーボバルブなどにより構成されており，シリンダにはロッドの位置を測定するワイヤー式エンコーダおよび，対象物に押し付ける力を測定するロードセルが取り付けてある．
 また，圧力センサをサーボバルブのAポートおよびBポート，そしてシリンダのヘッド側とロッド側の入り口の計4箇所に取り付けてある．
+シリンダの先端は\figname\ref{fig:stateofsystem}に示すように，力の同定を行うときには固定板へ固定し\figname\ref{fig:State_fixed}，位置の同定時には自由に動く状態\figname\ref{fig:State_free}にしている．
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/3-4ExperimentSystem.png}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/ExperimentSystem.png}
         \caption{Experiment System}
         \label{fig:ExperimentSystem}
 \end{figure}
+
+\begin{figure}[t]
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, scale = 1]{contents/SystemIdentification/figure/State_fixed.png}
+        \subcaption{Fixed}
+        \label{fig:State_fixed}
+    \end{minipage}
+    \begin{minipage}{\minipageratio\hsize}
+    \centering
+        \includegraphics[keepaspectratio, scale = 1]{contents/SystemIdentification/figure/State_free.png}
+        \subcaption{Position}
+        \label{fig:State_free}
+    \end{minipage}
+    \caption{State of the Cylinder Tip}   
+    \label{fig:stateofsystem}
+\end{figure}
+
+
+
+コントローラ側はPC及びAD/DA変換器やカウンタで構成されており，実験装置に取り付けてあるセンサからの値の取得及びサーボバルブへの入力を行うことができる．
+センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
+また，取得したセンサ値に対しローパスフィルタとして$1/(0.005s+1)$を作用させている．
+システムの伝達経路の全体像は\figname\ref{fig:ConnectionDiagram}のようになる．
+また，本装置に用いている各部品の諸元をTable~\ref{tab:configuration-parameter}にまとめる．
 
 \begin{figure}[t]
     \centering
@@ -28,12 +52,6 @@
         \label{fig:ConnectionDiagram}
 \end{figure}
 
-
-コントローラ側はPC及びAD/DA変換器やカウンタで構成されており，実験装置に取り付けてあるセンサからの値の取得及びサーボバルブへの入力を行うことができる．
-センサ値の処理やサーボバルブへの入力をするための制御アルゴリズムはPC上でMATLAB/Simulinkを用いて組んでいる．
-また，取得したセンサ値に対しローパスフィルタとして$1/(0.005s+1)$を作用させている．
-本装置に用いている各部品の諸元をTable~\ref{tab:configuration-parameter}にまとめる．
-また，システムの伝達経路の全体像は\figname\ref{fig:ConnectionDiagram}のようになる．
 \begin{landscape}
 \begin{table}[t]
     \caption{Experiment System Configuration}
@@ -47,7 +65,7 @@
         Gear Pump & --- & --- &rated power\SI{7}{Mpa},\SI{2}{l/min} \\
         Oil&\begin{tabular}{l}JXTG Nippon Oil \& \\Energy Corporation\end{tabular}&Super Hyrando 32&--- \\\hline
         Load Cell & KYOWA & LUK-A-10kN & ---\\
-        Pressure Sensor & KEYENCE & GP-M250? & --- \\
+        Pressure Sensor & KEYENCE & GP-M250 & --- \\
         Encoder & Micro Tech Laboratory & & --- \\ \hline
     PC & mouse computer & --- & \begin{tabular}{l}cpu:i7-7900K \\ gpu:\\OS:windows 10 education\end{tabular} \\
     \begin{tabular}{l}AD/DA Converter \\ Counter\end{tabular}
@@ -60,8 +78,9 @@
 
 \section{先端で発生する力までの線形性とモデルの同定}
 \label{sec:力までの同定}
-バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:ConnectionDiagram}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
-$\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
+バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:ConnectionDiagram}に示した伝達経路を入力と内部でやりとりされる力に着目し，\figname\ref{fig:system_dentatsu}のように書き直す．
+$\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力\footnote{本論文においては，摩擦などを考慮せず圧力と受圧面積のみから算出される力を「推力」とよんでいる．文献により呼び方は様々であるため，注意が必要である．}，$f_\mathrm{output}$は実際に先端で発生する力である．
+\figname\ref{fig:ConnectionDiagram}は，バルブへの入力によりシリンダを動かそうとする推力$\fthr$が生まれ，$\fthr$が摩擦などの影響を受けて最終的に出力$f_\mathrm{output}$となって出てくるということを表す．
 推力$\fthr$は\eqnname\eqref{eq:fthr}により算出される．
 \begin{align}
     \label{eq:fthr}
@@ -81,14 +100,14 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 バルブへの入力に対するシステムの物理量の応答の線形性について調べ，システムの特性の把握を行う．
 対象とする物理量は，実測出力$\fmsr$およびシリンダに取り付けてあるヘッド側圧力$\phs$，ロッド側圧力$\prs$である．
 
-バルブへ正弦波入力を与えた際の応答をフーリエ変換し，そのピークが入力した正弦波の角速度と一致し，かつその他の角速度でピークが立たない場合に線形応答とみなすことができる．
+バルブへ正弦波入力を与えた際の応答をフーリエ変換したとき，そのピークが入力した正弦波の角速度と一致し，かつその他の角速度でピークが立たない場合に着目したシステムの入力から出力までは線形応答とみなすことができる．
 実験では，バルブへ入力する角速度として\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを採用した．
 サンプリング周期は\SI{0.001}{s}であり，センサから取得される値にはローパスフィルタ(以降LPF)として一次遅れの伝達関数${1}/(0.005s+1)$を通している．
-また，直流成分をフーリエ変換を施す前に除去し，フーリエ変換後には角速度のピークに着目するため，最大ピークで除すことで正規化している．
+また，フーリエ変換を施す前に直流成分を除去し，角速度のピークに着目するため，最大ピークで除すことで正規化している．
 
 各物理量の応答を\figname\ref{fig:1018FFT_fmeasure}から\figname\ref{fig:1018FFT_prs}に示す．
 これより最大ピークの角速度と入力した正弦波の角速度が一致しているため，これらの物理量の応答は線形であるとみなすことができる．
-よって対象とする油圧システムは線形なシステムとして扱い，同定することが可能である．
+よって対象とする油圧システムは線形なシステムとみなして同定することができる．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018FFT_fmeasure.pdf}

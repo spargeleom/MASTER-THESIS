@@ -1,8 +1,9 @@
 \chapter{力制御と位置制御の統合}
 \label{sec:IntegrationControl}
-本章では，力制御と位置制御を統合させて油圧シリンダの制御を行う．
-制御で実現させる動作の例を\figname\ref{fig5:forceandpositionIMAGE}に示す．
-\figname\ref{fig5:forceandpositionIMAGE}は位置目標として正弦波目標を与えており，対象物（固定板）に触れていない時は位置目標に従い，対象物に触れたら力制御を行う例を示している．
+本章では，力制御と位置制御を統合した油圧シリンダの制御を行う．
+本制御で実現する動作を\figname\ref{fig5:forceandpositionIMAGE}に示す．
+\figname\ref{fig5:forceandpositionIMAGE}は位置目標として正弦波目標を与えており，対象物（固定板）に触れていない時は位置目標に従い，対象物に触れたら力制御を行うことを目的とする．
+実験機は\figname\ref{fig:Integ_system}にしめすようになっており，およそ\SI{85}{mm}の位置に固定板が取り付けてある．
 
 \begin{figure}[t]
     \centering
@@ -10,9 +11,15 @@
         \caption{Image of Integration Control of Foce and Position}
         \label{fig5:forceandpositionIMAGE}
 \end{figure}
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, width = .6\linewidth]{contents/IntegrationControl/figure/Integ_system.png}
+        \caption{State of Cylinder Tip when Integration Control}
+        \label{fig:Integ_system}
+\end{figure}
 
-制御にあたっては，（ⅰ）対象物に触れている時には力制御，それ以外には位置制御を行うというように力制御と位置制御を切り替える並列型の手法，（ⅱ）位置制御のからの入力をトルク入力と捉え，そのトルクを満たすように力制御を行う直列型の手法が考えられる．
-また，直列型の手法を用いるとコンプライアンス制御を行うことも可能である．
+制御にあたっては，(ⅰ)対象物に触れている時には力制御，それ以外には位置制御を行うというように力制御と位置制御を切り替える並列型の手法，(ⅱ)位置制御のからの入力をトルク入力と捉え，そのトルクを満たすように力制御を行う直列型の手法が考えられる．
+並列型の手法では位置制御および力制御それぞれで設計した制御系をそのまま用いることができるという利点，直列型の手法ではコンプライアンス制御を行える利点がある．
 そこで本章では並列型と直列型それぞれについて述べる．
 
 \section{並列型制御手法}
@@ -67,7 +74,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_PID_pos}
     \end{minipage}
-    \caption{Parallel Control (Position Controller:PD, Force Controller:PID)}   
+    \caption{Parallel Control (Position Controller: PD, Force Controller: PID)}   
     \label{fig5:crop-FBsw_PID}
 \end{figure}
 
@@ -85,7 +92,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_IPD_pos}
     \end{minipage}
-    \caption{Parallel Control (Position Controller:PD, Force Controller:I-PD)}
+    \caption{Parallel Control (Position Controller: PD, Force Controller: I-PD)}
     \label{fig5:crop-FBsw_IPD}
 \end{figure}
 
@@ -103,7 +110,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBsw_JFPS4_pos}
     \end{minipage}
-    \caption{Parallel Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}   
+    \caption{Parallel Control (Position Controller: PD, Force Controller: $K_{H_\infty\mathrm{servo}}$)}   
     \label{fig5:crop-FBsw_JFPS4}
 \end{figure}
 % \begin{figure}[t]
@@ -155,7 +162,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_PID_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD, Force Controller:PID)}  
+    \caption{Cascade Control (Position Controller: PD, Force Controller: PID)}  
     \label{fig5:crop-FBcsqtch_PID_Notrq_posPIDadjust}
 \end{figure}
 
@@ -172,7 +179,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_IPD_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD, Force Controller:I-PD)}  
+    \caption{Cascade Control (Position Controller: PD, Force Controller: I-PD)}  
     \label{fig5:crop-FBcsqtch_IPD_Notrq_posPIDadjust}
 \end{figure}
 
@@ -189,7 +196,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_JFPS4_Notrq_posPIDadjust_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
+    \caption{Cascade Control (Position Controller: PD, Force Controller: $K_{H_\infty\mathrm{servo}}$)}  
     \label{fig5:crop-FBcsqtch_JFPS4_Notrq_posPIDadjust}
 \end{figure}
 
@@ -199,7 +206,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
 トルク補償を行うことにより，位置制御のみを行って決定したゲインをそのまま統合制御に使用することが可能になると期待される．
 位置制御におけるトルク補償の概要を\figname\ref{fig5:torque_compensator}に示す．
 \figname\ref{fig5:torque_compensator}中の$\Delta T$はサンプリング時間，$m$はロッドとロードセルの合計質量である．
-ロッドの質量は直接測定できなかったためカタログ値から推定し，合計質量は$m=hoge$とした．
+ロッドの質量は直接測定できなかったためカタログ値から推定し，合計質量は$m=1.2$とした．
 
 \begin{figure}[t]
     \centering
@@ -223,7 +230,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_PID_trq_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:PID)}  
+    \caption{Cascade Control (Position Controller: PD with Torque Compensate, Force Controller: PID)}  
     \label{fig5:crop-FBcsqtch_PID_trq}
 \end{figure}
 
@@ -240,7 +247,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_IPD_trq_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:I-PD)}  
+    \caption{Cascade Control (Position Controller: PD with Torque Compensate, Force Controller: I-PD)}  
     \label{fig5:crop-FBcsqtch_IPD_trq}
 \end{figure}
 
@@ -257,7 +264,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
         \subcaption{Position}
         \label{fig5:crop-FBcsqtch_JFPS4_trq_pos}
     \end{minipage}
-    \caption{Cascade Control (Position Controller:PD with Torque Compensate, Force Controller:$K_{H_\infty\mathrm{servo}}$)}  
+    \caption{Cascade Control (Position Controller: PD with Torque Compensate, Force Controller: $K_{H_\infty\mathrm{servo}}$)}  
     \label{fig5:crop-FBcsqtch_JFPS4_trq}
 \end{figure}
 
@@ -285,7 +292,8 @@ $k$を仮想バネ定数といい，$k$を変えることにより関節の剛�
 
 \subsection{コンプライアンス制御の応答とフィードバック変調器の導入}
 位置目標値を\SI{80}{mm}，仮想バネ定数$k$を5\SI{50}{N/mm}および\SI{100}{N/mm}に設定した時の位置の応答を\figname\ref{fig:compra_k50-crop}および\figname\ref{fig:compra_k100-crop}に青破線で示す．
-重りを手作業でのせているためおおよその時間であるが，\SI{0}{s}から\SI{20}{s}および\SI{40}{s}から\SI{60}{s}までが荷重をかけていない状態，\SI{20}{s}から\SI{40}{s}までが荷重として\SI{15}{kg}の重りをのせた時の応答である．
+荷重として\figname\ref{fig:omori}に示す\SI{15}{kg}のおもりを乗せる．
+おもりを手作業でのせているためおおよその時間であるが，\SI{0}{s}から\SI{20}{s}および\SI{40}{s}から\SI{60}{s}までが荷重をかけていない状態，\SI{20}{s}から\SI{40}{s}までが荷重として\SI{15}{kg}のおもりをのせた時の応答である．
 \figname\ref{fig:compra_k50-crop}および\figname\ref{fig:compra_k100-crop}において，荷重および仮想バネ定数に応じて位置が変位しており，コンプライアンス制御が機能していることが確認できる．
 無負荷状態において目標値との間に偏差は摩擦による影響が大きいと考えられる．
 
@@ -302,6 +310,12 @@ $k$を仮想バネ定数といい，$k$を変えることにより関節の剛�
         \label{fig:compra_k100-crop}
 \end{figure}
 
+\begin{figure}[t]
+    \centering
+        \includegraphics[keepaspectratio, width = .6\linewidth]{contents/IntegrationControl/figure/weigth.png}
+        \caption{Weight(\SI{15}{kg})}
+        \label{fig:omori}
+\end{figure}
 
 摩擦による定常偏差を減らすために，フィードバック変調器(Feedback Module;FBM)を導入する\footnote{定常偏差を解消する手法として積分器を導入する手法もあるが，コンプライアンス制御の特性上積分器の導入は難しい}\cite{石川将人2007,石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償}．
 FBMの詳細については付録\ref{sec:FBM}に譲るが，FBMとはフィードバックを有する量子化器の一つであり，コントローラからの入力値を時間的・空間的に離散化することによって切り替え速度の遅いアクチュエータへの対応や，摩擦の補償を行うことが可能である\cite{石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償,佐藤順紀2013不等間隔量子化入力とアクチュエータの非線形要素モデルを用いたフィードバック変調器による油圧駆動システムの軌道制御,Ohgi_2008jrm}．
