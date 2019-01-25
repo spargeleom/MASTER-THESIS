@@ -23,7 +23,7 @@
 
 \begin{figure}[t]
     \centering
-        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/3-4ExperimentSystem.png}
+        \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/structionofsystem.pdf}
         \caption{Connection Diagram of Hydraulic System }
         \label{fig:ConnectionDiagram}
 \end{figure}
@@ -62,7 +62,7 @@
 \label{sec:力までの同定}
 バルブへの入力から先端で発生する力までのシステム同定にあたり，\figname\ref{fig:ConnectionDiagram}に示した伝達経路を\figname\ref{fig:system_dentatsu}のように書き直す．
 $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$はシリンダの圧力および受圧面積より算出される推力，$f_\mathrm{output}$は実際に先端で発生する力である．
-推力$\fthr$は\eqnname\ref{eq:fthr}により算出される．
+推力$\fthr$は\eqnname\eqref{eq:fthr}により算出される．
 \begin{align}
     \label{eq:fthr}
     \fthr = \Ah  \phs - \Ar \prs
@@ -128,23 +128,23 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:crop-1018_manubode_in2fthr_7MPa}
 \end{figure}
 
-\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\ref{eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
+\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\eqref{eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
 \begin{align}
     \label{eq:tf_est_model}
     \GinTofmsr = \frac{a}{(s+b)(s+c)}\mathrm{e}^{-ds}
 \end{align}
-\eqnname\ref{eq:tf_est_model}の周波数応答が\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}と一致するように最小自乗法を用いて係数を決定すると，\eqnname\ref{eq:tf_in2fmsr}となる．
+\eqnname\eqref{eq:tf_est_model}の周波数応答が\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}と一致するように最小自乗法を用いて係数を決定すると，\eqnname\eqref{eq:tf_in2fmsr}となる．
 \begin{align}
     \label{eq:tf_in2fmsr}
     \GinTofmsr = \frac{41.82}{(s+0.34)(s+130)}\mathrm{e}^{-0.016s}
 \end{align}
 
-同様に，入力から推力$\fthr$までの応答はムダ時間を含む一次遅れ系であるとし，その係数を求めると，\eqnname\ref{eq:tf_in2fthr}となる．
+同様に，入力から推力$\fthr$までの応答はムダ時間を含む一次遅れ系であるとし，その係数を求めると，\eqnname\eqref{eq:tf_in2fthr}となる．
 \begin{align}
     \label{eq:tf_in2fthr}
     \GinTofthr = \frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
 \end{align}
-よって，推力$\fthr$から実測出力$\fmsr$までの伝達関数は\eqnname\ref{eq:tf_in2fmsr}と\eqnname\ref{eq:tf_in2fthr}より\eqnname\ref{eq:tf_fthr2fmsr}となる．
+よって，推力$\fthr$から実測出力$\fmsr$までの伝達関数は\eqnname\eqref{eq:tf_in2fmsr}と\eqnname\eqref{eq:tf_in2fthr}より\eqnname\eqref{eq:tf_fthr2fmsr}となる．
 \begin{align}
     \label{eq:tf_fthr2fmsr}
     \GfthrTofmsr = \frac{123}{s+130}\mathrm{e}^{-0.006s}
@@ -175,7 +175,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \subsection{周波数応答と最小自乗法によるモデル同定}
 位置の応答までの周波数応答を\figname\ref{fig:pos_FR_mea-crop}に示す．
 このときのポンプ圧力は\SI{7}{MPa}である．
-\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\ref{eq:tf_input2pos}となる．
+\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\eqref{eq:tf_input2pos}となる．
 \begin{align}
     \label{eq:tf_input2pos}
     \GinTopos = \frac{330}{s(s+60)}\mathrm{e}^{-0.002s}
@@ -209,7 +209,7 @@ M系列とは，\figname\ref{fig:Mseq}に示す回路により生成される，
     \item 周期系列であり，系列長は$ｐ＝2^n-1$である．(周期性)
     \item 1周期内に0は$2^{n-1}-1$個，1は$2^{n-1}$個存在する．（均一性）
     \item 1周期内において連続した$n$個の要素に着目したとき，そのビットパターンは全ての値が0である場合を除く全てのパターンが現れる．
-    \item M系列中の1を+1に，0を-1に対応させると，自己相関関数$\phi_j$は\eqnname\ref{eq:mseq-autocorec}のようになる．$j$は元の系列をシフトさせる数である．
+    \item M系列中の1を+1に，0を-1に対応させると，自己相関関数$\phi_j$は\eqnname\eqref{eq:mseq-autocorec}のようになる．$j$は元の系列をシフトさせる数である．
     \begin{align}
         \label{eq:mseq-autocorec}
         \phi_j = 
@@ -228,23 +228,23 @@ M系列を用いるさいのサンプリング周波数は，バンド幅の10�
 バルブへの入力と，力の入出力関係を\figname\ref{fig:1018Mseq_inputToFmea}に示す．
 \figname\ref{fig:1018Mseq_inputToFmea}のうち，10$\sim$\SI{70}{s}を同定用のデータとして(\figname\ref{fig:1018Mseq_inputToFmea_10-70})，72$\sim$\SI{100}{s}を検証用データとして(\figname\ref{fig:1018Mseq_inputToFmea_72-100})用いる．
 
-同定した伝達関数$\GinTofmsr$は，\eqnname\ref{eq:tf_mseq_force}であり，分子第2項および分母第3項を微小として無視し整理すると，\eqnname\ref{eq:tf_mseq_force_hosei}となる．
+同定した伝達関数$\GinTofmsr$は，\eqnname\eqref{eq:tf_mseq_force}であり，分子第2項および分母第3項を微小として無視し整理すると，\eqnname\eqref{eq:tf_mseq_force_hosei}となる．
 \begin{align}
     \label{eq:tf_mseq_force}
     \GinTofmsr&=\frac{4.193s+0.02265}{s^2 + 1.118s + 7.614\times 10^{-11}}\mathrm{e}^{-0.02s}\\
     \label{eq:tf_mseq_force_hosei} 
     \GinTofmsr&= \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
 \end{align}
-\eqnname\ref{eq:tf_mseq_force}および\eqnname\ref{eq:tf_mseq_force_hosei}の応答と，\figname\ref{fig:1018Mseq_inputToFmea_72-100}の結果を比較すると，\figname\ref{fig:1018Mseq_compare}のようになる．
-tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\eqnname\ref{eq:tf_mseq_force_hosei}の応答である．
-それぞれの横に書いてある数字はFit率であり，\eqnname\ref{eq:fit}で算出される適合率の値である．
+\eqnname\eqref{eq:tf_mseq_force}および\eqnname\eqref{eq:tf_mseq_force_hosei}の応答と，\figname\ref{fig:1018Mseq_inputToFmea_72-100}の結果を比較すると，\figname\ref{fig:1018Mseq_compare}のようになる．
+tf(w/o shaping)が\eqnname\eqref{eq:tf_mseq_force}の応答，tf(with shaping)が\eqnname\eqref{eq:tf_mseq_force_hosei}の応答である．
+それぞれの横に書いてある数字はFit率であり，\eqnname\eqref{eq:fit}で算出される適合率の値である．
 \begin{align}
     \label{eq:fit}
     \mathrm{Fit} =  \left( 1- \frac{\sqrt{\sum_{k=1}^N |\hat{y}(k)-y(k)|^2 }}{\sqrt{\sum_{k=1}^N |{y}(k)-\bar{y}|^2 }}\right) \times 100
 \end{align}
 ここで，$y(k)$は実際の出力，$\hat{y}(k)$はモデルの出力，$\bar{y}$は実際の出力の平均値である．
-\figname\ref{fig:1018Mseq_compare}より，微小項を無視してもFit率がほぼ下がっていないので\eqnname\ref{eq:tf_mseq_force_hosei}を同定結果として用いても問題ない．
-よって\eqnname\ref{eq:tf_mseq_force_hosei}をmodel TD:$\GTDforce$として扱う．
+\figname\ref{fig:1018Mseq_compare}より，微小項を無視してもFit率がほぼ下がっていないので\eqnname\eqref{eq:tf_mseq_force_hosei}を同定結果として用いても問題ない．
+よって\eqnname\eqref{eq:tf_mseq_force_hosei}をmodel TD:$\GTDforce$として扱う．
 \begin{align}
     \label{eq:tf_GTDforce}
     \GTDforce = \frac{4.19}{s+1.12}\mathrm{e}^{-0.02s}
@@ -281,13 +281,13 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
 そのため，同定においては積分器が含まれることを前提としたシステム同定\cite{竹下侑2014積分器を有するシステムの同定について}を行う．
 具体的な手法は以下のとおり．
 \begin{itembox}[l]{積分器を有するシステムの同定手法}
-    同定したいプラント$P(s)$に積分器がm個含まれているとき，その入出力関係をラプラス変換すると\eqnname\ref{eq:sekibun_system}となる．
+    同定したいプラント$P(s)$に積分器がm個含まれているとき，その入出力関係をラプラス変換すると\eqnname\eqref{eq:sekibun_system}となる．
     \begin{align}
         \label{eq:sekibun_system}
         Y(s) = P(s)U(s) = \frac{1}{s^m}P'(s)U(s)
     \end{align}
     ここで，$P'(s)$は積分器を含まないシステムである．
-    \eqnname\ref{eq:sekibun_system}において${1}/{s^m}U(s)$を新たな入力$U_{\mathrm{new}}(s)$とし，入出力関係からm次トレンドを除去して同定を行うことにより$P'(s)$が求められる．
+    \eqnname\eqref{eq:sekibun_system}において${1}/{s^m}U(s)$を新たな入力$U_{\mathrm{new}}(s)$とし，入出力関係からm次トレンドを除去して同定を行うことにより$P'(s)$が求められる．
     $P'(s)$と$1/s^m$を合わせることにより，所望のシステムの伝達関数$P(s)$を得ることが可能である．
 \end{itembox}
 \ref{sec:Mseq_in2force}と同様に，シフトレジスタの数$n$を8，サンプリング周期\SI{0.2}{s}としたバルブへの入力と，位置の応答の入出力関係を\figname\ref{fig:crop-inputANDpos}に示す．
@@ -298,7 +298,7 @@ tf(w/o shaping)が\eqnname\ref{eq:tf_mseq_force}の応答，tf(with shaping)が\
     \GTDpos = \frac{1}{s}\frac{327.5}{s+48.32}\mathrm{e}^{-0.002s}
 \end{align}
 となる．
-\eqnname\ref{eq:GTDpos}の応答を実際の応答と比較すると，\figname\ref{fig:crop-pos_compare_mseq}となり，適合率\SI{97.25}{\%}での同定ができることがわかる．
+\eqnname\eqref{eq:GTDpos}の応答を実際の応答と比較すると，\figname\ref{fig:crop-pos_compare_mseq}となり，適合率\SI{97.25}{\%}での同定ができることがわかる．
 これより，入力から位置までの同定には，積分器の存在を陽に考慮した同定が有効であると言える．
 \begin{figure}[t]
     \centering

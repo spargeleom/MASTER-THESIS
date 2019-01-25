@@ -268,14 +268,14 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
 多リンク系のマニピュレータにおいてはコンプライアンスにより，対象物に沿うように手先を押し付ける倣い操作が可能になる．
 本研究で扱う油圧シリンダーにおいては構造上倣い操作はできないが，コンプライアンス制御においてアクチュエータの剛性を柔らかくできることを示す．
 \subsection{外力と仮想バネ}
-アクチュエータの運動方程式は\eqnname\ref{eq:eom_of_rod}より
+アクチュエータの運動方程式は\eqnname\eqref{eq:eom_of_rod}より
 \begin{align}
     \label{eq:eom_of_compra}
     m\ddot{x_\mathrm{p}} + B\dot{x_\mathrm{p}} = \fout +F_\mathrm{ext}
 \end{align}
 と表せる．
 $x_\mathrm{p}$はアクチュエータの位置，$\fout$はアクチュエータの出力，$m$はロッドとロードセルの合計質量，$B$は粘性項をまとめたものである\footnote{本来はここにクーロン摩擦も加わるが，本研究では考慮できていない．}．
-ここで，位置の目標値$x_\mathrm{ref}$に対し，$\fout = k(x_\mathrm{ref}-x_\mathrm{p})$となるようにすると，\eqnname\ref{eq:eom_of_compra}は
+ここで，位置の目標値$x_\mathrm{ref}$に対し，$\fout = k(x_\mathrm{ref}-x_\mathrm{p})$となるようにすると，\eqnname\eqref{eq:eom_of_compra}は
 \begin{align}
     \label{eq:hoge}
     m\ddot{x_\mathrm{p}} + B\dot{x_\mathrm{p}} = k(x_\mathrm{ref}-x_\mathrm{p}) +F_\mathrm{ext}

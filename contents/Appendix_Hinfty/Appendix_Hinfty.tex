@@ -2,13 +2,13 @@
 $H_\infty$制御器設計の詳細な過程について述べる．
 \section{伝達関数から状態空間への変換}
 \label{sec:tf2ss}
-油圧システムのバルブへの入力から出力までの伝達関数は\eqnname\ref{eq:tf_in2fmsr}より，
+油圧システムのバルブへの入力から出力までの伝達関数は\eqnname\eqref{eq:tf_in2fmsr}より，
 \begin{align}
     \GinTofmsr = \frac{41.82}{(s+0.34)(s+130)}\mathrm{e}^{-0.016s}
 \end{align}
 である．
 この伝達関数から状態空間への変換は一意ではないが，本研究においては「バルブへの指令電圧から推力まで」と「推力から出力まで」の2つのモデルの直列結合として表す．
-前者の伝達関数モデルは\eqnname\ref{eq:tf_in2fthr}より，
+前者の伝達関数モデルは\eqnname\eqref{eq:tf_in2fthr}より，
 \begin{equation}
 	\frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
 \end{equation}
@@ -34,7 +34,7 @@ $H_\infty$制御器設計の詳細な過程について述べる．
 	\label{eqn:ss_ftheTOfmea}
 \end{align}
 となる．
-よって式\ref{eqn:ss_inputTOfthr}と式\ref{eqn:ss_ftheTOfmea}の直列結合は，
+よって式\eqref{eqn:ss_inputTOfthr}と式\eqref{eqn:ss_ftheTOfmea}の直列結合は，
 \begin{align}
 	\begin{cases}
 		&\begin{bmatrix}
