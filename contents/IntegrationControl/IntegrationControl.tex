@@ -1,14 +1,14 @@
 \chapter{力制御と位置制御の統合}
 \label{sec:IntegrationControl}
 本章では，力制御と位置制御を統合した油圧シリンダの制御を行う．
-本制御で実現する動作を\figname\ref{fig5:forceandpositionIMAGE}に示す．
-\figname\ref{fig5:forceandpositionIMAGE}は位置目標として正弦波目標を与えており，対象物（固定板）に触れていない時は位置目標に従い，対象物に触れたら力制御を行うことを目的とする．
-実験機は\figname\ref{fig:Integ_system}にしめすようになっており，およそ\SI{85}{mm}の位置に固定板が取り付けてある．
+本制御で実現する動作の概要を\figname\ref{fig5:forceandpositionIMAGE}に示す．
+\figname\ref{fig5:forceandpositionIMAGE}は位置目標として正弦波目標を与えており，対象物（固定板）に触れていない時は位置目標に従い，対象物に触れている時は力制御を行うことを目的とする．
+実験機は\figname\ref{fig:Integ_system}に示すようになっており，およそ\SI{85}{mm}の位置に固定板が取り付けてある．
 
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=.9]{contents/IntegrationControl/figure/forceandpositionIMAGE.pdf}
-        \caption{Image of Integration Control of Foce and Position}
+        \caption{Overview of Position-Force Integrated Control (PFIC)}
         \label{fig5:forceandpositionIMAGE}
 \end{figure}
 \begin{figure}[t]
@@ -26,7 +26,7 @@
 \label{sec:並列型制御手法}
 並列型の手法の概略を\figname\ref{fig5:pararell_torqueandposition}に示す．
 位置制御はPD制御で行い，Pゲインを15，Dゲインを0.1とした．
-また，力制御はPID制御，I-PD制御，サーボ系$H_\infty$制御により行い，PID制御とI-PD制御のゲインはPゲイン8.4，Iゲイン168，Dゲイン0.1とし，サーボ系$H_\infty$の制御器にはむだ時間を無視して設計したコントローラ$K_{H_\infty\mathrm{servo}}$を用いる．
+また，力制御はPID制御，I-PD制御，$H_\infty$サーボ補償器により行い，PID制御とI-PD制御のゲインはPゲイン8.4，Iゲイン168，Dゲイン0.1とし，$H_\infty$サーボ補償器にはむだ時間を無視して設計したコントローラ$K_{H_\infty\mathrm{servo}}$を用いる．
 力制御と位置制御の切り替えは，以下のアルゴリズムにより行う．
 \begin{itembox}[l]{切り替えアルゴリズム}
     \begin{enumerate}
@@ -37,7 +37,7 @@
 \end{itembox}
 
 また，接触非接触の判定は\figname\ref{fig5:touch_define}に示すように，目標値に対する割合で判定を行う．
-非接触から接触と接触から非接触の閾値が異なるのは，チャタリングを防ぐためである．
+非接触から接触と接触から非接触の閾値が異なるのは，チャタリングを防ぐために，ヒステリシス特性をもたせたものである．
 また，制御モードが切り替わった際には積分器のリセットを行っている．
 
 \begin{figure}[t]
@@ -50,7 +50,7 @@
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/IntegrationControl/figure/touch_define.pdf}
-        \caption{Decision of Touch or No Touch}
+        \caption{Switching Function for Contact/Non-contact Condition}
         \label{fig5:touch_define}
 \end{figure}
 
@@ -58,7 +58,7 @@
 応答を\figname\ref{fig5:crop-FBsw_PID}から\figname\ref{fig5:crop-FBsw_JFPS4}に示す．
 各グラフの(a)が力の応答，(b)が位置の応答を示しており，固定板は\SI{85}{mm}から\SI{90}{mm}付近に設置をしている．
 I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が振動的になっているのは，オーバーシュート後の応答において$\fest$が小さくなりすぎ，位置制御と力制御が頻繁に切り替わっているためである．
-この要因については，押し付け時に積分器をリセットしていることが影響していると考えられるが，本研究においてその検証までは至っていない．
+この要因については，押し付け時に積分器をリセットしていることが影響していると考えられるが，本論文においてその検証までは至っていない．
 
 \begin{figure}[t]
     \begin{minipage}{\minipageratio\hsize}
@@ -273,7 +273,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
 \section{コンプライアンス制御}
 コンプライアンス制御とは，アクチュエータの剛性を制御する手法である\cite{松野_大須賀_松原_野田_稲見201712,吉川198811,谷江和雄1989コンプライアンス制御と柔軟接触問題}．
 多リンク系のマニピュレータにおいてはコンプライアンスにより，対象物に沿うように手先を押し付ける倣い操作が可能になる．
-本研究で扱う油圧シリンダーにおいては構造上倣い操作はできないが，コンプライアンス制御においてアクチュエータの剛性を柔らかくできることを示す．
+本論文で扱う油圧シリンダにおいては構造上倣い操作はできないが，コンプライアンス制御においてアクチュエータの剛性を柔らかくできることを示す．
 \subsection{外力と仮想バネ}
 アクチュエータの運動方程式は\eqnname\eqref{eq:eom_of_rod}より
 \begin{align}
@@ -281,7 +281,7 @@ I-PD制御(\figname\ref{fig5:crop-FBsw_IPD})において力制御時に応答が
     m\ddot{x_\mathrm{p}} + B\dot{x_\mathrm{p}} = \fout +F_\mathrm{ext}
 \end{align}
 と表せる．
-$x_\mathrm{p}$はアクチュエータの位置，$\fout$はアクチュエータの出力，$m$はロッドとロードセルの合計質量，$B$は粘性項をまとめたものである\footnote{本来はここにクーロン摩擦も加わるが，本研究では考慮できていない．}．
+$x_\mathrm{p}$はアクチュエータの位置，$\fout$はアクチュエータの出力，$m$はロッドとロードセルの合計質量，$B$は粘性項をまとめたものである\footnote{本来はここにクーロン摩擦も加わるが，本論文では考慮できていない．}．
 ここで，位置の目標値$x_\mathrm{ref}$に対し，$\fout = k(x_\mathrm{ref}-x_\mathrm{p})$となるようにすると，\eqnname\eqref{eq:eom_of_compra}は
 \begin{align}
     \label{eq:hoge}
@@ -317,9 +317,9 @@ $k$を仮想バネ定数といい，$k$を変えることにより関節の剛�
         \label{fig:omori}
 \end{figure}
 
-摩擦による定常偏差を減らすために，フィードバック変調器(Feedback Module;FBM)を導入する\footnote{定常偏差を解消する手法として積分器を導入する手法もあるが，コンプライアンス制御の特性上積分器の導入は難しい}\cite{石川将人2007,石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償}．
+摩擦による定常偏差を減らすために，フィードバック変調器(Feedback Modulator;FBM)を導入する\footnote{定常偏差を解消する手法として積分器を導入する手法もあるが，コンプライアンス制御の特性上積分器の導入は難しい}\cite{石川将人2007,石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償}．
 FBMの詳細については付録\ref{sec:FBM}に譲るが，FBMとはフィードバックを有する量子化器の一つであり，コントローラからの入力値を時間的・空間的に離散化することによって切り替え速度の遅いアクチュエータへの対応や，摩擦の補償を行うことが可能である\cite{石川将人2008フィードバック変調器を用いた離散値入力制御におけるアクチュエータ非線形性の補償,佐藤順紀2013不等間隔量子化入力とアクチュエータの非線形要素モデルを用いたフィードバック変調器による油圧駆動システムの軌道制御,Ohgi_2008jrm}．
-本研究ではFBMを\figname\ref{fig:casquade_torqueandposition_FBM}に示すように位置制御器と力制御器の間に挿入する．
+本論文ではFBMを\figname\ref{fig:casquade_torqueandposition_FBM}に示すように位置制御器と力制御器の間に挿入する．
 力制御器の目標値をFBMで整形することにより，摩擦力を陽に考慮して空間量子化幅を設計することが可能である．
 FBMのサンプリング時間\SI{0.02}{s}，空間量子化幅0.5とした．
 また，量子化誤差$\eta$からFBMの出力$u_\mathrm{Q}$までの雑音伝達関数$N(s)$を
@@ -342,7 +342,7 @@ FBMを導入したときの位置の応答を\figname\ref{fig:compra_k50-crop}�
 よって\tabname\ref{tab:position}より，FBMを用いた場合において変位から計算される荷重と重りから受ける力の差が\SI{15}{N}となり，想定しているコンプライアンス制御の挙動に近くなり，FBMを導入した効果が現れていることが確認できる．
 
 \begin{table}[t]
-    \caption{Rod Position and Force}
+    \caption{Experiment result: Force-Position relationship under proposed compliance control}
     \label{tab:position}
     \centering
     \begin{tabular}{cccc}

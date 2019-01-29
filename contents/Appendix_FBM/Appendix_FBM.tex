@@ -6,12 +6,12 @@ FBMは石川らにより提案された離散値入力制御器の一つであ�
 その構造を\figname\ref{fig:FBM}に示す．
 S/Hはサンプリング時間$h$のサンプラーとゼロ次ホルダーであり，時間分解能制約を表す．
 Quantizerは量子化器であり，空間分解能制約を表す．
-また，$Q(s)$は設計パラメータであり，
-\begin{align}
-    \label{eq:FBM_Qs}
-    Q(s)\in RH_\infty,~~Q(\infty) = 0
-\end{align}
-を満たす．
+また，$Q(s)$は設計パラメータであり，安定かつプロパーな伝達関数である．
+% \begin{align}
+%     \label{eq:FBM_Qs}
+%     Q(s)\in RH_\infty,~~Q(\infty) = 0
+% \end{align}
+% を満たす．
 $u$がFBMに対する入力，$u_Q$が出力であり，$u_C$はS/Hへの入力である．
 
 \begin{figure}[t]
@@ -47,4 +47,4 @@ $Q(s)=0$のときがフィードバックのない通常の量子化器になる
 \end{align}
 と定めると，$h<\tau$を満たすとき，FBMはBIBO安定となる．
 
-本研究においては，$h=0.02$，$\tau=0.022$とした．
+本論文においては，$h=0.02$，$\tau=0.022$とした．

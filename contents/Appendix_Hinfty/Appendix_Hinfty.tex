@@ -7,7 +7,7 @@ $H_\infty$制御器設計の詳細な過程について述べる．
     \GinTofmsr = \frac{41.82}{(s+0.34)(s+130)}\mathrm{e}^{-0.016s}
 \end{align}
 である．
-この伝達関数から状態空間への変換は一意ではないが，本研究においては「バルブへの指令電圧から推力まで」と「推力から出力まで」の2つのモデルの直列結合として表す．
+この伝達関数から状態空間への変換は一意ではないが，本論文においては「バルブへの指令電圧から推力まで」と「推力から出力まで」の2つのモデルの直列結合として表す．
 前者の伝達関数モデルは\eqnname\eqref{eq:tf_in2fthr}より，
 \begin{equation}
 	\frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
@@ -72,7 +72,19 @@ $H_\infty$制御器設計の詳細な過程について述べる．
 \section{$H_\infty$制御器設計過程}
 \label{sec:Hinfty_sekkei}
 例として，むだ時間を無視した場合のコントローラ$K_{H_\infty}\mathrm{servo}$の設計過程を示す．
-\subsection{乗法的摂動の見積もり}
+本論文では混合感度問題を扱い，着目するシステムの感度関数を$S$，相補感度関数を$T$，それぞれの重みを$W_S$，$W_T$としたときに$\gamma=1$に対して
+\begin{align}
+    \label{eq:gammaiter}
+    \left\| \begin{matrix}
+        W_S S\\W_T T
+    \end{matrix}
+    \right\|_\infty
+    <\gamma
+\end{align}
+を満たす$H_\infty$制御器を求める．
+MATLABを用いることで$\gamma$-イタレーションにより，$\gamma$の最小値とそのときの$H_\infty$制御を求めることができる．
+
+%\subsection{乗法的摂動の見積もり}
 $H_\infty$制御器設計の設計にあたっては，対象としているモデルの乗法的摂動を見積もる必要がある．
 実対象制御モデルを$P_\mathrm{true}(j\omega)$，そのノミナルモデルを$P_\mathrm{nomi}(j\omega)$としたとき，
 \begin{align}
@@ -128,11 +140,12 @@ $\varepsilon$は$w_1$から$y$までの直達項が0にならないようにす�
     x
 \end{align}
 となる．
-これに\ref{sec:サーボ系H無限大制御器}で示した積分器を結合させたのが，むだ時間を無視した場合のサーボ系$H_\infty$制御器$K_{H_\infty}\mathrm{servo}$となり，混合感度問題のゲイン線図は\figname\ref{fig:HinftyController-crop}となる．
+このとき，$\gamma = 0.52$である．
+これに\ref{sec:サーボ系H無限大制御器}で示した積分器を結合させたのが，むだ時間を無視した場合の$H_\infty$サーボ補償器$K_{H_\infty}\mathrm{servo}$となり，混合感度問題のゲイン線図は\figname\ref{fig:HinftyController-crop}となる．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/Appendix_Hinfty/figure/HinftyController-crop.pdf}
-        \caption{Gain Graph of Mixed $H_\infty$ Problem}
+        \caption{Gain Graph of Generalized Plant of $H_\infty$ Synthesis for Mixed Sensitivity Attenuation}
         \label{fig:HinftyController-crop}
 \end{figure}
 
@@ -155,6 +168,7 @@ $\varepsilon$は$w_1$から$y$までの直達項が0にならないようにす�
     \begin{bmatrix}
     0&0&0&0.97&5.25
     \end{bmatrix}
-    x
+    x\\ \notag
+    \gamma = 0.56
 \end{align}
 に積分器を結合したものである．

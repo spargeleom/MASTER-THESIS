@@ -1,11 +1,11 @@
-\chapter{力制御}
+\chapter{シリンダ発生力の制御}
 \label{sec:ForceControl}
 油圧システムの力制御については，センサを取り付けて直接力を測定したり，\eqnname\eqref{eq:fthr}による推力をそのままシリンダの出力として用いる方法がとられてきた\cite{semini2010design,semini2010hyq,川端健太郎20141a1,岡田大貴2017多自由度油圧駆動ロボットのシリンダ圧に基づく手先負荷力推定による力覚フィードバック}．
 本章では，$\GfthrTofmsr$を用いて出力を推定する推定アルゴリズムおよび制御器の設計とその比較を行う．
 
 \section{力推定アルゴリズム}
 力制御をおこなうためのシステムのブロック線図を\figname\ref{fig4:ForceEstimateControl}に示す．
-油圧シリンダのhead側およびrod側の圧力と受圧面積から\eqnname\eqref{eq:fthr}を用いて推力$\fthr$を計算して伝達関数$\GfthrTofmsr$へ入力し，その出力を推定出力$\fest$としてフィードバックする．
+油圧シリンダのヘッド側およびロッド側の圧力と受圧面積から\eqnname\eqref{eq:fthr}を用いて推力$\fthr$を計算して伝達関数$\GfthrTofmsr$へ入力し，その出力を推定出力$\fest$としてフィードバックする．
 実際に発生している実測出力$\fmsr$はLoad Cellにより測定される．
 
 \begin{figure}[t]
@@ -59,7 +59,7 @@ $s/(\tau s+1)$は近似微分器であり，$\tau=0.005$とした．
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:SR_fmsr}
     \end{minipage}
-    \caption{Sine Response of Estimated Force and Measured Force (PID Controller and I-PD Controller)}
+    \caption{Sinusoidal Response of Estimated Force and Measured Force (PID Controller and I-PD Controller)}
     \label{fig4:SRofPIDandIPD}
 \end{figure}
 
@@ -112,7 +112,7 @@ $\GinTofmsr$を状態空間表現に書き直すと，\eqnname\eqref{eq:ss_in2fm
 \subsection{$H_\infty$制御器の設計}
 \label{sec:H無限大制御器の設計}
 $H_\infty$制御器の設計にあたってはむだ時間をそのまま扱うことはできないため，(ⅰ)むだ時間を無視した場合のコントローラ$K_{H_\infty}\mathrm{servo}$と(ⅱ)むだ時間を1次でPad\'e近似した場合のサーボ系コントローラ$K_{H_\infty\mathrm{servo}}^{\mathrm{Pad\acute{e}}}$，それぞれの設計を行う．
-制御器を設計するシステムは\figname\ref{fig4:konngoukanndo}で示す出力端混合感度問題であり\footnote{SISOシステムの場合入力端混合感度問題と出力端混合感度問題は同一であり，本研究で扱っている対象のシステムはSISOシステムである．}，破線で囲まれた部分を一般化プラントとして取扱う．
+制御器を設計するシステムは\figname\ref{fig4:konngoukanndo}で示す出力端混合感度問題であり\footnote{SISOシステムの場合入力端混合感度問題と出力端混合感度問題は同一であり，本論文で扱っている対象のシステムはSISOシステムである．}，破線で囲まれた部分を一般化プラントとして取扱う．
 \figname\ref{fig4:konngoukanndo}中の各パラメータは\eqnname\eqref{eq:mixed_param}とし，コントローラを設計する．
 設計手法の詳細は付録\ref{sec:Hinfty_sekkei}に示す．
 \begin{align}
@@ -124,11 +124,11 @@ $H_\infty$制御器の設計にあたってはむだ時間をそのまま扱う�
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/konngoukanndo.pdf}
-        \caption{Mixed $H_\infty$ Synthesis}
+        \caption{Generalized Plant of $H_\infty$ Synthesis for Mixed Sensitivity Attenuation}
         \label{fig4:konngoukanndo}
 \end{figure}
 
-\subsection{サーボ系$H_\infty$制御器}
+\subsection{$H_\infty$サーボ補償器}
 \label{sec:サーボ系H無限大制御器}
 \ref{sec:H無限大制御器の設計}節で設計した$H_\infty$制御器をサーボ系に適用するため，コントローラに積分器を導入する．
 一般に使用される$1/s$の形の積分器はコントローラから見ると不可観測かつ不安定になる\cite{三平満司1997実用的な}．
@@ -138,11 +138,11 @@ $\alpha$の値を0から6まで2ずつ変化させて，ステップ応答を比
 \figname\ref{fig4:crop-1115_JFPSHinf_step}がむだ時間を無視して設計したサーボ系コントローラ$K_{H_\infty\mathrm{servo}}$を用いたときの応答，\figname\ref{fig4:crop-1115_JFPSHinfpade1_step}がむだ時間をPad\'e近似して設計したサーボ系コントローラ$K_{H_\infty\mathrm{servo}}^{\mathrm{Pad\acute{e}}}$を用いたときの応答を示す．
 また，それぞれ，(a)が推定値の応答，(b)が実測出力の応答である．
 \figname\ref{fig4:crop-1115_JFPSHinf_estforce_step}および\figname\ref{fig4:crop-1115_JFPSHinf_estforcepade1_step}において目標値に定常偏差なく追従していることから，設計したコントローラはどちらもサーボ系を構成できていることが確認できる．
-$\alpha$が増大するごとに，収束時間が早く，オーバーシュートが大きくなっていることが確認でき，これらの兼ね合いから本研究では今後，$\alpha=4$としたサーボ系$H_\infty$制御器を用いる．
+$\alpha$が増大するごとに，収束時間が早く，オーバーシュートが大きくなっていることが確認でき，これらの兼ね合いから本論文では今後，$\alpha=4$とした$H_\infty$サーボ補償器を用いる．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/ForceControl/figure/servo_hinf.png}
-        \caption{Servo $H_\infty$ Controller}
+        \caption{$H_\infty$ Servo Controller}
         \label{fig4:servo_hinf}
 \end{figure}
 
@@ -159,7 +159,7 @@ $\alpha$が増大するごとに，収束時間が早く，オーバーシュー
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:crop-1115_JFPSHinf_force_step}
     \end{minipage}
-    \caption{Step Response of Estimated Force and Measured Force ($H_\infty$ servo controller w/o dead time)}   
+    \caption{Step Response of Estimated Force and Measured Force ($H_\infty$ servo controller w/o considering the dead time)}   
     \label{fig4:crop-1115_JFPSHinf_step}
 \end{figure}
 \begin{figure}[t]
@@ -175,14 +175,14 @@ $\alpha$が増大するごとに，収束時間が早く，オーバーシュー
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:crop-1115_JFPSHinf_forcepade1_step}
     \end{minipage}
-    \caption{Step Response of Estimated Force and Measured Force ($H_\infty$ servo controller w/ Pad\'e approximation of dead time)}
+    \caption{Step Response of Estimated Force and Measured Force ($H_\infty$ servo controller with considering the dead time as  Pad\'e approximation)}
     \label{fig4:crop-1115_JFPSHinfpade1_step}
 \end{figure}
 
 \clearpage
 
-\section{I-PD制御と$H_\infty$制御の応答および外乱抑制効果の比較}
-I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサーボ系$H_\infty$制御器の応答，及び外乱が応答へ与える影響の比較を行う．
+\section{I-PD制御と$H_\infty$サーボ補償器の応答および外乱抑制効果の比較}
+I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計した$H_\infty$サーボ補償器の応答，及び外乱が応答へ与える影響の比較を行う．
 目標値として，ステップ目標および正弦波目標$f_\mathrm{target} = \sin(t)$を与える．
 ステップ目標を与えたときの応答を\figname\ref{fig4:crop-1115_diff_step}に，正弦波目標を与えたときの応答を\figname\ref{fig4:crop-1115_diff_sin}に示す．
 \figname\ref{fig4:crop-1115_diff_step}より，I-PD制御が最もオーバーシュートが少なく，整定時間も早いことが確認できる．
@@ -220,15 +220,15 @@ I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサ�
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:crop-1115_diff_force_sin}
     \end{minipage}
-    \caption{Sine Responce of Estimated Force and Measured Force}
+    \caption{Sinusoidal Response of Estimated Force and Measured Force}
     \label{fig4:crop-1115_diff_sin}
 \end{figure}
 %%===========
 
 次に，外乱を加えたときの応答について比較を行う．
-外乱として\figname\ref{fig4:withBLWN-crop}に示すようにノイズをmatlab/simulink上で取得したhead側圧力$\phs$とrod側圧力$\prs$のセンサ値に付加する．
-これにより，推定値$\fest$の値に外乱が乗ることになる．
-用いるノイズは，matlab/simulinkのBand-Limited White Noiseを利用し，ノイズ強度0.01，サンプル時間0.001とした．
+外乱として\figname\ref{fig4:withBLWN-crop}に示すようにノイズをMATLAB/simulink上で取得したhヘッド側圧力$\phs$とロッド側圧力$\prs$のセンサ値に付加する．
+これにより，推定値$\fest$の値に外乱が加わることになる．
+用いるノイズは，MATLAB/simulinkのBand-Limited White Noise生成器を利用し，ノイズ強度0.01，サンプル時間0.001とした．
 
 \begin{figure}[t]
     \centering
@@ -238,9 +238,9 @@ I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサ�
 \end{figure}
 
 外乱を付加したときのステップ応答および正弦波応答についてそれぞれ\figname\ref{fig4:crop-1115_diffnoise_step}および\figname\ref{fig4:crop-1115_diffnoise_sin}に示す．
-推定値および実測値のどちらにおいても，$H_\infty$制御の方がI-PD制御に比べて外乱による影響を抑えられていることから，\ref{sec:サーボ系H無限大制御器}で設計したコントローラは所望の性能を満たしているといえる．
+推定値および実測値のどちらにおいても，$H_\infty$サーボ補償器の方がI-PD制御に比べて外乱による影響を抑えられていることから，\ref{sec:サーボ系H無限大制御器}で設計したコントローラは所望の性能を満たしているといえる．
 特に，実測出力において外乱抑制がよく効いていることが確認できる．
-波形の形から，推定値$\fest$から実測出力$\fmsr$までにはローパスフィルタの役割を果たす伝達関数が存在していることが予想でき，本研究におけるシステム同定で反映できなかった周波数帯にそれが存在すると考えられる．
+波形の形から，推定値$\fest$から実測出力$\fmsr$までにはローパスフィルタの役割を果たす伝達関数が存在していることが予想でき，本論文におけるシステム同定で反映できなかった周波数帯にそれが存在すると考えられる．
 \figname\ref{fig4:crop-1115_diff_force_sin}における目標値に対する遅れの要因もこの伝達関数によるものだと予想される．
 
 さらに，外乱抑制は実測値の方によく効いていること，むだ時間を考慮した場合の方が若干ではあるが外乱をより抑えられていることが確認できる．
@@ -275,6 +275,6 @@ I-PD制御器と\ref{sec:サーボ系H無限大制御器}節で設計したサ�
         \subcaption{Measured Force:$\fmsr$}
         \label{fig4:crop-1115_diffnoise_force_sin}
     \end{minipage}
-    \caption{Sine Responce of Estimated Force and Measured Force (with Band-Limited White Noise)}
+    \caption{Sinusoidal Response of Estimated Force and Measured Force (with Band-Limited White Noise)}
     \label{fig4:crop-1115_diffnoise_sin}
 \end{figure}

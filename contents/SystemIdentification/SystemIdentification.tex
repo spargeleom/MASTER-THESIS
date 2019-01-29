@@ -1,15 +1,15 @@
-\chapter{システムの線形性とその同定}
+\chapter{システムの線形性検証とその同定}
 \label{sec:SystemIdentification}
 対象とするシステムの正確なモデルが得られる場合には，シリンダにかかる力を直接測定することなく他のセンサの値から推定することができる．
 前章で導出した物理モデルに基ずけばモデルの構築は可能であるが，バルクや粘性項などのパラメータは温度や圧力などに依存しており，これらの未知のパラメータを正確に同定してモデル化することは現実的に難しい．
 
 そこで本章ではシステム同定を用いて油圧システムのモデル構築を行う．
 システム同定では着目するシステムの入出力関係を用いるため，未知パラメータのひとつひとつを場当たり的に同定する必要がないという利点がある．
-そこで，本研究では，バルブへの電圧入力からシリンダ先端の位置及び先端で発生する力までのモデルをシステム同定を用いて導出する．
+そこで，本論文では，バルブへの電圧入力からシリンダ先端の位置及び先端で発生する力までのモデルをシステム同定を用いて導出する．
 力の同定ではシリンダ先端を固定した状態で同定を行い，位置の同定は先端を固定しない無負荷状態で行う．
 %同定にあたってはシステムの周波数応答を調べて特徴を把握したのちに最小自乗法によるモデルの同定，およびM系列を用いた同定を行いそれぞれを比較する．
 \section{実験機とその構成}
-本研究で使用する油圧システムの実験装置を\figname\ref{fig:ExperimentSystem}に示す．
+本論文で開発した油圧システムの実験装置を\figname\ref{fig:ExperimentSystem}に示す．
 本装置は片ロッドの油圧シリンダ，ギヤポンプ，サーボバルブなどにより構成されており，シリンダにはロッドの位置を測定するワイヤー式エンコーダおよび，対象物に押し付ける力を測定するロードセルが取り付けてある．
 また，圧力センサをサーボバルブのAポートおよびBポート，そしてシリンダのヘッド側とロッド側の入り口の計4箇所に取り付けてある．
 シリンダの先端は\figname\ref{fig:stateofsystem}に示すように，力の同定を行うときには固定板へ固定し\figname\ref{fig:State_fixed}，位置の同定時には自由に動く状態\figname\ref{fig:State_free}にしている．
@@ -48,7 +48,7 @@
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/structionofsystem.pdf}
-        \caption{Connection Diagram of Hydraulic System }
+        \caption{Connection Diagram of the Hydraulic System }
         \label{fig:ConnectionDiagram}
 \end{figure}
 
@@ -91,23 +91,23 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/system_dentatsu.pdf}
-        \caption{system}
+        \caption{Diagram for System Identification}
         \label{fig:system_dentatsu}
 \end{figure}
 
-\subsection{線形性調査}
+\subsection{線形性の検証}
 \label{sec:線形性調査(力)}
 バルブへの入力に対するシステムの物理量の応答の線形性について調べ，システムの特性の把握を行う．
 対象とする物理量は，実測出力$\fmsr$およびシリンダに取り付けてあるヘッド側圧力$\phs$，ロッド側圧力$\prs$である．
 
-バルブへ正弦波入力を与えた際の応答をフーリエ変換したとき，そのピークが入力した正弦波の角速度と一致し，かつその他の角速度でピークが立たない場合に着目したシステムの入力から出力までは線形応答とみなすことができる．
+バルブへ正弦波入力を与えた際の応答をフーリエ変換したとき，そのピークが入力した正弦波の角速度と一致し，かつその他の角速度でピークが立たない場合に，着目したシステムの入力から出力までは線形応答とみなすことができる．
 実験では，バルブへ入力する角速度として\SI{0.1778}{rad/s}から\SI{100}{rad/s}まで対数上で等間隔に12等分したものを採用した．
 サンプリング周期は\SI{0.001}{s}であり，センサから取得される値にはローパスフィルタ(以降LPF)として一次遅れの伝達関数${1}/(0.005s+1)$を通している．
 また，フーリエ変換を施す前に直流成分を除去し，角速度のピークに着目するため，最大ピークで除すことで正規化している．
 
 各物理量の応答を\figname\ref{fig:1018FFT_fmeasure}から\figname\ref{fig:1018FFT_prs}に示す．
-これより最大ピークの角速度と入力した正弦波の角速度が一致しているため，これらの物理量の応答は線形であるとみなすことができる．
-よって対象とする油圧システムは線形なシステムとみなして同定することができる．
+これより最大ピークの角速度と入力した正弦波の角速度が一致しているため，これらの物理量の応答はおおむね線形であるとみなすことができる．
+よって，以後対象とする油圧システムは線形なシステムとみなして同定を行うとする．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/1018FFT_fmeasure.pdf}
@@ -128,7 +128,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 \end{figure}
 
 
-\subsection{周波数応答と最小自乗法による伝達関数モデルの同定}
+\subsection{周波数領域における伝達関数モデルの同定}
 \label{sec:LD伝達関数モデル（力）}
 入力から実測出力$\fmsr$および推力$\fthr$までのシステムを同定するにあたり，はじめに周波数応答を調べ，システムの特性を把握する．
 %入力から実測出力までの周波数応答を調べてシステムの特性を把握し，最小ジオ傑法により伝達関数モデルの同定を行う．
@@ -147,7 +147,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:crop-1018_manubode_in2fthr_7MPa}
 \end{figure}
 
-\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\eqref{eq:tf_est_model}で表されるムダ時間を含む二次遅れ系であると判断した．
+\figname\ref{fig:crop-1018_manubode_in2fmea_7MPa}により，入力から実測出力$\fmsr$までのシステムは\eqnname\eqref{eq:tf_est_model}で表されるむだ時間を含む二次遅れ系であると判断した．
 \begin{align}
     \label{eq:tf_est_model}
     \GinTofmsr = \frac{a}{(s+b)(s+c)}\mathrm{e}^{-ds}
@@ -158,7 +158,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
     \GinTofmsr = \frac{41.82}{(s+0.34)(s+130)}\mathrm{e}^{-0.016s}
 \end{align}
 
-同様に，入力から推力$\fthr$までの応答はムダ時間を含む一次遅れ系であるとし，その係数を求めると，\eqnname\eqref{eq:tf_in2fthr}となる．
+同様に，入力から推力$\fthr$までの応答はむだ時間を含む一次遅れ系であるとし，その係数を求めると，\eqnname\eqref{eq:tf_in2fthr}となる．
 \begin{align}
     \label{eq:tf_in2fthr}
     \GinTofthr = \frac{3.4}{s+0.34}\mathrm{e}^{-0.01s}
@@ -176,7 +176,7 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
 
 油圧シリンダにおける入力から位置までの同定は，線形な応答を前提に同定入力として正弦波の足し合わせを入力したもの\cite{ling2012system,zheng2009application}や，M系列による同定を行っているもの\cite{松本貴夢20166,松本貴夢2016}，パラメータ同定を行っているもの\cite{前島祐三2011}がある．
 本論文でははじめに，対象としている実験機のシリンダの応答の線形性を調べ，前節と同様に最小自乗法による周波数領域での同定，そしてM系列による同定を行う．
-\subsection{線形性調査}
+\subsection{線形性の検証}
 バルブに正弦波入力を与え，位置の応答をフーリエ変換してピークを見ることにより線形性を調べる．
 入力する正弦波の角速度は\ref{sec:線形性調査(力)}節と同様に\SI{0.1776}{rad/s}から\SI{100}{rad/s}までを対数上で等間隔に12等分したものを与える．
 
@@ -191,10 +191,10 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:crop-pos_FFT}
 \end{figure}
 
-\subsection{周波数応答と最小自乗法によるモデル同定}
+\subsection{周波数領域における}
 位置の応答までの周波数応答を\figname\ref{fig:pos_FR_mea-crop}に示す．
 このときのポンプ圧力は\SI{7}{MPa}である．
-\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとムダ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\eqref{eq:tf_input2pos}となる．
+\figname\ref{fig:pos_FR_mea-crop}より位置までの応答は積分器と一次遅れとむだ時間を含むシステムであると判断でき，最小自乗法により伝達関数モデルを求めると\eqnname\eqref{eq:tf_input2pos}となる．
 \begin{align}
     \label{eq:tf_input2pos}
     \GinTopos = \frac{330}{s(s+60)}\mathrm{e}^{-0.002s}
@@ -214,14 +214,14 @@ $\mathrm{input}$はコントローラからバルブへの電圧指令，$\fthr$
         \label{fig:Mseq}
 \end{figure}
 
-\section{M系列による同定}
+\section{M系列入力を用いた時間領域におけるシステム同定}
 \ref{sec:力までの同定}節および\ref{sec:位置までの同定}節では周波数領域で最小自乗法を適用することにより，伝達関数モデルを得た．
 本来，対象とするシステムの正確なモデルを得るためには白色雑音を入力として用いることが望ましいが，現実的に白色雑音の適用は不可能であり，代わりとして擬似白色雑音を用いられる．
 疑似白色雑音の一つがM系列と呼ばれる信号系列であり，信号の生成が比較的簡単であるためシステム同定の入力としてよく用いられている\cite{足立200909,柏木濶1998m}.
 そこで本節では，同定入力にM系列を用いた場合のシステム同定について述べる．
 \subsection{M系列の性質}
 M系列とは，\figname\ref{fig:Mseq}に示す回路により生成される，0と1から構成される擬似白色雑音である．
-\figname\ref{fig:Mseq}は$n$段のシフトレジスタの各段の値に係数$a_i$を掛けてフィードバックし，排他的論理和を適用させる構成になっている．
+\figname\ref{fig:Mseq}は$n$段のシフトレジスタの各段の値に係数$a_i$を乗じてフィードバックし，排他的論理和を適用させる構成になっている．
 最初，シフトレジスタの各段には0または1の値が格納されており，全て0でなければその組み合わせは任意である．
 これにより発生するM系列は以下の特徴をもつ\cite{吉谷清澄1971pn,近藤勝也2004m,柏木濶1981m}．
 \begin{itemize}
@@ -328,7 +328,7 @@ tf(w/o shaping)が\eqnname\eqref{eq:tf_mseq_force}の応答，tf(with shaping)�
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/SystemIdentification/figure/crop-inputANDpos_sekibun.pdf}
-        \caption{Input and Output of Position (after Integrate to Input)}
+        \caption{Integrated Input and Output of Position}
         \label{fig:crop-inputANDpos_sekibun}
 \end{figure}
 \begin{figure}[t]

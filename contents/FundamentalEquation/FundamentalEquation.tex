@@ -1,20 +1,28 @@
-\chapter{基礎方程式}
+\chapter{サーボバルブおよび油圧シリンダの基礎方程式}
 \label{sec:FundamentalEquation}
 本章では油圧システムについてのモデリングの導出を行う．
 対象とする油圧システムの模式図を\figname\ref{fig:valve-cylinder}に，サーボバルブの詳細を\figname\ref{fig:valve}に示す．
 対象のシステムは4ポートサーボバルブと片ロッドシリンダが接続されているものである．
-このサーボバルブとシリンダについてJalaliら\cite{jelali2012hydraulic}の手法を抜粋し，第一原理に基づき基礎方程式の記述を行う．
+このサーボバルブとシリンダについてJelaliら\cite{jelali2012hydraulic}の手法から抜粋し，第一原理に基づいた基礎方程式の記述を行う．
 記述にあたっては酒井らの手法\cite{前島祐三2011,前島祐三2014} も適宜参考にしている．
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/FundamentalEquation/figure/valve-cylinder.png}
-        \caption{System of Servo Valve amd Cylinder}
+        \caption{System of Servo Valve and Cylinder}
         \label{fig:valve-cylinder}
 \end{figure}
 
 \section{サーボバルブ}
-\subsection{サーボバルブの各部名称とパラメータ}
-ここでは4ポート式サーボバルブの各部名称，および変数設定について述べる．
+\subsection{サーボバルブにおける変数設定}
+サーボバルブは\figname\ref{fig:valve-cylinder}に示すように,ポンプ側に供給ポート（ポートP）および戻りポート（ポートT），シリンダ側に制御ポート（ポートA，ポートB）がある．
+サーボバルブにおいて，ポートPはポンプからの油が流れ込む，ポートTはタンクへ油を流し出すというように1方向に油が流れており，
+スプール（\figname\ref{fig:valve}）を変位させることによりポートA，およびポートBへ流れる油の向き・流量を制御する．
+
+スプールの中立点からの変位$x_v$はサーボバルブへ与える指令電圧$u_v$に比例するので，コントローラにより制御することができる．
+各ポートにおける圧力および流量を\figname\ref{fig:valve}に示すように$p$および$Q$に下付き添字のポート名をつけたもので表す．
+%ポンプからの油が流れ込む供給ポート(ポートP)，タンクへ戻る油が流れ出す戻りポート（ポートT），
+%シリンダへ油を流す
+
 \begin{figure}[t]
     \centering
         \includegraphics[keepaspectratio, scale=1.0]{contents/FundamentalEquation/figure/valve.png}
@@ -81,22 +89,22 @@ $\mathrm{sg}(\cdot)$は，
 で定義される関数である．
 
 \subsection{サーボバルブの動特性}
-サーボバルブへの指令電圧入力$u_v$とスプール変位$x_v$の関係は，周波数応答などから\eqnname\eqref{eq:valve_freq}に示す二次系の運動方程式で近似して表すことができる．
+サーボバルブへの指令電圧入力$u_v$とスプール変位$x_v$の関係は，周波数応答などから\eqnname\eqref{eq:valve_freq}に示す二次系の運動方程式で近似して表すことがしられている．
 \begin{equation}
     \label{eq:valve_freq}
     \frac{1}{\omega_v^2}\ddot{x}_v^* + \frac{2D_v}{\omega_v}\dot{x}_v^* + x_v^* + f_{hs}\mathrm{sign}(\dot{x}_v^*) = K_v u_v^*
 \end{equation}
-なお，$u_v^*$や$x_v^*$などはそれぞれ入力電圧の最大値$u_{v,max}$，スプール変位の最大値$x_{v,max}$で除して正規化されたものであり，以下の\eqnname\eqref{eq:normalize_u}から\eqnname\eqref{eq:normalize_xv}で定義される．
+なお，$u_v^*$や$x_v^*$などはそれぞれ入力電圧の最大値$u_{v,\mathrm{max}}$，スプール変位の最大値$x_{v,\mathrm{max}}$で除して正規化されたものであり，以下の\eqnname\eqref{eq:normalize_u}から\eqnname\eqref{eq:normalize_xv}で定義される．
 \begin{align}
     \label{eq:normalize_u}
-    u_v^* &= \frac{u_v}{u_{v,max}}\\
+    u_v^* &= \frac{u_v}{u_{v,\mathrm{max}}}\\
     \label{eq:normalize_xv}
-    x_v^* = \frac{x_v}{x_{v,max}}~,~\dot{x}_v^* &= \frac{\dot{x}_v}{x_{v,max}}~,~\ddot{x}_v^* = \frac{\ddot{x}_v}{x_{v,max}}
+    x_v^* = \frac{x_v}{x_{v,\mathrm{max}}}~,~\dot{x}_v^* &= \frac{\dot{x}_v}{x_{v,\mathrm{max}}}~,~\ddot{x}_v^* = \frac{\ddot{x}_v}{x_{v,\mathrm{max}}}
 \end{align}
 また，\eqnname\eqref{eq:valve_freq}において$K_v$はバルブのゲイン，$\omega_v$は固有角振動数，$D_v$は粘性係数，$f_{hs}$はバルブのヒステリシスや応答感度を表す関数である．
 
-\section{油圧シリンダー}
-油圧シリンダー内の作動流体についてモデル化する．
+\section{油圧シリンダ}
+油圧シリンダ内の作動流体についてモデル化する．
 流体の質量保存則は\eqnname\eqref{eq:situryouhozon}である．
 \begin{equation}
     \label{eq:situryouhozon}
@@ -122,8 +130,8 @@ $\rho$は流体の密度であり，圧縮性流体においてはその表現�
     \label{eq:シリンダ内流量(head)}
     Q_{\mathrm{head}} &= \dot{V}_\mathrm{head} + \frac{V_\mathrm{head}}{E(p_\mathrm{head})}\dot{p}_\mathrm{head}
 \end{align}
-シリンダロッドの速度を$\dot{x}_\mathrm{p}$とし，rod側の受圧面積を$\Ar$,
-head側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\dot{V}_\mathrm{rod}$は
+シリンダロッドの速度を$\dot{x}_\mathrm{p}$とし，ロッド（rod）側の受圧面積を$\Ar$,
+ヘッド（head）側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\dot{V}_\mathrm{rod}$は
 \begin{align}
     \label{eq:dotVrod}
     \dot{V}_\mathrm{rod} &= \Ar \dot{x}_\mathrm{p} \\
@@ -152,7 +160,7 @@ head側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\do
     p_\mathrm{load} = p_\mathrm{head} - \frac{\Ar}{\Ah}p_\mathrm{rod}
 \end{align}
 と表される．
-また，バルブとシリンダの間における圧力降下が無視できるときには，$p_A = p_\mathrm{head}$，$p_B = p_\mathrm{rod}$であり，
+また，バルブとシリンダの間およびホースにおける圧力降下が無視できるときには，$p_A = p_\mathrm{head}$，$p_B = p_\mathrm{rod}$であり，
 \eqnname\eqref{eq:flow_QA}，\eqnname\eqref{eq:flow_QB}，\eqnname\eqref{eq:QA}，\eqnname\eqref{eq:QB}，\eqnname\eqref{eq:load_pressure}より，
 \begin{align}
     \label{eq:papb-xp_plus}
@@ -177,7 +185,7 @@ head側の受圧面積を$\Ah$とすると，$\dot{V}_\mathrm{rod}$および$\do
     m_\mathrm{rod}\ddot{x}_\mathrm{p} =\Ah p_\mathrm{head} - \Ar p_\mathrm{rod} - F_f(\dot{x}_\mathrm{p}) -F_\mathrm{ext}
 \end{align}
 と表せる．
-$F_\mathrm{ext}$はロッドにかかる外力であり，$F_f(\dot{x}_\mathrm{p})$は摩擦である．
+$F_\mathrm{ext}$はロッドをシリンダ内に押し戻そうとする外力であり，$F_f(\dot{x}_\mathrm{p})$は摩擦である．
 摩擦を表す代表的なモデルにStribeck friction curveがあり，\eqnname\eqref{eq:stribeck_friction_curve}で表される．
 \begin{align}
     \label{eq:stribeck_friction_curve}
@@ -186,7 +194,7 @@ $F_\mathrm{ext}$はロッドにかかる外力であり，$F_f(\dot{x}_\mathrm{p
 $\sigma$は粘性摩擦，$F_{c0}$はクーロン摩擦，$F_{s0}$および$c_s$は静止摩擦のパラメータである．
 
 
-\section{モデルの線形化とラプラス変換}
+\section{入出力モデルの線形化とラプラス変換}
 油圧システムにおいて，理想的にはポンプの供給圧力$p_P$および戻り圧力$p_T$は一定であるため，\eqnname\eqref{eq:papb-xp_plus}および\eqnname\eqref{eq:papb-xp_minus}を線形化すると
 \begin{align}
     \label{eq:delta_pa}
